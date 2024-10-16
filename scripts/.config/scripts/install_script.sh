@@ -21,9 +21,15 @@ chmod +x install
 echo "Setting nvim as default git editor..."
 git config --global core.editor "nvim"
 
-echo "Cloning dotfiles"
+echo "Cloning dotfiles..."
 cd $HOME
 git clone git@github.com:samnatale3/dotfiles.git
 
-echo "Stowing dotfiles"
+echo "Stowing dotfiles..."
 stow dunst i3 i3blocks kitty nvim picom rofi scripts zsh
+
+echo "Installing lazygit..."
+LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+tar xf lazygit.tar.gz lazygit
+sudo install lazygit /usr/local/bin
