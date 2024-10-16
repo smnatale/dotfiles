@@ -1,9 +1,10 @@
 for_window [class="^.*"] border pixel 2
 hide_edge_borders both
 
+
 set $mod Mod4
 
-font pango:MesloLGS Nerd Font Regular Mono 8
+font pango:MesloLGS Nerd Font Regular Mono 10
 
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork --color=1a1b26
@@ -20,6 +21,8 @@ bindsym $mod+Return exec $terminal
 bindsym $mod+e exec $file_manager
 bindsym $mod+f exec $browser
 bindsym $mod+x exec i3lock -c 1a1b26
+bindsym $mod+m exec "xrandr --output eDP --off"
+bindsym $mod+Shift+m exec "xrandr --output eDP --auto"
 
 # kill focused window
 bindsym $mod+q kill

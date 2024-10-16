@@ -5,7 +5,10 @@ sudo apt -y update
 sudo apt -y upgrade
 
 echo "Installing packages..."
-sudo apt -y install i3 kitty rofi thunar i3blocks wireless-tools picom stow nitrogen neovim zsh ripgrep | exit
+sudo apt -y install i3 kitty rofi thunar i3blocks wireless-tools picom stow nitrogen neovim zsh ripgrep tmux | exit
+
+echo "Installing tmux package manager..."
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 echo "Setting default shell to zsh..."
 chsh -s $(which zsh)

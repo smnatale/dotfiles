@@ -10,6 +10,7 @@ return {
     },
     config = function(_, opts)
       local treesitter = require("nvim-treesitter.configs")
+
       treesitter.setup(opts)
     end,
     opts = {
@@ -41,10 +42,6 @@ return {
       autopairs = {
         enable = true,
       },
-      autotag = {
-        enable = true,
-      },
     },
   },
 }
-
