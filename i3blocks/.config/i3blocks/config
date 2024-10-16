@@ -1,0 +1,12 @@
+[bluetooth]
+command=~/.config/i3blocks/scripts/bluetooth.sh
+interval=30
+
+[wifi]
+command=~/.config/i3blocks/scripts/wifi.sh
+interval=30
+
+[time]
+command=date '+%d-%m-%Y %H:%M'
+interval=5
+color=#a9b1d6
