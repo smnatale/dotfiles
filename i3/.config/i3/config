@@ -1,7 +1,6 @@
 for_window [class="^.*"] border pixel 2
 hide_edge_borders both
 
-
 set $mod Mod4
 
 font pango:MesloLGS Nerd Font Regular Mono 10
@@ -23,6 +22,7 @@ bindsym $mod+f exec $browser
 bindsym $mod+x exec i3lock -c 1a1b26
 bindsym $mod+m exec "xrandr --output eDP --off"
 bindsym $mod+Shift+m exec "xrandr --output eDP --auto"
+bindsym $mod+g exec "import ~/Pictures/screenshot.png"
 
 # kill focused window
 bindsym $mod+q kill
@@ -30,6 +30,7 @@ bindsym $mod+q kill
 # A more modern dmenu replacement is rofi:
 bindsym $mod+space exec "rofi -modi drun,run -show drun"
 bindsym $mod+w exec "~/.config/scripts/rofi_wifi_menu.sh"
+bindsym $mod+b exec "~/.config/scripts/rofi_bluetooth_menu.sh"
 
 # change focus
 bindsym $mod+h focus left
@@ -118,8 +119,10 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 bar {
+  tray_output none
+  padding 0 4px 0
 	position top
-        status_command i3blocks 
+  status_command i3blocks 
 	colors {
 		background #16161e
 		separator #16161e
