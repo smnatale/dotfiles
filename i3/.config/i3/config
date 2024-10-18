@@ -9,6 +9,7 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork --color=1a1b26
 exec --no-startup-id nm-applet
 exec_always --no-startup-id killall picom || picom
+exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ss
 
 # variables
 set $terminal kitty
@@ -19,10 +20,12 @@ set $browser firefox
 bindsym $mod+Return exec $terminal 
 bindsym $mod+e exec $file_manager
 bindsym $mod+f exec $browser
+bindsym $mod+c exec "XDG_CURRENT_DESKTOP='GNOME' mongodb-compass"
 bindsym $mod+x exec i3lock -c 1a1b26
 bindsym $mod+m exec "xrandr --output eDP --off"
 bindsym $mod+Shift+m exec "xrandr --output eDP --auto"
 bindsym $mod+g exec "import ~/Pictures/screenshot.png"
+bindsym --release $mod+g exec import ~/Pictures/screenshot.png
 
 # kill focused window
 bindsym $mod+q kill
