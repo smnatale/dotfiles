@@ -23,6 +23,7 @@ bindsym $mod+f exec $browser
 bindsym $mod+c exec "XDG_CURRENT_DESKTOP='GNOME' mongodb-compass"
 bindsym $mod+x exec i3lock -c 1a1b26
 bindsym $mod+m exec "xrandr --output eDP --off"
+bindsym $mod+s exec "flatpak run com.stremio.Stremio"
 bindsym $mod+Shift+m exec "xrandr --output eDP --auto"
 bindsym $mod+g exec "import ~/Pictures/screenshot.png"
 bindsym --release $mod+g exec import ~/Pictures/screenshot.png
