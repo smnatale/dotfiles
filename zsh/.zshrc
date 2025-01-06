@@ -16,12 +16,30 @@ zinit ice depth=1
 zinit light romkatv/powerlevel10k
 
 # zsh plugins
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
+# zinit light zsh-users/zsh-syntax-highlighting
+# zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
+# zinit light Aloxaf/fzf-tab
+
+# Lazy-load fzf-tab
+zinit ice silent wait'0'
 zinit light Aloxaf/fzf-tab
 
-autoload -U compinit && compinit
+# Lazy-load syntax highlighting
+zinit ice silent wait'1'
+zinit light zsh-users/zsh-syntax-highlighting
+
+# Lazy-load completions
+zinit ice silent wait'1'
+zinit light zsh-users/zsh-completions
+
+autoload -U compinit
+if [[ -n "$HOME/.zcompdump" && (! -s "$HOME/.zcompdump" || "$HOME/.zcompdump" -ot "$HOME/.zshrc") ]]; then
+  compinit -d "$HOME/.zcompdump"
+else
+  compinit -C
+fi
+
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -58,12 +76,3 @@ export NVM_DIR="$HOME/.nvm"
 export ANDROID_HOME=$HOME/Android/Sdk 
 export PATH=$PATH:$ANDROID_HOME/emulator 
 export PATH=$PATH:$ANDROID_HOME/platform-tools
-
-
-# pnpm
-export PNPM_HOME="/home/smnatale/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
