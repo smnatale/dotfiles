@@ -65,7 +65,7 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
 alias ls='ls --color'
-alias n='nvim'
+alias n='NVIM_APPNAME=nvim-new nvim '
 
 eval "$(fzf --zsh)"
 
