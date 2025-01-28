@@ -5,7 +5,7 @@ sudo apt -y update
 sudo apt -y upgrade
 
 echo "Installing packages..."
-sudo apt -y install i3 kitty rofi thunar i3blocks wireless-tools picom stow nitrogen neovim zsh ripgrep tmux imagemagick snapd openjdk-11-jdk | exit
+sudo apt -y install i3 kitty rofi thunar i3blocks wireless-tools picom stow nitrogen neovim zsh ripgrep tmux imagemagick snapd openjdk-11-jdk python3.12-venv | exit 
 
 echo "Installing tmux package manager..."
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
