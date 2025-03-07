@@ -1,64 +1,90 @@
--- Enable relative line numbers
-vim.opt.nu = true
-vim.opt.rnu = true
+-----------------------------------------------------------
+-- General
+-----------------------------------------------------------
+-- Set leader key to space
+vim.g.mapleader = " "
+-- Set leader key to space
+vim.g.maplocalleader = " "
 
--- Disable showing the mode below the statusline
-vim.opt.showmode = true
-
--- Set tabs to 2 spaces
+-- Number of spaces a tab represents
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
-vim.opt.expandtab = true
 
--- Enable auto indenting and set it to spaces
-vim.opt.smartindent = true
+-- Use appropriate when using indent command
+vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 
--- Enable smart indenting (see https://stackoverflow.com/questions/1204149/smart-wrap-in-vim)
-vim.opt.breakindent = true
+-- Indenting correctly after { etc
+vim.opt.smartindent = true
 
--- Enable incremental searching
-vim.opt.incsearch = true
-vim.opt.hlsearch = true
+-- Copy indent from current line when starting new line
+vim.opt.autoindent = true
+
+-- Prevent line wrapping
+vim.opt.breakindent = true
 
 -- Disable text wrap
 vim.opt.wrap = false
 
--- Set leader key to space
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
--- Better splitting
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-
--- Enable mouse mode
-vim.opt.mouse = ""
-
--- Enable ignorecase + smartcase for better searching
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-
--- Decrease updatetime to 200ms
+-- Speeds up plugin wait time
 vim.opt.updatetime = 50
 
--- Set completeopt to have a better completion experience
-vim.opt.completeopt = { "menuone", "noselect" }
-
--- Enable persistent undo history
+-- Persistant undo file history
 vim.opt.undofile = true
+-----------------------------------------------------------
+-- UI Config
+-----------------------------------------------------------
+-- Enable line numbers
+vim.opt.nu = true
+
+-- Enable relative line numbers
+vim.opt.rnu = true
+
+-- Disable showing the mode below the statusline
+vim.opt.showmode = false
+
+-- Better completion experience
+vim.opt.completeopt = { "menuone", "noselect" }
 
 -- Enable 24-bit color
 vim.opt.termguicolors = true
 
 -- Enable the sign column to prevent the screen from jumping
-vim.opt.signcolumn = "yes"
-
--- Enable access to System Clipboard
--- vim.opt.clipboard = "unnamed,unnamedplus"
+vim.opt.signcolumn = 'yes'
 
 -- Enable cursor line highlight
 vim.opt.cursorline = true
 
 -- Always keep 8 lines above/below cursor unless at start/end of file
 vim.opt.scrolloff = 8
+
+-- Better splitting
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
+-- Faster scrolling
+vim.opt.lazyredraw = true
+
+-- Highlight yank
+vim.api.nvim_create_autocmd("textyankpost", {
+  group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
+  pattern = "*",
+  desc = "highlight selection on yank",
+  callback = function()
+    vim.highlight.on_yank({ timeout = 200, visual = true })
+  end,
+})
+
+
+-----------------------------------------------------------
+-- Search Config
+-----------------------------------------------------------
+-- Enable highlighting search in progress
+vim.opt.incsearch = true
+
+-- Disable showing highlight after search done
+vim.opt.hlsearch = false
+
+-- Ignore case for searches
+vim.opt.ignorecase = true
+vim.opt.smartcase = true

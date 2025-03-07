@@ -1,0 +1,23 @@
+{
+  "rdxs": {
+    "prefix": "rdxs",
+    "body": [
+      "import { createSlice } from '@reduxjs/toolkit'",
+      "",
+      "interface ${1:Custom}State {",
+      "}",
+      "",
+      "const initialState: ${1:Custom}State = { }",
+      "",
+      "const ${2:Custom2}Slice = createSlice({",
+      " name: '${2:Custom2}',",
+      " initialState,",
+      " reducers: {",
+      " },",
+      "})",
+      "",
+      "export const { } = ${2:Custom2}Slice.actions",
+      "export default ${2:Custom2}Slice.reducer"
+    ]
+  }
+}
