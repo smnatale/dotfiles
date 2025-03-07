@@ -10,9 +10,10 @@ return {
   },
   {
     'saghen/blink.cmp',
-    dependencies = 'rafamadriz/friendly-snippets',
     version = '*',
+    dependencies = { 'L3MON4D3/LuaSnip', 'rafamadriz/friendly-snippets' },
     opts = {
+      snippets = { preset = 'luasnip' },
       keymap = {
         preset = 'default',
         ["<CR>"] = { "accept", "fallback" },
