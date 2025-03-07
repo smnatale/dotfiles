@@ -65,6 +65,9 @@ vim.opt.splitright = true
 -- Faster scrolling
 vim.opt.lazyredraw = true
 
+-- Hide cmd when not in use
+vim.o.cmdheight = 0
+
 -- Highlight yank
 vim.api.nvim_create_autocmd("textyankpost", {
   group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),

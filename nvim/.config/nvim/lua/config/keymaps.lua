@@ -58,7 +58,8 @@ vim.keymap.set("v", "<C-Up>", ":m '<-2<CR>gv=gv")
 -- Plugin Keymaps
 -----------------------------------------------------------
 -- Open file browser
-vim.keymap.set("n", "<leader>e", ":Oil --float --preview<cr>", { silent = false })
+vim.keymap.set("n", "<leader>e", ":Oil --float<cr>", { silent = false })
+-- vim.keymap.set("n", "<leader>e", ":Oil --float --preview<cr>", { silent = false })
 
 -- Search buffers
 vim.keymap.set("n", "<leader>sb", ":Telescope buffers<cr>")
