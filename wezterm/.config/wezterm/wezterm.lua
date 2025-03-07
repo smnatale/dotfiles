@@ -58,7 +58,13 @@ config.keys = {
     key = 'z',
     action = wezterm.action.TogglePaneZoomState,
   },
-
+  {
+    mods = 'LEADER',
+    key = 'Space',
+    action = wezterm.action.PaneSelect {
+      mode = "SwapWithActive"
+    },
+  },
 }
 
 for i = 0, 5 do
