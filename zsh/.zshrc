@@ -27,9 +27,6 @@ zinit light zsh-users/zsh-autosuggestions
 # load completions
 autoload -U compinit && compinit
 
-# setup starship
-eval "$(starship init zsh)"
-
 # get terminal keymappings for arrow keys
 key=(
     Up         "${terminfo[kcuu1]}"

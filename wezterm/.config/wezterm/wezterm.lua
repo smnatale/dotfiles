@@ -5,9 +5,10 @@ local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 config.color_scheme = "tokyonight"
-config.font = wezterm.font 'CaskaydiaCove Nerd Font'
+config.font = wezterm.font('CaskaydiaCove Nerd Font', { weight = 'Regular' })
+config.font_size = 11
 
-config.leader = { key = 'Space', mods = 'SHIFT', timeout_milliseconds = 1000 }
+config.leader = { key = 's', mods = 'CTRL' }
 
 config.keys = {
   {
@@ -60,19 +61,20 @@ config.keys = {
   },
   {
     mods = 'LEADER',
-    key = 'Space',
+    key = 's',
     action = wezterm.action.PaneSelect {
       mode = "SwapWithActive"
     },
   },
 }
 
-for i = 0, 5 do
+for i = 1, 5 do
   -- leader + number to activate that tab
   table.insert(config.keys, {
     key = tostring(i),
     mods = "LEADER",
-    action = wezterm.action.ActivateTab(i),
+    -- minus 1 as tab starts at 0
+    action = wezterm.action.ActivateTab(i - 1),
   })
 end
 
@@ -80,7 +82,7 @@ end
 config.hide_tab_bar_if_only_one_tab = false
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
-config.tab_and_split_indices_are_zero_based = true
+config.tab_and_split_indices_are_zero_based = false
 
 config.window_padding = {
   left = 0,
