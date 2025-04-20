@@ -108,6 +108,6 @@ config.inactive_pane_hsb = {
 	brightness = 1,
 }
 
--- config.window_decorations = "RESIZE"
+config.window_decorations = "RESIZE"
 
 return config
