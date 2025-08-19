@@ -1,0 +1,15 @@
+font-family = "CaskaydiaCove Nerd Font"
+font-size = 20
+background = 090B10
+theme = rose-pine
+window-theme = ghostty
+window-titlebar-background = 090B10
+macos-titlebar-style = hidden 
+window-save-state = never
+mouse-hide-while-typing = true
+window-padding-x = 4
+window-padding-y = 4
+
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
