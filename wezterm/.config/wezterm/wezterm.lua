@@ -6,9 +6,42 @@ local config = wezterm.config_builder()
 
 local custom = wezterm.color.get_builtin_schemes()["Tokyo Night"]
 custom.background = "#090B10"
-custom.tab_bar.background = "#06070A"
-custom.tab_bar.inactive_tab.bg_color = "#06070A"
-custom.tab_bar.new_tab.bg_color = "#06070A"
+custom.tab_bar.background = "#090B10"
+custom.tab_bar.inactive_tab.bg_color = "#090B10"
+custom.tab_bar.new_tab.bg_color = "#090B10"
+
+custom.foreground = "#cdcdcd"
+
+custom.cursor_bg = "#cdcdcd"
+custom.cursor_fg = "#141415"
+custom.cursor_border = "#cdcdcd"
+
+custom.selection_fg = "#cdcdcd"
+custom.selection_bg = "#252530"
+
+custom.scrollbar_thumb = "#252530"
+custom.split = "#252530"
+
+custom.ansi = {
+	"#252530",
+	"#d8647e",
+	"#7fa563",
+	"#f3be7c",
+	"#6e94b2",
+	"#bb9dbd",
+	"#aeaed1",
+	"#cdcdcd",
+}
+custom.brights = {
+	"#606079",
+	"#e08398",
+	"#99b782",
+	"#f5cb96",
+	"#8ba9c1",
+	"#c9b1ca",
+	"#bebeda",
+	"#d7d7d7",
+}
 
 config.color_schemes = {
 	["Custom Tokyo Night"] = custom,
@@ -18,7 +51,10 @@ config.color_scheme = "Custom Tokyo Night"
 
 -- brew install --cask font-caskaydia-cove-nerd-font
 config.font = wezterm.font("CaskaydiaCove Nerd Font", { weight = "Regular" })
-config.font_size = 14
+
+config.font_size = 24 -- normal
+-- config.font_size = 42 -- video
+-- config.font_size = 32 -- vertical stream
 
 config.leader = { key = "s", mods = "CTRL" }
 
@@ -97,8 +133,8 @@ config.use_fancy_tab_bar = false
 config.tab_and_split_indices_are_zero_based = false
 
 config.window_padding = {
-	left = 0,
-	right = 0,
+	left = 4,
+	right = 4,
 	top = 4,
 	bottom = 0,
 }
