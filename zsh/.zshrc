@@ -51,11 +51,15 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 # aliases
 alias ls='ls --color'
 alias n='nvim '
+alias tms='tmux-sessionizer'
 
 # setup nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# executable files
+export PATH="$HOME/.local/bin:$PATH"
 
 # setup dev tools for react native
 export ANDROID_HOME=$HOME/Library/Android/sdk
@@ -70,3 +74,6 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 
 # To customize prompt, run `p10k configure` or edit ~/dotfiles/zsh/.p10k.zsh.
 [[ ! -f ~/dotfiles/zsh/.p10k.zsh ]] || source ~/dotfiles/zsh/.p10k.zsh
+
+# opencode
+export PATH=/Users/sam.natale/.opencode/bin:$PATH
