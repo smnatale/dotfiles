@@ -61,6 +61,10 @@ export NVM_DIR="$HOME/.nvm"
 # executable files
 export PATH="$HOME/.local/bin:$PATH"
 
+# setup golang devtools
+export GOPATH=$HOME/go
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+
 # setup dev tools for react native
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
@@ -77,3 +81,4 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 
 # opencode
 export PATH=/Users/sam.natale/.opencode/bin:$PATH
+export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
