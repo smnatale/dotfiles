@@ -1,7 +1,7 @@
 font-family = "CaskaydiaCove Nerd Font"
 font-size = 20
 background = 090B10
-theme = rose-pine
+theme = Rose Pine
 window-theme = ghostty
 window-titlebar-background = 090B10
 macos-titlebar-style = hidden 
