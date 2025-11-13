@@ -4,7 +4,7 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 # Configuring the general appearance of the bar with Rosepine theme.
 # Background: 090B10, Surface: 1f1d2e, Text: e0def4
 
-sketchybar --bar position=top height=32 blur_radius=30 color=0x40000000 sticky=on margin=0 padding_left=4 padding_right=4
+sketchybar --bar position=top height=28 blur_radius=30 color=0x40000000 sticky=on margin=0 padding_left=4 padding_right=4
 
 ##### Changing Defaults #####
 # Rosepine theme colors: Text: e0def4, Subtle: 6e6a86, Muted: 908caa
