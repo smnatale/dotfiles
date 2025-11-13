@@ -1,46 +1,46 @@
 tap "benjiwolff/neovim-nightly"
 tap "felixkratz/formulae"
+tap "jandedobbeleer/oh-my-posh"
 tap "nikitabobko/tap"
-# Simple, fast and user-friendly alternative to find
+tap "sst/tap"
+brew "awscli"
+brew "cocoapods"
+brew "fastlane"
 brew "fd"
-# Command-line fuzzy finder written in Go
 brew "fzf"
-# GitHub command-line tool
 brew "gh"
-# Audit git repos for secrets
 brew "gitleaks"
-# Open source programming language to build simple/reliable/efficient software
 brew "go"
-# Simple terminal UI for git commands
 brew "lazygit"
-# Manage multiple Node.js versions
+brew "node"
 brew "nvm"
-# AI coding agent, built for the terminal
-brew "opencode"
-# Search tool like grep and The Silver Searcher
+brew "pass"
+brew "postgresql@14"
+brew "postgresql@17", restart_service: :changed
 brew "ripgrep"
-# Organize software neatly under a single directory tree (e.g. /usr/local)
+brew "sqlc"
 brew "stow"
-# Command-line tool for Stripe
 brew "stripe-cli"
-# Terminal multiplexer
 brew "tmux"
-# Display directories as trees (with optional color/HTML output)
-brew "tree"
-# JavaScript package manager
 brew "yarn"
-# A window border system for macOS
+brew "zsh"
 brew "felixkratz/formulae/borders"
-# Custom macOS statusbar with shell plugin, interaction and graph support
 brew "felixkratz/formulae/sketchybar"
-# AeroSpace is an i3-like tiling window manager for macOS
+brew "sst/tap/opencode"
 cask "aerospace"
-# Web browser focusing on privacy
 cask "brave-browser"
-# Web browser
+cask "dbeaver-community"
 cask "firefox"
 cask "font-caskaydia-cove-nerd-font"
-# Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
-# Multimedia player
+cask "google-chrome"
+cask "obs"
+cask "postman"
+cask "raycast"
 cask "vlc"
+cask "wezterm"
+cask "zen"
+go "github.com/air-verse/air"
+go "github.com/cweill/gotests/gotests"
+go "github.com/golang-migrate/migrate/v4/cmd/migrate"
+go "github.com/swaggo/swag/cmd/swag"
