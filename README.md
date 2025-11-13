@@ -1,4 +1,5 @@
 # My Dotfiles
+# Out of date readme TODO
 
 A collection of configuration files for the various tools and software I use, managed using GNU Stow for easy, modular, and maintainable setup via symlinks.
 
