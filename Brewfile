@@ -83,9 +83,9 @@ brew "yarn"
 # Z shell
 brew "zsh"
 # Window borders for macOS
-brew "felixkratz/formulae/borders"
+brew "felixkratz/formulae/borders", restart_service: :changed
 # Customizable status bar for macOS
-brew "felixkratz/formulae/sketchybar"
+brew "felixkratz/formulae/sketchybar", restart_service: :changed
 # Tmux session manager
 brew "julien-cpsn/atac/atac"
 # Mobile UI testing framework
@@ -97,7 +97,7 @@ brew "supabase/tap/supabase"
 # Kubernetes port forwarding tool
 brew "txn2/tap/kubefwd"
 # Tiling window manager for macOS
-cask "aerospace"
+cask "aerospace", restart_service: :changed
 # Android SDK platform tools
 cask "android-platform-tools"
 # Android development IDE
