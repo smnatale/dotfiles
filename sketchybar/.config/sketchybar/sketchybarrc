@@ -1,31 +1,21 @@
-# This is a demo config to showcase some of the most important commands.
-# It is meant to be changed and configured, as it is intentionally kept sparse.
-# For a (much) more advanced configuration example see my dotfiles:
-# https://github.com/FelixKratz/dotfiles
-
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 
 ##### Bar Appearance #####
-# Configuring the general appearance of the bar.
-# These are only some of the options available. For all options see:
-# https://felixkratz.github.io/SketchyBar/config/bar
-# If you are looking for other colors, see the color picker:
-# https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
+# Configuring the general appearance of the bar with Rosepine theme.
+# Background: 090B10, Surface: 1f1d2e, Text: e0def4
 
-sketchybar --bar position=top height=40 blur_radius=30 color=0x40000000
+sketchybar --bar position=top height=32 blur_radius=30 color=0x40000000 sticky=on margin=0 padding_left=4 padding_right=4
 
 ##### Changing Defaults #####
-# We now change some default values, which are applied to all further items.
-# For a full list of all available item properties see:
-# https://felixkratz.github.io/SketchyBar/config/items
-
+# Rosepine theme colors: Text: e0def4, Subtle: 6e6a86, Muted: 908caa
+# Accent: c4a7e7 (lavender), Love: eb6f92 (pink), Gold: f6c177
 default=(
-  padding_left=5
-  padding_right=5
-  icon.font="CaskaydiaCove Nerd Font:Bold:17.0"
-  label.font="CaskaydiaCove Nerd Font:Bold:14.0"
-  icon.color=0xffffffff
-  label.color=0xffffffff
+  padding_left=4
+  padding_right=4
+  icon.font="CaskaydiaCove Nerd Font:Medium:15.0"
+  label.font="CaskaydiaCove Nerd Font:Regular:13.0"
+  icon.color=0xffe0def4
+  label.color=0xffe0def4
   icon.padding_left=4
   icon.padding_right=4
   label.padding_left=4
@@ -39,39 +29,23 @@ for sid in $(aerospace list-workspaces --all); do
     sketchybar --add item space.$sid left \
         --subscribe space.$sid aerospace_workspace_change \
         --set space.$sid \
-        background.color=0x44ffffff \
-        background.corner_radius=5 \
+        background.color=0xff090b10 \
+        background.corner_radius=4 \
         background.height=20 \
         background.drawing=off \
         label="$sid" \
+        label.font="CaskaydiaCove Nerd Font:Medium:12.0" \
+        label.color=0xff908caa \
+        padding_left=8 \
+        padding_right=8 \
         click_script="aerospace workspace $sid" \
         script="$CONFIG_DIR/plugins/aerospace.sh $sid"
 done
 
-##### Adding Left Items #####
-# We add some regular items to the left side of the bar, where
-# only the properties deviating from the current defaults need to be set
-
-sketchybar --add item chevron left \
-           --set front_app icon.drawing=off script="$PLUGIN_DIR/front_app.sh" \
-           --subscribe front_app front_app_switched
-
-##### Adding Right Items #####
-# In the same way as the left items we can add items to the right side.
-# Additional position (e.g. center) are available, see:
-# https://felixkratz.github.io/SketchyBar/config/items#adding-items-to-sketchybar
-
-# Some items refresh on a fixed cycle, e.g. the clock runs its script once
-# every 10s. Other items respond to events they subscribe to, e.g. the
-# volume.sh script is only executed once an actual change in system audio
-# volume is registered. More info about the event system can be found here:
-# https://felixkratz.github.io/SketchyBar/config/events
-
 sketchybar --add item clock right \
-           --set clock update_freq=10 icon=  script="$PLUGIN_DIR/clock.sh" \
+           --set clock update_freq=10 script="$PLUGIN_DIR/clock.sh" \
            --add item battery right \
            --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
-           --subscribe battery system_woke power_source_change
+           --subscribe battery system_woke power_source_change \
 
-##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
