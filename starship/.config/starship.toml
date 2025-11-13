@@ -1,0 +1,83 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+format = """
+$directory\
+${custom.giturl}\
+$git_branch\
+$git_state\
+$git_status\
+$line_break\
+$character
+"""
+
+[git_status]
+format = "[($staged$modified$untracked$deleted$stashed$conflicted$ahead_behind)]($style)"
+staged   = "[+$count](yellow) "
+modified = "[!$count](yellow) "
+deleted  = "[-$count](red) "
+untracked= "[?$count](green) "
+stashed  = "[*$count](magenta) "
+conflicted = "[!$count](bold red) "
+style = "cyan"
+
+[git_branch]
+format = "[$branch](bold blue) "
+
+[directory]
+truncation_length = 0
+truncate_to_repo = false
+read_only = " 󰌾"
+style = "bold purple"
+
+[c]
+symbol = " "
+
+[cpp]
+symbol = " "
+
+[cmake]
+symbol = " "
+
+[crystal]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[docker_context]
+symbol = " "
+
+[gcloud]
+symbol = " "
+
+[git_commit]
+tag_symbol = '  '
+
+[golang]
+symbol = " "
+
+[gradle]
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
+
+[lua]
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[nodejs]
+symbol = " "
+
+[os.symbols]
+Macos = " "
+
+
+[package]
+symbol = "󰏗 "
