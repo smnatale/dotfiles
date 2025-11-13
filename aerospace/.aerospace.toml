@@ -38,7 +38,8 @@ automatically-unhide-macos-hidden-apps = false
     outer.right =      8
 
 [mode.main.binding]
-    alt-q = ['close']
+    alt-q = ['close --quit-if-last-window']
+    alt-f = ['fullscreen']
     alt-t = ['exec-and-forget open -n -a Ghostty.app']
     alt-b = ['exec-and-forget open -n -a Brave.app']
     alt-g = ['exec-and-forget open -n -a Screenshot.app']
