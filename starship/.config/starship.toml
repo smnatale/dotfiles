@@ -22,6 +22,10 @@ deleted  = "[-$count](red) "
 untracked= "[?$count](green) "
 stashed  = "[*$count](magenta) "
 conflicted = "[!$count](bold red) "
+ahead = " [⇡${count}](bold magenta)"
+behind = " [⇣${count}](bold magenta)"
+diverged = " [⇡${ahead_count}⇣${behind_count}](bold magenta)"
+
 style = "cyan"
 
 [git_branch]
@@ -32,52 +36,3 @@ truncation_length = 0
 truncate_to_repo = false
 read_only = " 󰌾"
 style = "bold purple"
-
-[c]
-symbol = " "
-
-[cpp]
-symbol = " "
-
-[cmake]
-symbol = " "
-
-[crystal]
-symbol = " "
-
-[dart]
-symbol = " "
-
-[docker_context]
-symbol = " "
-
-[gcloud]
-symbol = " "
-
-[git_commit]
-tag_symbol = '  '
-
-[golang]
-symbol = " "
-
-[gradle]
-symbol = " "
-
-[hostname]
-ssh_symbol = " "
-
-[lua]
-symbol = " "
-
-[memory_usage]
-symbol = "󰍛 "
-
-[nodejs]
-symbol = " "
-
-[os.symbols]
-Macos = " "
-
-
-[package]
-symbol = "󰏗 "
