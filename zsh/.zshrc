@@ -1,3 +1,8 @@
+# initialises p10k
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # install zinit plugins manager
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -9,6 +14,10 @@ fi
 
 # source/load zinit
 source "${ZINIT_HOME}/zinit.zsh"
+
+# add p10k plugin
+zinit ice depth=1
+zinit light romkatv/powerlevel10k
 
 # zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
@@ -64,8 +73,12 @@ export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/dotfiles/zsh/.p10k.zsh.
+[[ ! -f ~/dotfiles/zsh/.p10k.zsh ]] || source ~/dotfiles/zsh/.p10k.zsh
+
 # opencode
 export PATH=/Users/sam.natale/.opencode/bin:$PATH
 export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
-
-eval "$(starship init zsh)"
