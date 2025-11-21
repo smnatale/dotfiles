@@ -9,4 +9,9 @@ fi
 read -p "Enter Query: " query
 
 query=`echo $query | tr ' ' '+'`
-curl -s cht.sh/$selected/$query?T | nvim -R -
+case "$selected" in
+    golang) ft="go" ;;
+    *)      ft="$selected" ;;
+esac
+
+curl -s "cht.sh/$selected/$query?T" | nvim -R -c "setfiletype $ft" -
