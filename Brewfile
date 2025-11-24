@@ -1,156 +1,158 @@
-# Tap for Neovim nightly builds
-tap "benjiwolff/neovim-nightly"
-# Tap for macOS window management tools (borders, sketchybar)
+tap "cognominal/neovim-nightly.fork"
 tap "felixkratz/formulae"
-# Tap for oh-my-posh shell prompt customizer
 tap "jandedobbeleer/oh-my-posh"
-# Tap for maestro mobile testing tool
+tap "julien-cpsn/atac"
 tap "mobile-dev-inc/tap"
-# Tap for aerospace window manager
 tap "nikitabobko/tap"
-# Tap for opencode CLI tool
 tap "sst/tap"
-# Tap for Supabase CLI
 tap "supabase/tap"
-# Tap for kubefwd Kubernetes port forwarding
 tap "txn2/tap"
-# Node.js runtime
-brew "node"
-# AWS Amplify CLI for building apps
+# Build full-stack web and mobile apps in hours. Easy to start, easy to scale
 brew "aws-amplify"
-# AWS Command Line Interface
+# Official Amazon AWS command-line interface
 brew "awscli"
-# Cat clone with syntax highlighting
+# Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
-# Dependency manager for iOS projects
+# Dependency manager for Cocoa projects
 brew "cocoapods"
-# Database migration tool
+# Lightweight, framework-agnostic database migration tool
 brew "dbmate"
-# Docker command-line tool
+# Debugger for the Go programming language
+brew "delve"
+# Pack, ship and run any application as a lightweight container
 brew "docker"
-# JavaScript linter
+# AST-based pattern checker for JavaScript
 brew "eslint"
-# CLI for Exercism coding exercises
-brew "exercism"
-# Tool for automating iOS/Android deployment
+# Easiest way to build and release mobile apps
 brew "fastlane"
-# Fast find replacement
+# Simple, fast and user-friendly alternative to find
 brew "fd"
-# Fuzzy finder for command line
+# Command-line fuzzy finder written in Go
 brew "fzf"
-# GitHub CLI
+# GitHub command-line tool
 brew "gh"
-# Tool to detect leaked secrets in git repos
+# Audit git repos for secrets
 brew "gitleaks"
-# Go programming language
+# Open source programming language to build simple/reliable/efficient software
 brew "go"
-# Database migration tool for Go
+# Stricter gofmt
+brew "gofumpt"
+# Go formatter that additionally inserts import statements
+brew "goimports"
+# Database migrations CLI tool
 brew "golang-migrate"
-# Go linter and formatter
+# Fast linters runner for Go
 brew "golangci-lint"
-# Kubernetes CLI (kubectl)
+# Language server for the Go language
+brew "gopls"
+# Human friendly `go test` runner
+brew "gotestsum"
+# Kubernetes command-line interface
 brew "kubernetes-cli"
-# Terminal UI for Git
+# Simple terminal UI for git commands
 brew "lazygit"
-# List open files
+# Utility to list open files
 brew "lsof"
-# Node Version Manager
+# Language Server for the Lua language
+brew "lua-language-server"
+# Manage multiple Node.js versions
 brew "nvm"
-# Nx build system for monorepos (not linked)
-brew "nx", link: false
+# Smart, Fast and Extensible Build System
+brew "nx"
+# AI coding agent, built for the terminal
+brew "opencode"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
 # Password manager
 brew "pass"
-# PostgreSQL database version 17 (restarts on change)
+# Object-relational database system
 brew "postgresql@17", restart_service: :changed
+# Prettier daemon
+brew "prettierd"
 # Ruby version manager
 brew "rbenv"
-# Fast text search tool
+# Search tool like grep and The Silver Searcher
 brew "ripgrep"
-# Generate Go code from SQL
+# Generate type safe Go from SQL
 brew "sqlc"
-# Symlink manager for dotfiles
+# Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
-# Stripe CLI for payment processing
+# Command-line tool for Stripe
 brew "stripe-cli"
+# Opinionated Lua code formatter
+brew "stylua"
 # Terminal multiplexer
 brew "tmux"
-# TypeScript compiler
+# Parser generator tool
+brew "tree-sitter-cli"
+# Language for application scale JavaScript development
 brew "typescript"
-# File watching service
+# Language Server Protocol implementation for TypeScript wrapping tsserver
+brew "typescript-language-server"
+# Language servers for HTML, CSS, JavaScript, and JSON extracted from vscode
+brew "vscode-langservers-extracted"
+# Watch files and take action when they change
 brew "watchman"
-# Package manager for JavaScript
+# JavaScript package manager
 brew "yarn"
-# Z shell
+# UNIX shell (command interpreter)
 brew "zsh"
-# Window borders for macOS
-brew "felixkratz/formulae/borders", restart_service: :changed
-# Customizable status bar for macOS
-brew "felixkratz/formulae/sketchybar", restart_service: :changed
-# Tmux session manager
+# A window border system for macOS
+brew "felixkratz/formulae/borders"
+# Custom macOS statusbar with shell plugin, interaction and graph support
+brew "felixkratz/formulae/sketchybar"
+# A simple API client (postman like) in your terminal
 brew "julien-cpsn/atac/atac"
-# Mobile UI testing framework
+# The easiest way to automate UI testing for your mobile app
 brew "mobile-dev-inc/tap/maestro"
-# Opencode CLI tool
-brew "sst/tap/opencode"
-# Supabase CLI for backend development
+# Supabase CLI
 brew "supabase/tap/supabase"
-# Kubernetes port forwarding tool
+# Kubernetes bulk port forwarding utility.
 brew "txn2/tap/kubefwd"
-# Tiling window manager for macOS
-cask "aerospace", restart_service: :changed
-# Android SDK platform tools
+# AeroSpace is an i3-like tiling window manager for macOS
+cask "aerospace"
+# Android SDK component
 cask "android-platform-tools"
-# Android development IDE
+# Tools for building Android applications
 cask "android-studio"
-# Brave web browser
+# Web browser focusing on privacy
 cask "brave-browser"
-# Claude AI code assistant
+# Terminal-based AI coding assistant
 cask "claude-code"
-# Database management GUI
+# Universal database tool and SQL client
 cask "dbeaver-community"
-# Docker Desktop GUI
+# App to build and share containerised applications and microservices
 cask "docker-desktop"
-# Firefox web browser
+# Web browser
 cask "firefox"
-# Caskaydia Cove Nerd Font
 cask "font-caskaydia-cove-nerd-font"
-# Ghostty terminal emulator
+# Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
-# Google Chrome web browser
+# Web browser
 cask "google-chrome"
-# MongoDB Compass GUI
+# Interactive tool for analyzing MongoDB data
 cask "mongodb-compass"
-# OBS Studio for streaming
+# Open-source software for live streaming and screen recording
 cask "obs"
-# Postman API testing tool
+# Collaboration platform for API development
 cask "postman"
-# Raycast launcher and productivity tool
+# Control your tools with a few keystrokes
 cask "raycast"
-# Stremio media streaming app
+# Move and resize windows using keyboard shortcuts or snap areas
+cask "rectangle"
+# Open-source media center
 cask "stremio"
-# VLC media player
+# Multimedia player
 cask "vlc"
-# Air live reload tool for Go
 go "github.com/air-verse/air"
-# Cobra CLI generator for Go
 go "github.com/spf13/cobra-cli"
-# Golangci-lint Go linter
 go "github.com/golangci/golangci-lint/cmd/golangci-lint"
-# Go language server
 go "golang.org/x/tools/gopls"
-# Generate Go tests
 go "github.com/cweill/gotests/gotests"
-# GraphQL code generator for Go
 go "github.com/99designs/gqlgen"
-# Database migration tool
 go "github.com/golang-migrate/migrate/v4/cmd/migrate"
-# Protobuf Go code generator
 go "google.golang.org/protobuf/cmd/protoc-gen-go"
-# gRPC Go code generator
 go "google.golang.org/grpc/cmd/protoc-gen-go-grpc"
-# gRPC Gateway code generator
 go "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway"
-# Static analysis tool for Go
 go "honnef.co/go/tools/cmd/staticcheck"
-# Swagger documentation generator for Go
 go "github.com/swaggo/swag/cmd/swag"
