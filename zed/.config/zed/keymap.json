@@ -1,0 +1,88 @@
+[
+  // globals
+  {
+    "context": "Workspace",
+    "bindings": {
+      // swap panes
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-q": "pane::CloseActiveItem",
+      // toggle when no editor
+      "ctrl-t": "terminal_panel::Toggle",
+      "ctrl-e": "project_panel::ToggleFocus",
+      "ctrl-f": "file_finder::Toggle"
+    }
+  },
+  // text editor
+  {
+    "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
+    "bindings": {
+      // shortcuts
+      "space w": "workspace::Save",
+      "space q": "pane::CloseActiveItem",
+      "J": [
+        "action::Sequence",
+        ["vim::ScrollDown", "editor::ScrollCursorCenter"]
+      ],
+      "K": [
+        "action::Sequence",
+        ["vim::ScrollUp", "editor::ScrollCursorCenter"]
+      ],
+      "U": "vim::Redo",
+      // search functionalities
+      "space s f": "file_finder::Toggle",
+      "space s g": "pane::DeploySearch",
+      "space s b": "tab_switcher::Toggle",
+      // toggle panels
+      "space g i": "git_panel::ToggleFocus",
+      "space e": "project_panel::ToggleFocus",
+      "space a": "agent::ToggleFocus",
+      // lsp
+      "space h": "editor::Hover",
+      "space i": "editor::ToggleInlayHints",
+      "space g d": "editor::GoToDefinition",
+      "space g v": "editor::GoToDefinitionSplit",
+      "space g r": "editor::FindAllReferences",
+      "space r n": "editor::Rename",
+      "space c a": "editor::ToggleCodeActions",
+      // panes
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "tab": "pane::ActivateNextItem",
+      "shift-tab": "pane::ActivatePreviousItem",
+      "space v": "pane::SplitRight",
+      // toggle term
+      "space t": "terminal_panel::Toggle"
+    }
+  },
+  // on git panel
+  {
+    "context": "(GitPanel || AgentPanel || ProjectPanel) && not_editing",
+    "bindings": {
+      "escape": "workspace::ToggleRightDock"
+    }
+  },
+  // on a menu selection
+  {
+    "context": "Picker",
+    "bindings": {
+      "J": "menu::SelectNext",
+      "K": "menu::SelectPrevious"
+    }
+  },
+  // on terminal
+  {
+    "context": "Terminal",
+    "bindings": {
+      "escape": "workspace::ToggleBottomDock",
+      "ctrl-n": "workspace::NewTerminal",
+      "ctrl-q": "pane::CloseActiveItem",
+      "ctrl-l": "pane::ActivateNextItem",
+      "ctrl-h": "pane::ActivatePreviousItem"
+    }
+  }
+]

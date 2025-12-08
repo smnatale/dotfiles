@@ -1,0 +1,138 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "autosave": "on_focus_change",
+  "multi_cursor_modifier": "cmd_or_ctrl",
+  "agent_ui_font_size": 18.0,
+  "collaboration_panel": {
+    "dock": "right"
+  },
+  "git_panel": {
+    "dock": "right"
+  },
+  "languages": {
+    "TSX": {
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      }
+    },
+    "TypeScript": {
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      }
+    }
+  },
+  "debugger": {
+    "dock": "right"
+  },
+  "notification_panel": {
+    "dock": "right"
+  },
+  "hover_popover_enabled": false,
+  "inlay_hints": {
+    "show_background": true
+  },
+  "agent": {
+    "default_profile": "ask",
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4-5-thinking"
+    },
+    "play_sound_when_agent_done": false,
+    "model_parameters": []
+  },
+  "outline_panel": {
+    "button": false
+  },
+  "tabs": {
+    "show_close_button": "hover",
+    "show_diagnostics": "errors",
+    "file_icons": true,
+    "git_status": true
+  },
+  "tab_bar": {
+    "show_nav_history_buttons": false,
+    "show": true
+  },
+  "title_bar": {
+    "show_sign_in": true,
+    "show_menus": false,
+    "show_onboarding_banner": true,
+    "show_project_items": true,
+    "show_branch_name": true,
+    "show_branch_icon": true
+  },
+  "terminal": {
+    "dock": "bottom",
+    "copy_on_select": true,
+    "button": true
+  },
+  "status_bar": {
+    "cursor_position_button": false,
+    "active_language_button": true
+  },
+  "diagnostics": {
+    "inline": {
+      "enabled": true
+    }
+  },
+  "prettier": {
+    "allowed": true
+  },
+  "colorize_brackets": false,
+  "show_wrap_guides": false,
+  "hard_tabs": false,
+  "show_signature_help_after_edits": true,
+  "auto_signature_help": false,
+  "vim_mode": true,
+  "base_keymap": "VSCode",
+  "icon_theme": "Catppuccin Mocha",
+  "ui_font_size": 16.0,
+  "buffer_font_size": 16.0,
+  "theme": "Custom Pine",
+  "project_panel": {
+    "hide_root": true,
+    "file_icons": true,
+    "button": true,
+    "dock": "right"
+  },
+  "toolbar": {
+    "code_actions": false,
+    "agent_review": false,
+    "breadcrumbs": false,
+    "quick_actions": false,
+    "selections_menu": false
+  },
+  "features": {
+    "edit_prediction_provider": "copilot"
+  },
+  "cursor_blink": false,
+  "relative_line_numbers": "enabled",
+  "scrollbar": {
+    "selected_symbol": true,
+    "show": "never"
+  },
+  "indent_guides": {
+    "coloring": "fixed",
+    "enabled": true
+  },
+  "preview_tabs": {
+    "enabled": false
+  },
+  "git": {
+    "git_gutter": "tracked_files",
+    "inline_blame": {
+      "enabled": true
+    }
+  },
+  "vim": {
+    "use_smartcase_find": true,
+    "use_system_clipboard": "never"
+  }
+}
