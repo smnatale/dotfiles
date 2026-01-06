@@ -7,83 +7,92 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "use_system_window_tabs": false,
+  "use_smartcase_search": true,
+  "excerpt_context_lines": 4,
+  "expand_excerpt_lines": 6,
+  "vertical_scroll_margin": 12.0,
   "autosave": "on_focus_change",
   "multi_cursor_modifier": "cmd_or_ctrl",
   "agent_ui_font_size": 18.0,
   "collaboration_panel": {
-    "dock": "right"
+    "dock": "right",
   },
   "git_panel": {
-    "dock": "right"
+    "dock": "right",
   },
   "languages": {
     "TSX": {
       "code_actions_on_format": {
-        "source.fixAll.eslint": true
-      }
+        "source.fixAll.eslint": true,
+      },
     },
     "TypeScript": {
       "code_actions_on_format": {
-        "source.fixAll.eslint": true
-      }
-    }
+        "source.fixAll.eslint": true,
+      },
+    },
   },
   "debugger": {
-    "dock": "right"
+    "dock": "right",
   },
   "notification_panel": {
-    "dock": "right"
+    "dock": "right",
   },
   "hover_popover_enabled": false,
   "inlay_hints": {
-    "show_background": true
+    "show_background": true,
   },
   "agent": {
-    "default_profile": "ask",
+    "always_allow_tool_actions": true,
+    "default_profile": "write",
     "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-sonnet-4-5-thinking"
+      "provider": "copilot_chat",
+      "model": "gpt-5.1-codex",
     },
     "play_sound_when_agent_done": false,
-    "model_parameters": []
+    "model_parameters": [],
   },
   "outline_panel": {
-    "button": false
+    "file_icons": true,
+    "button": false,
   },
   "tabs": {
     "show_close_button": "hover",
-    "show_diagnostics": "errors",
+    "show_diagnostics": "all",
     "file_icons": true,
-    "git_status": true
+    "git_status": true,
   },
   "tab_bar": {
     "show_nav_history_buttons": false,
-    "show": true
+    "show": true,
   },
   "title_bar": {
     "show_sign_in": true,
-    "show_menus": false,
+    "show_menus": true,
     "show_onboarding_banner": true,
     "show_project_items": true,
     "show_branch_name": true,
-    "show_branch_icon": true
+    "show_branch_icon": true,
   },
   "terminal": {
+    "shell": "system",
     "dock": "bottom",
     "copy_on_select": true,
-    "button": true
+    "button": true,
   },
   "status_bar": {
     "cursor_position_button": false,
-    "active_language_button": true
+    "active_language_button": true,
   },
   "diagnostics": {
+    "button": true,
     "inline": {
-      "enabled": true
-    }
+      "enabled": true,
+    },
   },
   "prettier": {
-    "allowed": true
+    "allowed": true,
   },
   "colorize_brackets": false,
   "show_wrap_guides": false,
@@ -97,42 +106,44 @@
   "buffer_font_size": 16.0,
   "theme": "Custom Pine",
   "project_panel": {
+    "folder_icons": true,
     "hide_root": true,
     "file_icons": true,
     "button": true,
-    "dock": "right"
+    "dock": "right",
   },
   "toolbar": {
     "code_actions": false,
     "agent_review": false,
     "breadcrumbs": false,
     "quick_actions": false,
-    "selections_menu": false
+    "selections_menu": false,
   },
   "features": {
-    "edit_prediction_provider": "copilot"
+    "edit_prediction_provider": "copilot",
   },
   "cursor_blink": false,
   "relative_line_numbers": "enabled",
   "scrollbar": {
     "selected_symbol": true,
-    "show": "never"
+    "show": "never",
   },
   "indent_guides": {
     "coloring": "fixed",
-    "enabled": true
+    "enabled": true,
   },
   "preview_tabs": {
-    "enabled": false
+    "enable_preview_from_file_finder": false,
+    "enabled": false,
   },
   "git": {
     "git_gutter": "tracked_files",
     "inline_blame": {
-      "enabled": true
-    }
+      "enabled": true,
+    },
   },
   "vim": {
     "use_smartcase_find": true,
-    "use_system_clipboard": "never"
-  }
+    "use_system_clipboard": "never",
+  },
 }

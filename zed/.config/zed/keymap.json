@@ -31,22 +31,33 @@
         ["vim::ScrollUp", "editor::ScrollCursorCenter"]
       ],
       "U": "vim::Redo",
-      // search functionalities
-      "space s f": "file_finder::Toggle",
-      "space s g": "pane::DeploySearch",
+      "space s m": "pane::DeploySearch",
+      "space s f": [
+        "task::Spawn",
+        { "task_name": "file_finder", "reveal_target": "center" }
+      ],
+      "space s g": [
+        "task::Spawn",
+        { "task_name": "file_grep", "reveal_target": "center" }
+      ],
       "space s b": "tab_switcher::Toggle",
+      "space l g": [
+        "task::Spawn",
+        { "task_name": "lazygit", "reveal_target": "center" }
+      ],
       // toggle panels
       "space g i": "git_panel::ToggleFocus",
       "space e": "project_panel::ToggleFocus",
       "space a": "agent::ToggleFocus",
       // lsp
-      "space h": "editor::Hover",
+      "space space": "editor::Hover",
       "space i": "editor::ToggleInlayHints",
       "space g d": "editor::GoToDefinition",
       "space g v": "editor::GoToDefinitionSplit",
       "space g r": "editor::FindAllReferences",
       "space r n": "editor::Rename",
       "space c a": "editor::ToggleCodeActions",
+      "space d": "editor::Hover",
       // panes
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-j": "workspace::ActivatePaneDown",
@@ -82,7 +93,9 @@
       "ctrl-n": "workspace::NewTerminal",
       "ctrl-q": "pane::CloseActiveItem",
       "ctrl-l": "pane::ActivateNextItem",
-      "ctrl-h": "pane::ActivatePreviousItem"
+      "ctrl-h": "pane::ActivatePreviousItem",
+      "alt-j": ["workspace::SendKeystrokes", "down"],
+      "alt-k": ["workspace::SendKeystrokes", "up"]
     }
   }
 ]
