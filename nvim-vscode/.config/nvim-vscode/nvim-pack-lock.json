@@ -1,0 +1,24 @@
+{
+  "plugins": {
+    "mini.ai": {
+      "rev": "bfb26d9072670c3aaefab0f53024b2f3729c8083",
+      "src": "https://github.com/nvim-mini/mini.ai"
+    },
+    "mini.jump": {
+      "rev": "99799e8ca33fe936b81a70b5ab9a081f8794c8a1",
+      "src": "https://github.com/nvim-mini/mini.jump"
+    },
+    "mini.nvim": {
+      "rev": "6bd3a01aaf7d248aea1b78aacdd5d44bffa002c1",
+      "src": "https://github.com/nvim-mini/mini.nvim"
+    },
+    "mini.pairs": {
+      "rev": "d5a29b6254dad07757832db505ea5aeab9aad43a",
+      "src": "https://github.com/nvim-mini/mini.pairs"
+    },
+    "mini.surround": {
+      "rev": "88c52297ed3e69ecf9f8652837888ecc727a28ee",
+      "src": "https://github.com/nvim-mini/mini.surround"
+    }
+  }
+}
