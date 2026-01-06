@@ -1,8 +1,3 @@
-# initialises p10k
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # install zinit plugins manager
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -15,16 +10,15 @@ fi
 # source/load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-# add p10k plugin
-zinit ice depth=1
-zinit light romkatv/powerlevel10k
+# zsh plugins (optimized loading)
+zinit wait lucid for \
+    zsh-users/zsh-syntax-highlighting \
+    zsh-users/zsh-autosuggestions
 
-# zsh plugins
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
+zinit light-mode for \
+    zsh-users/zsh-completions
 
-# load completions
+# load completions (optimized)
 autoload -U compinit && compinit
 
 # keybindings
@@ -53,10 +47,16 @@ alias ls='ls --color'
 alias n='nvim '
 alias tms='tmux-sessionizer'
 
-# setup nvm
+# lazy load nvm
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+lazy_load_nvm() {
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+}
+# Create aliases to trigger nvm loading
+alias nvm='unalias nvm node npm && lazy_load_nvm && nvm'
+alias node='unalias nvm node npm && lazy_load_nvm && node'
+alias npm='unalias nvm node npm && lazy_load_nvm && npm'
 
 # executable files
 export PATH="$HOME/.local/bin:$PATH"
@@ -73,6 +73,9 @@ export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 
+# debug gitstatus
+export GITSTATUS_LOG_LEVEL=DEBUG
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -82,3 +85,10 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 # opencode
 export PATH=/Users/sam.natale/.opencode/bin:$PATH
 export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
+
+# Add a newline between commands
+# https://github.com/starship/starship/issues/560
+precmd() { precmd() { echo "" } }
+alias clear="precmd() { precmd() { echo } } && clear"
+
+eval "$(starship init zsh)"
