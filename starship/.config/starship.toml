@@ -2,7 +2,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 # Inserts a blank line between shell prompts
-add_newline = true
+add_newline = false
 
 format = """
 $directory\
@@ -29,10 +29,10 @@ diverged = " [⇡${ahead_count}⇣${behind_count}](bold magenta)"
 style = "cyan"
 
 [git_branch]
-format = "[$branch](bold blue) "
+format = "[$branch](blue) "
 
 [directory]
 truncation_length = 0
-truncate_to_repo = false
+truncate_to_repo = false 
 read_only = " 󰌾"
-style = "bold purple"
+style = "purple"
