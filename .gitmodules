@@ -1,6 +1,3 @@
 [submodule "nvim/.config/nvim"]
 	path = nvim/.config/nvim
 	url = git@github.com:smnatale/nvim.git
-[submodule "nvim-nightly/.config/nvim-nightly"]
-	path = nvim-nightly/.config/nvim-nightly
-	url = git@github.com:smnatale/nvim-nightly.git
