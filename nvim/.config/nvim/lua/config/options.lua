@@ -1,5 +1,4 @@
 vim.g.mapleader = " " -- space leader key
-vim.o.mouse = "" -- disable mouse in nvim
 
 vim.o.termguicolors = true -- enable 24-bit colors
 vim.o.updatetime = 200 -- save swap file with 200ms debouncing
@@ -32,5 +31,8 @@ vim.o.splitright = true -- better splitting
 
 vim.o.wrap = false -- disable wrapping
 vim.o.breakindent = true -- prevent line wrapping
+-- vim.opt.fillchars = { vert = " " } -- remove line divider between splits
+vim.opt.fillchars = { eob = " " }
+vim.o.laststatus = 3 -- global statusline
 
 vim.diagnostic.config({ virtual_text = true }) -- inline diagnostics
