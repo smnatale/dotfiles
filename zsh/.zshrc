@@ -82,8 +82,6 @@ export GITSTATUS_LOG_LEVEL=DEBUG
 # To customize prompt, run `p10k configure` or edit ~/dotfiles/zsh/.p10k.zsh.
 [[ ! -f ~/dotfiles/zsh/.p10k.zsh ]] || source ~/dotfiles/zsh/.p10k.zsh
 
-# opencode
-export PATH=/Users/sam.natale/.opencode/bin:$PATH
 export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 
 # Add a newline between commands
@@ -92,3 +90,6 @@ precmd() { precmd() { echo "" } }
 alias clear="precmd() { precmd() { echo } } && clear"
 
 eval "$(starship init zsh)"
+
+# opencode
+export PATH=/Users/samuelnatale/.opencode/bin:$PATH

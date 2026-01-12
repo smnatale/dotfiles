@@ -1,10 +1,19 @@
 return {
-	"lewis6991/gitsigns.nvim",
-	lazy = false,
-	keys = {
-		{ "<leader>gsd", "<cmd>Gitsigns diffthis main<cr>" },
+	{
+		"lewis6991/gitsigns.nvim",
+		lazy = false,
+		keys = {
+			{ "<leader>gsd", "<cmd>Gitsigns diffthis main<cr>" },
+		},
+		opts = {
+			current_line_blame = true,
+		},
 	},
-	opts = {
-		current_line_blame = true,
+	{
+		"sindrets/diffview.nvim",
+		keys = {
+			{ "<leader>dvo", "<cmd>DiffviewOpen<cr>" },
+			{ "<leader>dvf", "<cmd>DiffviewToggleFiles<cr>" },
+		},
 	},
 }

@@ -37,6 +37,9 @@ return {
 				"buffer",
 				"copilot",
 			},
+			per_filetype = {
+				sql = { "snippets", "dadbod", "buffer" },
+			},
 			providers = {
 				lazydev = {
 					name = "LazyDev",
@@ -52,6 +55,7 @@ return {
 					async = true,
 					score_offset = -1,
 				},
+				dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
 			},
 		},
 	},
