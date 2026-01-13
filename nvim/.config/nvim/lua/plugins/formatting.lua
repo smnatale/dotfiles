@@ -14,6 +14,7 @@ return {
 				typescriptreact = { "prettierd" },
 				graphql = { "prettierd" },
 				go = { "goimports", "gofmt" },
+				json = { "prettierd" },
 			},
 		},
 	},
