@@ -22,9 +22,7 @@ return {
 					{ "", guifg = bg_color },
 					{
 						ft_icon and { "", ft_icon, " ", guifg = ft_color } or "",
-						"",
-						{ filename, gui = modified and "bold,italic" or "bold", guifg = ft_color },
-						"",
+						{ filename },
 						guibg = bg_color,
 					},
 					{ "", guifg = bg_color },
