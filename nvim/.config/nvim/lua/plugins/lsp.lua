@@ -5,7 +5,7 @@ return {
 		"nvim-lua/plenary.nvim",
 	},
 	config = function()
-		vim.lsp.enable({ "lua_ls", "ts_ls", "gopls", "eslint" })
+		vim.lsp.enable({ "lua_ls", "ts_ls", "gopls", "eslint", "tailwindcss", "jsonls" })
 
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),

@@ -40,8 +40,8 @@ automatically-unhide-macos-hidden-apps = false
 [mode.main.binding]
     alt-q = ['close --quit-if-last-window']
     alt-f = ['fullscreen']
-    alt-t = ['exec-and-forget open -n -a Ghostty.app']
-    alt-b = ['exec-and-forget open -n -a Brave.app']
+    alt-t = ['exec-and-forget open -n -a Kitty.app']
+    alt-b = ['exec-and-forget open -n -a Helium.app']
     alt-g = ['exec-and-forget open -n -a Screenshot.app']
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus

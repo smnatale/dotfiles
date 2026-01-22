@@ -46,6 +46,7 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 alias ls='ls --color'
 alias n='nvim '
 alias tms='tmux-sessionizer'
+alias lg='lazygit'
 
 # lazy load nvm
 export NVM_DIR="$HOME/.nvm"
@@ -93,3 +94,12 @@ eval "$(starship init zsh)"
 
 # opencode
 export PATH=/Users/samuelnatale/.opencode/bin:$PATH
+
+# bun completions
+[ -s "/Users/smnatale/.bun/_bun" ] && source "/Users/smnatale/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+export NODE_PATH=/usr/local/lib/node_modules

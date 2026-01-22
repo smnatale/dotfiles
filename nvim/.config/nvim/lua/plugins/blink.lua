@@ -53,7 +53,7 @@ return {
 					name = "copilot",
 					module = "blink-copilot",
 					async = true,
-					score_offset = -1,
+					score_offset = 100,
 				},
 				dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
 			},
