@@ -1,3 +1,6 @@
+if [[ $FIND_IT_FASTER_ACTIVE -eq 1 ]]; then
+	bash
+else
 # install zinit plugins manager
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -48,17 +51,6 @@ alias n='nvim '
 alias tms='tmux-sessionizer'
 alias lg='lazygit'
 
-# lazy load nvm
-export NVM_DIR="$HOME/.nvm"
-lazy_load_nvm() {
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-}
-# Create aliases to trigger nvm loading
-alias nvm='unalias nvm node npm && lazy_load_nvm && nvm'
-alias node='unalias nvm node npm && lazy_load_nvm && node'
-alias npm='unalias nvm node npm && lazy_load_nvm && npm'
-
 # executable files
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -103,3 +95,9 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 export NODE_PATH=/usr/local/lib/node_modules
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+fi
