@@ -27,10 +27,14 @@ return {
 			update_focused_file = {
 				enable = true,
 			},
+			view = {
+				side = "right",
+				signcolumn = "no",
+			},
 			renderer = {
 				root_folder_label = false,
 				icons = {
-					git_placement = "signcolumn",
+					git_placement = "right_align",
 					glyphs = {
 						git = {
 							unstaged = "M",
@@ -45,6 +49,8 @@ return {
 				},
 			},
 			on_attach = function(bufnr)
+				local api = require("nvim-tree.api")
+				api.config.mappings.default_on_attach(bufnr)
 				vim.keymap.set("n", "<ESC>", nvimTreeFocusOrToggle, {
 					buffer = bufnr,
 					silent = true,

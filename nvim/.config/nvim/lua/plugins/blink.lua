@@ -38,7 +38,7 @@ return {
 				"copilot",
 			},
 			per_filetype = {
-				sql = { "snippets", "dadbod", "buffer" },
+				sql = { "lsp", "snippets", "dadbod", "buffer" },
 			},
 			providers = {
 				lazydev = {

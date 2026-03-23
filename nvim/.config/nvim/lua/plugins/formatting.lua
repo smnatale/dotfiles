@@ -15,6 +15,12 @@ return {
 				graphql = { "prettierd" },
 				go = { "goimports", "gofmt" },
 				json = { "prettierd" },
+			sql = { "sql_formatter" },
+			},
+			formatters = {
+				sql_formatter = {
+					prepend_args = { "--language", "postgresql" },
+				},
 			},
 		},
 	},

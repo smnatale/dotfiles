@@ -43,6 +43,13 @@ return {
 				end,
 			},
 		})
-		MiniNotify.make_notify()
+		local orig = MiniNotify.make_notify()
+		local str_to_level = { trace = 0, debug = 1, info = 2, warn = 3, error = 4, off = 5 }
+		vim.notify = function(msg, level, opts)
+			if type(level) == "string" then
+				level = str_to_level[level:lower()] or vim.log.levels.INFO
+			end
+			return orig(msg, level, opts)
+		end
 	end,
 }

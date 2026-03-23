@@ -28,9 +28,7 @@ return {
 		require("neotest").setup({
 			---@diagnostic disable-next-line: missing-fields
 			adapters = {
-				require("neotest-golang")({
-					runner = "gotestsum",
-				}),
+				require("neotest-golang")(),
 			},
 		})
 	end,
