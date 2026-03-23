@@ -47,5 +47,11 @@ sketchybar --add item clock right \
            --add item battery right \
            --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
            --subscribe battery system_woke power_source_change \
+           --add item claude_usage right \
+           --set claude_usage update_freq=300 \
+           icon="✳" \
+           icon.color=0xffda7756 \
+           label.font="CaskaydiaCove Nerd Font:Regular:12.0" \
+           script="$PLUGIN_DIR/claude_usage.sh" \
 
 sketchybar --update
