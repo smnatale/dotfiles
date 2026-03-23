@@ -58,10 +58,15 @@ URLSession.shared.dataTask(with: request) { data, response, error in
         return
     }
 
-    let session = (json["five_hour"] as? [String: Any])?["utilization"] as? Double ?? 0
-    let weekly = (json["seven_day"] as? [String: Any])?["utilization"] as? Double ?? 0
+    let fiveHour = json["five_hour"] as? [String: Any]
+    let sevenDay = json["seven_day"] as? [String: Any]
 
-    print("{\"session\": \(Int(session)), \"weekly\": \(Int(weekly))}")
+    let session = fiveHour?["utilization"] as? Double ?? 0
+    let weekly = sevenDay?["utilization"] as? Double ?? 0
+    let sessionReset = fiveHour?["resets_at"] as? String ?? ""
+    let weeklyReset = sevenDay?["resets_at"] as? String ?? ""
+
+    print("{\"session\": \(Int(session)), \"weekly\": \(Int(weekly)), \"session_reset\": \"\(sessionReset)\", \"weekly_reset\": \"\(weeklyReset)\"}")
 }.resume()
 
 semaphore.wait()
