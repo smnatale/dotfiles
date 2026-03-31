@@ -15,7 +15,7 @@ return {
 				graphql = { "prettierd" },
 				go = { "goimports", "gofmt" },
 				json = { "prettierd" },
-			sql = { "sql_formatter" },
+				sql = { "sql_formatter" },
 			},
 			formatters = {
 				sql_formatter = {
