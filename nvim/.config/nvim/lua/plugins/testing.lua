@@ -1,35 +1,19 @@
-return {
-	"nvim-neotest/neotest",
-	keys = {
-		{ "<leader>mr", "<cmd>Neotest run<cr>" },
-		{ "<leader>ms", "<cmd>Neotest summary<cr>" },
-		{ "<leader>mo", "<cmd>Neotest output<cr>" },
-		{ "<leader>mp", "<cmd>Neotest output-panel<cr>" },
-		{
-			"<leader>md",
-			function()
-				require("neotest").run.run({ suite = false, strategy = "dap" })
-			end,
-		},
+vim.pack.add({
+	{ src = "https://github.com/nvim-neotest/neotest" },
+	{ src = "https://github.com/nvim-neotest/nvim-nio" },
+	{ src = "https://github.com/nvim-lua/plenary.nvim" },
+	{ src = "https://github.com/antoinemadec/FixCursorHold.nvim" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+	{ src = "https://github.com/fredrikaverpil/neotest-golang" },
+})
+
+require("neotest").setup({
+	adapters = {
+		require("neotest-golang")(),
 	},
-	dependencies = {
-		"nvim-neotest/nvim-nio",
-		"nvim-lua/plenary.nvim",
-		"antoinemadec/FixCursorHold.nvim",
-		"nvim-treesitter/nvim-treesitter",
-		{
-			"fredrikaverpil/neotest-golang",
-			build = function()
-				vim.system({ "go", "install", "gotest.tools/gotestsum@latest" }):wait() -- Optional, but recommended
-			end,
-		},
-	},
-	config = function()
-		require("neotest").setup({
-			---@diagnostic disable-next-line: missing-fields
-			adapters = {
-				require("neotest-golang")(),
-			},
-		})
-	end,
-}
+})
+
+vim.keymap.set("n", "<leader>mr", ":Neotest run<cr>")
+vim.keymap.set("n", "<leader>ms", ":Neotest summary<cr>")
+vim.keymap.set("n", "<leader>mo", ":Neotest output<cr>")
+vim.keymap.set("n", "<leader>mp", ":Neotest output-panel<cr>")
