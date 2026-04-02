@@ -1,55 +1,60 @@
-return {
-	"nvim-treesitter/nvim-treesitter",
-	lazy = false,
-	branch = "main",
-	build = ":TSUpdate",
-	opts = {
-		ensure_installed = {
-			"bash",
-			"c",
-			"css",
-			"diff",
-			"go",
-			"gomod",
-			"gowork",
-			"gosum",
-			"graphql",
-			"html",
-			"javascript",
-			"jsdoc",
-			"json",
-			"json5",
-			"lua",
-			"luadoc",
-			"luap",
-			"markdown",
-			"markdown_inline",
-			"query",
-			"regex",
-			"toml",
-			"tsx",
-			"typescript",
-			"vim",
-			"vimdoc",
-			"yaml",
-		},
-	},
-	config = function(_, opts)
-		-- install parsers from custom opts.ensure_installed
-		if opts.ensure_installed and #opts.ensure_installed > 0 then
-			require("nvim-treesitter").install(opts.ensure_installed)
-			-- register and start parsers for filetypes
-			for _, parser in ipairs(opts.ensure_installed) do
-				local filetypes = parser -- In this case, parser is the filetype/language name
-				vim.treesitter.language.register(parser, filetypes)
+vim.pack.add({
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+})
 
-				vim.api.nvim_create_autocmd({ "FileType" }, {
-					pattern = filetypes,
-					callback = function(event)
-						vim.treesitter.start(event.buf, parser)
-					end,
-				})
-			end
+vim.api.nvim_create_autocmd("PackChanged", {
+	pattern = "nvim-treesitter",
+	desc = "Run `:TSUpdate` after pack changed",
+	group = vim.api.nvim_create_augroup("treesitter_update", { clear = true }),
+	callback = function(e)
+		local kind, name = e.data.kind, e.data.spec.name
+		if kind == "install" or kind == "update" then
+			vim.cmd.packadd({ args = { name }, bang = false })
+			vim.cmd(":TSUpdate")
 		end
 	end,
+})
+
+local ts = require("nvim-treesitter")
+
+ts.setup({
+	install_dir = vim.fn.stdpath("data") .. "/site",
+})
+
+local parsers = {
+	"bash",
+	"c",
+	"css",
+	"diff",
+	"go",
+	"gomod",
+	"gowork",
+	"gosum",
+	"graphql",
+	"html",
+	"javascript",
+	"jsdoc",
+	"json",
+	"json5",
+	"lua",
+	"luadoc",
+	"luap",
+	"markdown",
+	"markdown_inline",
+	"query",
+	"regex",
+	"toml",
+	"tsx",
+	"typescript",
+	"vim",
+	"vimdoc",
+	"yaml",
 }
+ts.install(parsers)
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = parsers,
+	callback = function()
+		vim.treesitter.start()
+	end,
+})

@@ -1,47 +1,54 @@
-return {
-	"neovim/nvim-lspconfig",
-	dependencies = {
-		"rachartier/tiny-code-action.nvim",
-		"nvim-lua/plenary.nvim",
+vim.pack.add({
+	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/neovim/nvim-lspconfig" },
+	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
+	{ src = "https://github.com/b0o/SchemaStore.nvim" },
+})
+
+require("mason").setup()
+require("mason-lspconfig").setup({})
+require("mason-tool-installer").setup({
+	ensure_installed = {
+		"stylua",
+		"prettierd",
+		"eslint_d",
+		"lua_ls",
+		"tailwindcss-language-server",
+		"ts_ls",
+		"gopls",
+		"sqls",
+		"jsonls",
+		"yamlls",
 	},
-	config = function()
-		vim.lsp.enable({ "lua_ls", "ts_ls", "gopls", "eslint", "tailwindcss", "jsonls", "sqls" })
+	auto_update = false,
+	run_on_start = true,
+})
 
-		vim.api.nvim_create_autocmd("LspAttach", {
-			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-			callback = function(ev)
-				local opts = { buffer = ev.buf }
-				vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-				vim.keymap.set("n", "<leader><space>", vim.lsp.buf.hover, opts)
-				vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-				vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-				vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+-- LspAttach keymaps
+vim.api.nvim_create_autocmd(
+	"LspAttach",
+	{ --  Use LspAttach autocommand to only map the following keys after the language server attaches to the current buffer
+		group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+		callback = function(ev)
+			vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc" -- Enable completion triggered by <c-x><c-o>
 
-				vim.keymap.set({ "n", "x" }, "<leader>ca", function()
-					require("tiny-code-action").code_action({})
-				end, { noremap = true, silent = true })
+			local opts = { buffer = ev.buf }
+			vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+			vim.keymap.set("n", "<leader><space>", vim.lsp.buf.hover, opts)
+			vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+			vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
+			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+			vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 
-				vim.keymap.set("n", "<leader>li", function()
-					if vim.bo.filetype == "typescript" or vim.bo.filetype == "typescriptreact" then
-						vim.lsp.buf.code_action({
-							apply = true,
-							---@diagnostic disable-next-line: assign-type-mismatch
-							context = { only = { "source.removeUnused.ts" }, diagnostics = {} },
-						})
-						vim.defer_fn(function()
-							vim.lsp.buf.format({ timeout_ms = 10000 })
-						end, 100) -- 100ms delay
-					else
-						vim.lsp.buf.format({ timeout_ms = 10000 })
-					end
-				end)
+			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+			vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
-				vim.keymap.set("n", "<leader>h", function()
-					vim.diagnostic.open_float({
-						border = "rounded",
-					})
-				end, opts)
-			end,
-		})
-	end,
-}
+			vim.keymap.set("n", "<leader>d", function()
+				vim.diagnostic.open_float({
+					border = "rounded",
+				})
+			end, opts)
+		end,
+	}
+)

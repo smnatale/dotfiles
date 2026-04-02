@@ -10,6 +10,14 @@ return {
 				compositeLiteralTypes = true,
 				functionTypeParameters = true,
 			},
+			codelenses = {
+				references = true,
+				implementations = true,
+				gc_details = true,
+				run_govulncheck = true,
+				test = true,
+				generate = true,
+			},
 			completeUnimported = true,
 			analyses = {
 				unusedparams = true,
