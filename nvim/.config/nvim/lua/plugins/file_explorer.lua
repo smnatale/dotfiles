@@ -67,6 +67,17 @@ require("telescope").setup({
 		},
 	},
 })
+local fzf_path = vim.fn.stdpath("data") .. "/site/pack/core/opt/telescope-fzf-native.nvim"
+local fzf_lib = fzf_path .. "/build/libfzf.so"
+if vim.uv.fs_stat(fzf_path) and not vim.uv.fs_stat(fzf_lib) then
+	vim.notify("Building telescope-fzf-native...", vim.log.levels.INFO)
+	local obj = vim.system({ "make" }, { cwd = fzf_path }):wait()
+	if obj.code == 0 then
+		vim.notify("Building telescope-fzf-native done", vim.log.levels.INFO)
+	else
+		vim.notify("Building telescope-fzf-native failed:\n" .. (obj.stderr or ""), vim.log.levels.ERROR)
+	end
+end
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("ui-select")
 
