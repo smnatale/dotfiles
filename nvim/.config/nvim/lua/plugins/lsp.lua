@@ -41,7 +41,9 @@ vim.api.nvim_create_autocmd(
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 			vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 
-			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+			vim.keymap.set({ "n", "v" }, "<leader>ca", function()
+				require("tiny-code-action").code_action()
+			end, opts)
 			vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
 			vim.keymap.set("n", "<leader>d", function()
