@@ -13,7 +13,7 @@ require("neotest").setup({
 	},
 })
 
-vim.keymap.set("n", "<leader>mr", ":Neotest run<cr>")
-vim.keymap.set("n", "<leader>ms", ":Neotest summary<cr>")
-vim.keymap.set("n", "<leader>mo", ":Neotest output<cr>")
-vim.keymap.set("n", "<leader>mp", ":Neotest output-panel<cr>")
+vim.keymap.set("n", "<leader>mr", ":Neotest run<cr>", { desc = "Run nearest test" })
+vim.keymap.set("n", "<leader>ms", ":Neotest summary<cr>", { desc = "Test summary" })
+vim.keymap.set("n", "<leader>mo", ":Neotest output<cr>", { desc = "Test output" })
+vim.keymap.set("n", "<leader>mp", ":Neotest output-panel<cr>", { desc = "Test output panel" })
