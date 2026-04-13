@@ -2,7 +2,6 @@ vim.pack.add({
 	{ src = "https://github.com/L3MON4D3/LuaSnip" },
 	{ src = "https://github.com/Saghen/blink.cmp" },
 	{ src = "https://github.com/rafamadriz/friendly-snippets" },
-	{ src = "https://github.com/chrisgrieser/nvim-scissors" },
 })
 
 vim.api.nvim_create_autocmd("PackChanged", {
@@ -23,7 +22,6 @@ vim.api.nvim_create_autocmd("PackChanged", {
 })
 
 require("luasnip.loaders.from_vscode").lazy_load()
-require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snippets" } })
 
 require("blink.cmp").setup({
 	snippets = { preset = "luasnip" },
@@ -64,14 +62,3 @@ require("blink.cmp").setup({
 		},
 	},
 })
-
-require("scissors").setup({
-	snippetDir = vim.fn.stdpath("config") .. "/snippets",
-})
-
-vim.keymap.set("n", "<leader>se", function()
-	require("scissors").editSnippet()
-end, { desc = "Edit snippet" })
-vim.keymap.set({ "n", "x" }, "<leader>sa", function()
-	require("scissors").addNewSnippet()
-end, { desc = "Add new snippet" })
