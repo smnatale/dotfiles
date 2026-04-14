@@ -4,7 +4,7 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim" },
 	{ src = "https://github.com/rachartier/tiny-code-action.nvim" },
-	{ src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
+	{ src = "https://github.com/ThePrimeagen/harpoon", rev = "87b1a3506211538f460786c23f98ec63ad9af4e5" },
 })
 
 vim.api.nvim_create_autocmd("PackChanged", {
@@ -73,29 +73,29 @@ harpoon:setup()
 
 vim.keymap.set("n", "<leader>ah", function()
 	harpoon:list():add()
-end, { desc = "Add file to harpoon" })
+end, { silent = true, desc = "Add file to harpoon" })
 vim.keymap.set("n", "<leader>h", function()
 	harpoon.ui:toggle_quick_menu(harpoon:list())
-end, { desc = "Toggle harpoon menu" })
+end, { silent = true, desc = "Toggle harpoon menu" })
 vim.keymap.set("n", "<leader>1", function()
 	harpoon:list():select(1)
-end, { desc = "Harpoon file 1" })
+end, { silent = true, desc = "Harpoon file 1" })
 vim.keymap.set("n", "<leader>2", function()
 	harpoon:list():select(2)
-end, { desc = "Harpoon file 2" })
+end, { silent = true, desc = "Harpoon file 2" })
 vim.keymap.set("n", "<leader>3", function()
 	harpoon:list():select(3)
-end, { desc = "Harpoon file 3" })
+end, { silent = true, desc = "Harpoon file 3" })
 vim.keymap.set("n", "<leader>4", function()
 	harpoon:list():select(4)
-end, { desc = "Harpoon file 4" })
+end, { silent = true, desc = "Harpoon file 4" })
 vim.keymap.set("n", "<leader>5", function()
 	harpoon:list():select(5)
-end, { desc = "Harpoon file 5" })
+end, { silent = true, desc = "Harpoon file 5" })
 
-vim.keymap.set("n", "<leader>sf", ":Telescope find_files<cr>", { desc = "Find files" })
-vim.keymap.set("n", "<leader>sg", ":Telescope live_grep<cr>", { desc = "Live grep" })
-vim.keymap.set("n", "<leader>sh", ":Telescope help_tags<cr>", { desc = "Search help tags" })
-vim.keymap.set("n", "<leader>sd", ":Telescope diagnostics<cr>", { desc = "Search diagnostics" })
-vim.keymap.set("n", "<leader>sb", ":Telescope buffers<cr>", { desc = "Search buffers" })
-vim.keymap.set("n", "<leader>sk", ":Telescope keymaps<cr>", { desc = "Search keymaps" })
+vim.keymap.set("n", "<leader>sf", ":Telescope find_files<cr>", { silent = true, desc = "Find files" })
+vim.keymap.set("n", "<leader>sg", ":Telescope live_grep<cr>", { silent = true, desc = "Live grep" })
+vim.keymap.set("n", "<leader>sh", ":Telescope help_tags<cr>", { silent = true, desc = "Search help tags" })
+vim.keymap.set("n", "<leader>sd", ":Telescope diagnostics<cr>", { silent = true, desc = "Search diagnostics" })
+vim.keymap.set("n", "<leader>sb", ":Telescope buffers<cr>", { silent = true, desc = "Search buffers" })
+vim.keymap.set("n", "<leader>sk", ":Telescope keymaps<cr>", { silent = true, desc = "Search keymaps" })

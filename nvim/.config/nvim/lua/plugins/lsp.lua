@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd(
 			vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc" -- Enable completion triggered by <c-x><c-o>
 
 			local opts = function(desc)
-				return { buffer = ev.buf, desc = desc }
+				return { buffer = ev.buf, silent = true, desc = desc }
 			end
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts("Go to definition"))
 			vim.keymap.set("n", "<leader><space>", vim.lsp.buf.hover, opts("Hover documentation"))
