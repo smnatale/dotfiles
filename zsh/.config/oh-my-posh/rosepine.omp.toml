@@ -17,7 +17,7 @@ type = "prompt"
 alignment = "left"
 segments = [
   { type = "path", style = "plain", foreground = "p:iris", template = "{{ .Path }}", options = { style = "full", mapped_locations = { "~" = "~" } } },
-  { type = "git", style = "plain", foreground = "p:foam", template = " {{ .HEAD }}{{ if gt .StashCount 0 }} <#f6c177>*{{ .StashCount }}</>{{ end }}{{ if .Working.Changed }} {{ .Working.String }}{{ end }}{{ if .Staging.Changed }} {{ .Staging.String }}{{ end }} ", options = { fetch_status = true, branch_icon = " ", status_formats = { Added = "<#9ccfd8>+%d</> ", Deleted = "<#eb6f92>-%d</> ", Modified = "<#c4a7e7>~%d</> ", Untracked = "<#31748f>?%d</> ", Unmerged = "<#eb6f92>x%d</> " } } }
+  { type = "git", style = "plain", foreground = "p:foam", template = " {{ .HEAD }}{{ if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if gt .StashCount 0 }} <#f6c177>*{{ .StashCount }}</>{{ end }}{{ if .Working.Changed }} {{ .Working.String }}{{ end }}{{ if .Staging.Changed }} {{ .Staging.String }}{{ end }} ", options = { fetch_status = true, fetch_push_status = true, branch_icon = " ", status_formats = { Added = "<#9ccfd8>+%d</> ", Deleted = "<#eb6f92>-%d</> ", Modified = "<#c4a7e7>~%d</> ", Untracked = "<#31748f>?%d</> ", Unmerged = "<#eb6f92>x%d</> " } } }
 ]
 
 [[blocks]]
