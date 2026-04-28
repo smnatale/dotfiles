@@ -9,7 +9,7 @@ mode = "dark"
 
 [borders]
 enabled = true
-width = 2.0
+width = 3.0
 
 [borders.color]
 alpha = 1.0
@@ -20,7 +20,7 @@ red = 0.7702532411
 [dwindle]
 defaultSplitRatio = 1.0
 moveToRootStable = true
-singleWindowAspectRatio = "16:9"
+singleWindowAspectRatio = "fill"
 smartSplit = false
 splitWidthMultiplier = 1.0
 useGlobalGaps = true
@@ -37,7 +37,7 @@ size = 8.0
 bottom = 4.0
 left = 4.0
 right = 4.0
-top = 16.0
+top = 8.0
 
 [general]
 animationsEnabled = true
@@ -62,6 +62,10 @@ margin = 1
 displayId = 2
 name = "C34H89x"
 
+[[mouseWarp.monitorOrder]]
+displayId = 1
+name = "Built-in Retina Display"
+
 [niri]
 alwaysCenterSingleColumn = true
 centerFocusedColumn = "never"
@@ -73,11 +77,11 @@ singleWindowAspectRatio = "16:9"
 
 [quakeTerminal]
 animationDuration = 0.2
-autoHide = false
+autoHide = true
 enabled = true
 heightPercent = 50.0
-monitorMode = "focusedWindow"
-opacity = 1.0
+monitorMode = "mainMonitor"
+opacity = 0.9
 position = "center"
 useCustomFrame = true
 widthPercent = 50.0

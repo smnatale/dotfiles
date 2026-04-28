@@ -111,64 +111,43 @@ sketchybar --add item clock right \
     click_script="open /System/Library/PreferencePanes/DateAndTime.prefPane" \
     --subscribe clock mouse.entered mouse.exited
 
-sketchybar --add item wifi right \
-    --set wifi \
-    update_freq=60 \
-    icon="󰤨" \
-    icon.color=$COLOR_ACCENT \
-    icon.font="CaskaydiaCove Nerd Font:Bold:14.0" \
-    script="$PLUGIN_DIR/wifi.sh" \
-    click_script="open x-apple.systempreferences:com.apple.preferences.network" \
-    popup.height=10 \
-    --subscribe wifi mouse.entered mouse.exited
-
-sketchybar --add item wifi.detail popup.wifi \
-    --set wifi.detail \
-    label="SSID: ..." \
-    label.color=0xffe0def4 \
-    label.font="CaskaydiaCove Nerd Font:Regular:11.0" \
-    padding_left=8 \
-    padding_right=8 \
-    icon.drawing=off \
-    width=dynamic \
-    script="$PLUGIN_DIR/wifi_detail.sh" \
-    updates=on
-
-sketchybar --add item wifi.detail2 popup.wifi \
-    --set wifi.detail2 \
-    label="IP: ..." \
-    label.color=0xffe0def4 \
-    label.font="CaskaydiaCove Nerd Font:Regular:11.0" \
-    padding_left=8 \
-    padding_right=8 \
-    icon.drawing=off \
-    width=dynamic \
-    script="$PLUGIN_DIR/wifi_detail.sh" \
-    updates=on
-
-sketchybar --add item wifi.detail3 popup.wifi \
-    --set wifi.detail3 \
-    label="Signal: ..." \
-    label.color=0xffe0def4 \
-    label.font="CaskaydiaCove Nerd Font:Regular:11.0" \
-    padding_left=8 \
-    padding_right=8 \
-    icon.drawing=off \
-    width=dynamic \
-    script="$PLUGIN_DIR/wifi_detail.sh" \
-    updates=on
-
-sketchybar --add item cpu right \
+sketchybar --add graph cpu right 50 \
     --set cpu \
-    update_freq=30 \
-    icon="󰆼" \
-    icon.color=$COLOR_ACCENT \
-    icon.font="CaskaydiaCove Nerd Font:Bold:14.0" \
+    update_freq=2 \
+    graph.color=$COLOR_ACCENT \
+    graph.fill_color=0x33c4a7e7 \
+    graph.line_width=1.0 \
+    icon.drawing=off \
+    label.drawing=off \
+    background.color=0x00000000 \
+    background.height=26 \
+    background.drawing=on \
+    padding_left=0 \
+    padding_right=4 \
     script="$PLUGIN_DIR/cpu.sh" \
     click_script="open -a Activity\ Monitor && osascript -e 'tell application \"Activity Monitor\" to activate'" \
     popup.height=10 \
-    --subscribe cpu mouse.entered mouse.exited \
     --subscribe cpu mouse.entered mouse.exited
+
+sketchybar --add item cpu.top right \
+    --set cpu.top \
+    icon.drawing=off \
+    label.font="CaskaydiaCove Nerd Font:Regular:10.0" \
+    label.color=$COLOR_TEXT_MUTED \
+    label.padding_left=8 \
+    label.padding_right=4 \
+    label="..." \
+    width=120 \
+    background.drawing=off \
+    padding_left=0 \
+    padding_right=0
+
+sketchybar --add bracket cpu.bracket cpu.top cpu \
+    --set cpu.bracket \
+    background.color=0x660c0c0c \
+    background.corner_radius=8 \
+    background.height=26 \
+    background.drawing=on
 
 # CPU popup
 sketchybar --add item cpu.detail popup.cpu \
