@@ -1,40 +1,126 @@
 # dotfiles
 
-Managed with [GNU Stow](https://www.gnu.org/software/stow/). Each top-level directory is a stow package.
+My macOS dotfiles, managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
-## Setup
+This setup is built around a few core ideas:
+
+- `omniwm` for a Hyprland-style tiling workflow on macOS
+- `sketchybar` to replace the native menu bar with the info I actually want
+- `tmux` plus `tmux-sessionizer` for fast context switching between projects
+- `codex` and `claude` surfaced in the bar so usage is visible at a glance
+- `ghostty`, `zsh`, and `nvim` as the terminal-first daily drivers
+
+## What's In Here
+
+- `omniwm/` - window manager settings, keybinds, layouts, and app rules
+- `sketchybar/` - status bar config, widgets, plugins, and launch agent helpers
+- `tmux/` - tmux config plus the `tmux-sessionizer` helper
+- `zsh/` - shell config, prompt, aliases, and lazy-loading setup
+- `ghostty/` - terminal config
+- `nvim/` - Neovim config, LSP, editing workflow, and AI integration
+
+## Install
 
 ```bash
-# install packages
 brew bundle
-
-# stow whichever configs you want
-stow nvim zsh ghostty sketchybar # etc.
+stow omniwm sketchybar tmux zsh ghostty nvim
 ```
 
-The SketchyBar Claude and Codex widgets use `font-sketchybar-app-font` for their app icons, so make sure `brew bundle` has installed that font cask before starting the bar.
+If you only want part of the setup, stow the packages you need individually.
 
-## Sketchybar Claude Usage Widget
+## Workflow
 
-The sketchybar config includes a widget that displays your Claude.ai session (5h) and weekly (7d) usage in the status bar. It requires a couple of extra steps:
+### OmniWM
 
-### 1. Compile the fetcher
+`omniwm` is the window manager layer for the desktop. The config leans into:
 
-```bash
-swiftc sketchybar/.config/sketchybar/plugins/claude_fetch.swift \
-  -o sketchybar/.config/sketchybar/plugins/claude_fetch
+- tiled layouts by default
+- strong window borders and visible gaps
+- workspace switching with `Option+1` through `Option+4`
+- `Option+Shift+<number>` for moving windows between workspaces
+- a quake-style terminal for quick access
+
+The config lives in [`omniwm/.config/omniwm/settings.toml`](omniwm/.config/omniwm/settings.toml).
+
+### SketchyBar
+
+`sketchybar` replaces the stock macOS menu bar with a minimal, functional status bar.
+
+It currently surfaces:
+
+- workspace and window state from `omniwm`
+- CPU, battery, and clock info
+- Claude usage
+- Codex usage
+
+The bar depends on the `font-sketchybar-app-font` cask for app icons, so make sure `brew bundle` has installed it before starting the bar.
+
+Also you need to do 
+```
+chmod +x ~/Library/LaunchAgents/com.omniwm.sketchybar-watcher.plist
 ```
 
-### 2. Add your Claude cookie
+#### Claude usage widget
 
-Create `~/.config/sketchybar/claude_cookie` with your `claude.ai` session cookie (the full `Cookie` header value). The file must include the `lastActiveOrg=` cookie so the fetcher can resolve your org ID.
+The Claude widget shows session and weekly usage in the bar.
 
-```bash
-echo 'sessionKey=sk-ant-...; lastActiveOrg=...' > ~/.config/sketchybar/claude_cookie
-```
+It reads the `Claude Code-credentials` item from macOS Keychain, expects that item to contain JSON with an `accessToken`, and uses that token to query Anthropic's usage endpoint.
 
-> This file is gitignored — never commit your cookie.
+If the keychain item is missing, the widget will show an error until Claude Code has been signed in and the credentials item exists locally.
 
-## Sketchybar Codex Usage Widget
+To set it up manually:
 
-The sketchybar config also includes a Codex usage widget. It reads the local Codex auth file at `~/.codex/auth.json`, uses the embedded access token to query the Codex usage endpoint, and shows remaining usage plus reset countdown.
+1. Open `Keychain Access`.
+2. Search for `Claude Code-credentials`.
+3. Open the item, go to `Access Control`, and add SketchyBar as an allowed app.
+4. If you need to find the binary manually, use `Cmd+Shift+G` in Finder, jump to `/opt/homebrew/bin`, and select `sketchybar`.
+5. Make sure the item still contains the Claude JSON payload, including the `accessToken`.
+
+The widget looks for that exact item name, so keep it consistent.
+
+#### Codex usage widget
+
+The Codex widget reads `~/.codex/auth.json`, uses the stored access token, and displays usage percentage plus reset timing in the bar.
+
+### tmux
+
+`tmux` is configured for a fast, editor-like terminal workflow:
+
+- `F12` is the prefix but I use [Hyperkey](https://hyperkey.app/) to rebind this to my Caps Lock
+- `Option`-free navigation and split management
+- `lazygit` opens in a popup
+- `tmux-sessionizer` jumps between project sessions quickly
+
+The sessionizer helper lives in [`tmux/.local/bin/tmux-sessionizer`](tmux/.local/bin/tmux-sessionizer).
+
+Useful bindings:
+
+- `F12` then `s` for a horizontal split
+- `F12` then `v` for a vertical split
+- `F12` then `g` for `lazygit`
+- `F12` then `f` for the sessionizer popup
+
+### zsh
+
+`zsh` is set up for a practical shell-first workflow:
+
+- `zinit` for plugin management
+- lazy-loaded completion and `nvm`
+- aliases for `nvim`, `tmux-sessionizer`, and `lazygit`
+- `oh-my-posh` prompt styling
+- paths for Go, Android, Bun, Node, PostgreSQL, and local binaries
+
+### Neovim
+
+`nvim` is the main editor config and includes:
+
+- LSP setup
+- formatting and treesitter
+- file navigation and git tooling
+- AI integration
+
+## Notes
+
+- This repo is organized as stow packages, so each top-level directory maps to a package.
+- Some configs expect local secrets or machine-specific files, such as the Claude cookie and Codex auth state.
+- The SketchyBar OmniWM watcher is wired through a LaunchAgent at [`sketchybar/Library/LaunchAgents/com.omniwm.sketchybar-watcher.plist`](sketchybar/Library/LaunchAgents/com.omniwm.sketchybar-watcher.plist).

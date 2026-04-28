@@ -1,14 +1,9 @@
-tap "cognominal/neovim-nightly.fork"
 tap "felixkratz/formulae"
 tap "jandedobbeleer/oh-my-posh"
-tap "julien-cpsn/atac"
 tap "mobile-dev-inc/tap"
 tap "nikitabobko/tap"
 tap "sst/tap"
-tap "supabase/tap"
 tap "txn2/tap"
-# Build full-stack web and mobile apps in hours. Easy to start, easy to scale
-brew "aws-amplify"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Clone of cat(1) with syntax highlighting and Git integration
@@ -29,6 +24,8 @@ brew "fastlane"
 brew "fd"
 # Command-line fuzzy finder written in Go
 brew "fzf"
+# Prompt theming engine for any shell
+brew "jandedobbeleer/oh-my-posh/oh-my-posh"
 # GitHub command-line tool
 brew "gh"
 # Audit git repos for secrets
@@ -61,8 +58,6 @@ brew "nvm"
 brew "nx"
 # AI coding agent, built for the terminal
 brew "opencode"
-# Display directories as trees (with optional color/HTML output)
-brew "tree"
 # Password manager
 brew "pass"
 # Object-relational database system
@@ -71,20 +66,20 @@ brew "postgresql@17", restart_service: :changed
 brew "prettierd"
 # Ruby version manager
 brew "rbenv"
-# Search tool like grep and The Silver Searcher
-brew "ripgrep"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
 # Generate type safe Go from SQL
 brew "sqlc"
-# Organize software neatly under a single directory tree (e.g. /usr/local)
-brew "stow"
-# Command-line tool for Stripe
-brew "stripe-cli"
 # Opinionated Lua code formatter
 brew "stylua"
-# Terminal multiplexer
-brew "tmux"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# Organize software neatly under a single directory tree (e.g. /usr/local)
+brew "stow"
 # Parser generator tool
 brew "tree-sitter-cli"
+# Terminal multiplexer
+brew "tmux"
 # Language for application scale JavaScript development
 brew "typescript"
 # Language Server Protocol implementation for TypeScript wrapping tsserver
@@ -97,20 +92,12 @@ brew "watchman"
 brew "yarn"
 # UNIX shell (command interpreter)
 brew "zsh"
-# A window border system for macOS
-brew "felixkratz/formulae/borders"
 # Custom macOS statusbar with shell plugin, interaction and graph support
 brew "felixkratz/formulae/sketchybar"
-# A simple API client (postman like) in your terminal
-brew "julien-cpsn/atac/atac"
 # The easiest way to automate UI testing for your mobile app
 brew "mobile-dev-inc/tap/maestro"
-# Supabase CLI
-brew "supabase/tap/supabase"
 # Kubernetes bulk port forwarding utility.
 brew "txn2/tap/kubefwd"
-# AeroSpace is an i3-like tiling window manager for macOS
-cask "aerospace"
 # Android SDK component
 cask "android-platform-tools"
 # Tools for building Android applications
@@ -134,20 +121,11 @@ cask "ghostty"
 cask "google-chrome"
 # Interactive tool for analyzing MongoDB data
 cask "mongodb-compass"
-# Open-source software for live streaming and screen recording
-cask "obs"
 # Collaboration platform for API development
 cask "postman"
-# Control your tools with a few keystrokes
-cask "raycast"
-# Move and resize windows using keyboard shortcuts or snap areas
-cask "rectangle"
-# Open-source media center
-cask "stremio"
-# Multimedia player
-cask "vlc"
 go "github.com/air-verse/air"
 go "github.com/spf13/cobra-cli"
+go "golang.org/x/tools/cmd/goimports"
 go "github.com/golangci/golangci-lint/cmd/golangci-lint"
 go "golang.org/x/tools/gopls"
 go "github.com/cweill/gotests/gotests"
