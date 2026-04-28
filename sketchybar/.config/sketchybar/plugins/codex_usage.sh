@@ -85,15 +85,15 @@ echo "$RESPONSE" > "$CACHE_FILE"
 USED=$(printf '%s' "$RESPONSE" | jq -r '.rate_limit.primary_window.used_percent // 0')
 RESET_AFTER=$(printf '%s' "$RESPONSE" | jq -r '.rate_limit.primary_window.reset_after_seconds // 0')
 
-REMAINING=$(( 100 - USED ))
-if [ "$REMAINING" -lt 0 ]; then
-  REMAINING=0
-elif [ "$REMAINING" -gt 100 ]; then
-  REMAINING=100
+USED_DISPLAY=$(( USED ))
+if [ "$USED_DISPLAY" -lt 0 ]; then
+  USED_DISPLAY=0
+elif [ "$USED_DISPLAY" -gt 100 ]; then
+  USED_DISPLAY=100
 fi
 
 COUNTDOWN="$(format_duration "$RESET_AFTER")"
-LABEL="${REMAINING}%"
+LABEL="${USED_DISPLAY}%"
 if [ -n "$COUNTDOWN" ]; then
   LABEL="${LABEL} ${COUNTDOWN}"
 fi
