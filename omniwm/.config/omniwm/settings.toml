@@ -207,6 +207,11 @@ id = "552FB77D-BF0E-4737-90A6-B5BC6986C579"
 minHeight = 320.0
 minWidth = 660.0
 
+[[appRules]]
+bundleId = "com.apple.iphonesimulator"
+id = "ECA6D6E3-4FA8-4609-82C3-BC1B9B7F607D"
+layout = "tile"
+
 [[hotkeys]]
 binding = "Option+1"
 id = "switchWorkspace.0"
