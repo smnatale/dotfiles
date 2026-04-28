@@ -23,23 +23,26 @@ default=(
 )
 sketchybar --default "${default[@]}"
 
-sketchybar --add event aerospace_workspace_change
+sketchybar --add event omniwm_workspace_change
 
-for sid in $(aerospace list-workspaces --all); do
+omniwmctl query workspaces --format json | jq -r '.result.payload.workspaces[] | @json' | while read -r workspace; do
+    sid=$(echo "$workspace" | jq -r '.id')
+    label=$(echo "$workspace" | jq -r '.displayName')
+    [ -z "$sid" ] && continue
     sketchybar --add item space.$sid left \
-        --subscribe space.$sid aerospace_workspace_change \
+        --subscribe space.$sid omniwm_workspace_change \
         --set space.$sid \
         background.color=0xff090b10 \
         background.corner_radius=4 \
         background.height=20 \
         background.drawing=off \
-        label="$sid" \
+        label="$label" \
         label.font="CaskaydiaCove Nerd Font:Medium:12.0" \
         label.color=0xff908caa \
         padding_left=8 \
         padding_right=8 \
-        click_script="aerospace workspace $sid" \
-        script="$CONFIG_DIR/plugins/aerospace.sh $sid"
+        click_script="omniwmctl workspace focus-name $sid" \
+        script="$CONFIG_DIR/plugins/omniwm.sh $sid"
 done
 
 sketchybar --add item clock right \
@@ -53,5 +56,8 @@ sketchybar --add item clock right \
            icon.color=0xffda7756 \
            label.font="CaskaydiaCove Nerd Font:Regular:12.0" \
            script="$PLUGIN_DIR/claude_usage.sh" \
+
+# Start the OmniWM workspace watcher (background daemon for instant updates)
+launchctl load $HOME/Library/LaunchAgents/com.omniwm.sketchybar-watcher.plist 2>/dev/null
 
 sketchybar --update
