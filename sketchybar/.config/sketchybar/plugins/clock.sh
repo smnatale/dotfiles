@@ -6,5 +6,5 @@ if [ "$1" = "mouse.entered" ]; then
 elif [ "$1" = "mouse.exited" ]; then
   sketchybar --set "$NAME" background.color=0x660c0c0c
 else
-  sketchybar --set "$NAME" label="$(date '+%d/%m %H:%M')"
+  sketchybar --set "$NAME" label="$(date '+%a %b %d %H:%M')"
 fi
