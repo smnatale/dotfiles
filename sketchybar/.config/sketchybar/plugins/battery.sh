@@ -1,11 +1,16 @@
 #!/bin/sh
 
-PERCENTAGE="$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)"
-CHARGING="$(pmset -g batt | grep 'AC Power')"
+# Check if battery exists - pmset returns different output on Macs vs PCs
+BATTERY_INFO="$(pmset -g batt 2>/dev/null)"
+PERCENTAGE="$(echo "$BATTERY_INFO" | grep -Eo "\d+%" | cut -d% -f1)"
 
-if [ "$PERCENTAGE" = "" ]; then
+# If no percentage found, there's no battery
+if [ -z "$PERCENTAGE" ]; then
+  sketchybar --set "$NAME" icon="" label=""
   exit 0
 fi
+
+CHARGING="$(echo "$BATTERY_INFO" | grep 'AC Power')"
 
 case "${PERCENTAGE}" in
   9[0-9]|100) ICON="󰁹"

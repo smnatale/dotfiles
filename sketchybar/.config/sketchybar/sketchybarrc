@@ -1,63 +1,359 @@
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 
-##### Bar Appearance #####
-# Configuring the general appearance of the bar with Rosepine theme.
-# Background: 090B10, Surface: 1f1d2e, Text: e0def4
+##### Hyperland Style Bar #####
+# Single floating bar with workspaces and status in visual groups
 
-sketchybar --bar position=top height=28 blur_radius=30 color=0x40000000 sticky=on margin=0 padding_left=4 padding_right=4
+# Floating bar - Ghostty style with pill-style items
+sketchybar --bar position=top \
+    height=34 \
+    blur_radius=15 \
+    color=0x00000000 \
+    sticky=off \
+    margin=8 \
+    padding_left=8 \
+    padding_right=8 \
+    corner_radius=12 \
+    y_offset=8
 
-##### Changing Defaults #####
-# Rosepine theme colors: Text: e0def4, Subtle: 6e6a86, Muted: 908caa
-# Accent: c4a7e7 (lavender), Love: eb6f92 (pink), Gold: f6c177
+# Default styling - with pill backgrounds and hover
 default=(
   padding_left=4
   padding_right=4
-  icon.font="CaskaydiaCove Nerd Font:Medium:15.0"
-  label.font="CaskaydiaCove Nerd Font:Regular:13.0"
-  icon.color=0xffe0def4
+  icon.font="CaskaydiaCove Nerd Font:Bold:14.0"
+  label.font="CaskaydiaCove Nerd Font:Bold:14.0"
+  icon.color=0xffc4a7e7
   label.color=0xffe0def4
-  icon.padding_left=4
+  icon.padding_left=8
   icon.padding_right=4
   label.padding_left=4
-  label.padding_right=4
+  label.padding_right=8
+  background.color=0x660c0c0c
+  background.corner_radius=8
+  background.height=26
+  background.drawing=on
+  popup.background.color=0xe60c0c0c
+  popup.background.corner_radius=8
+  popup.background.drawing=on
+  popup.blur_radius=20
+  
 )
 sketchybar --default "${default[@]}"
 
+sketchybar --set default popup.background.height=0
+
+# Rosepine theme colors
+# Background: 090B10, Surface: 1f1d2e, Text: e0def4
+# Subtle: 6e6a86, Muted: 908caa
+# Accent: c4a7e7 (lavender), Love: eb6f92 (pink), Gold: f6c177
+COLOR_BG="0x700909B10"          # Semi-transparent dark
+COLOR_INACTIVE="0x660c0c0c"     # Ghostty dark transparent
+COLOR_TEXT_MUTED=0xff908caa     # Muted text
+COLOR_TEXT=0xffe0def4           # Active text
+COLOR_ACCENT=0xffc4a7e7         # Lavender
+COLOR_LOVE=0xffeb6f92           # Pink
+COLOR_GOLD=0xfff6c177           # Gold
+COLOR_SURFACE=0xff1f1d2e        # Surface
+
+sketchybar --add event mouse.entered
+sketchybar --add event mouse.exited
+sketchybar --add event mouse.clicked
 sketchybar --add event omniwm_workspace_change
 
+# Create workspace items with Hyperland-style appearance
 omniwmctl query workspaces --format json | jq -r '.result.payload.workspaces[] | @json' | while read -r workspace; do
     sid=$(echo "$workspace" | jq -r '.id')
-    label=$(echo "$workspace" | jq -r '.displayName')
+    label=$(echo "$workspace" | jq -r '.displayName' | sed 's/^ *//')
     [ -z "$sid" ] && continue
+
+    # Assign colors based on workspace number
+    case "$label" in
+        1) ACCENT=$COLOR_ACCENT_CYAN ;;
+        2) ACCENT=$COLOR_ACCENT_PINK ;;
+        3) ACCENT=$COLOR_ACCENT_GREEN ;;
+        4) ACCENT=$COLOR_ACCENT_YELLOW ;;
+        5) ACCENT=$COLOR_ACCENT_PEACH ;;
+        6) ACCENT=$COLOR_ACCENT_MAUVE ;;
+        7) ACCENT=$COLOR_ACCENT_CYAN ;;
+        8) ACCENT=$COLOR_ACCENT_PINK ;;
+        *) ACCENT=$COLOR_ACCENT_GREEN ;;
+    esac
+
     sketchybar --add item space.$sid left \
         --subscribe space.$sid omniwm_workspace_change \
         --set space.$sid \
-        background.color=0xff090b10 \
-        background.corner_radius=4 \
-        background.height=20 \
-        background.drawing=off \
-        label="$label" \
-        label.font="CaskaydiaCove Nerd Font:Medium:12.0" \
-        label.color=0xff908caa \
-        padding_left=8 \
-        padding_right=8 \
+        icon="$label" \
+        icon.color=$COLOR_TEXT_MUTED \
+        icon.font="CaskaydiaCove Nerd Font:Bold:14.0" \
+        icon.padding_left=8 \
+        icon.padding_right=8 \
+        label.drawing=off \
+        background.color=$COLOR_INACTIVE \
+        background.drawing=on \
+        background.corner_radius=8 \
         click_script="omniwmctl workspace focus-name $sid" \
-        script="$CONFIG_DIR/plugins/omniwm.sh $sid"
+        script="$CONFIG_DIR/plugins/omniwm.sh"
 done
 
-sketchybar --add item clock right \
-           --set clock update_freq=10 script="$PLUGIN_DIR/clock.sh" \
-           --add item battery right \
-           --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
-           --subscribe battery system_woke power_source_change \
-           --add item claude_usage right \
-           --set claude_usage update_freq=60 \
-           icon="✳" \
-           icon.color=0xffda7756 \
-           label.font="CaskaydiaCove Nerd Font:Regular:12.0" \
-           script="$PLUGIN_DIR/claude_usage.sh" \
+# Spacer to separate left and right groups
+sketchybar --add item spacer center \
+    --set spacer \
+    background.drawing=off \
+    width=80
 
-# Start the OmniWM workspace watcher (background daemon for instant updates)
+# Right side items - Rosepine icons
+sketchybar --add item clock right \
+    --set clock \
+    update_freq=10 \
+    icon="󰥔" \
+    icon.color=$COLOR_GOLD \
+    icon.font="CaskaydiaCove Nerd Font:Bold:14.0" \
+    script="$PLUGIN_DIR/clock.sh" \
+    click_script="open /System/Library/PreferencePanes/DateAndTime.prefPane" \
+    --subscribe clock mouse.entered mouse.exited
+
+sketchybar --add item wifi right \
+    --set wifi \
+    update_freq=60 \
+    icon="󰤨" \
+    icon.color=$COLOR_ACCENT \
+    icon.font="CaskaydiaCove Nerd Font:Bold:14.0" \
+    script="$PLUGIN_DIR/wifi.sh" \
+    click_script="open x-apple.systempreferences:com.apple.preferences.network" \
+    popup.height=10 \
+    --subscribe wifi mouse.entered mouse.exited
+
+sketchybar --add item wifi.detail popup.wifi \
+    --set wifi.detail \
+    label="SSID: ..." \
+    label.color=0xffe0def4 \
+    label.font="CaskaydiaCove Nerd Font:Regular:11.0" \
+    padding_left=8 \
+    padding_right=8 \
+    icon.drawing=off \
+    width=dynamic \
+    script="$PLUGIN_DIR/wifi_detail.sh" \
+    updates=on
+
+sketchybar --add item wifi.detail2 popup.wifi \
+    --set wifi.detail2 \
+    label="IP: ..." \
+    label.color=0xffe0def4 \
+    label.font="CaskaydiaCove Nerd Font:Regular:11.0" \
+    padding_left=8 \
+    padding_right=8 \
+    icon.drawing=off \
+    width=dynamic \
+    script="$PLUGIN_DIR/wifi_detail.sh" \
+    updates=on
+
+sketchybar --add item wifi.detail3 popup.wifi \
+    --set wifi.detail3 \
+    label="Signal: ..." \
+    label.color=0xffe0def4 \
+    label.font="CaskaydiaCove Nerd Font:Regular:11.0" \
+    padding_left=8 \
+    padding_right=8 \
+    icon.drawing=off \
+    width=dynamic \
+    script="$PLUGIN_DIR/wifi_detail.sh" \
+    updates=on
+
+sketchybar --add item cpu right \
+    --set cpu \
+    update_freq=30 \
+    icon="󰆼" \
+    icon.color=$COLOR_ACCENT \
+    icon.font="CaskaydiaCove Nerd Font:Bold:14.0" \
+    script="$PLUGIN_DIR/cpu.sh" \
+    click_script="open -a Activity\ Monitor && osascript -e 'tell application \"Activity Monitor\" to activate'" \
+    popup.height=10 \
+    --subscribe cpu mouse.entered mouse.exited \
+    --subscribe cpu mouse.entered mouse.exited
+
+# CPU popup
+sketchybar --add item cpu.detail popup.cpu \
+    --set cpu.detail \
+    label="Model: ..." \
+    label.color=0xffe0def4 \
+    label.font="CaskaydiaCove Nerd Font:Regular:11.0" \
+    padding_left=8 \
+    padding_right=8 \
+    icon.drawing=off \
+    width=dynamic \
+    script="$PLUGIN_DIR/cpu_detail.sh" \
+    updates=on
+
+sketchybar --add item cpu.detail2 popup.cpu \
+    --set cpu.detail2 \
+    label="Cores: ..." \
+    label.color=0xffe0def4 \
+    label.font="CaskaydiaCove Nerd Font:Regular:11.0" \
+    padding_left=8 \
+    padding_right=8 \
+    icon.drawing=off \
+    width=dynamic \
+    updates=on
+
+sketchybar --add item cpu.detail3 popup.cpu \
+    --set cpu.detail3 \
+    label="Load: ..." \
+    label.color=0xffe0def4 \
+    label.font="CaskaydiaCove Nerd Font:Regular:11.0" \
+    padding_left=8 \
+    padding_right=8 \
+    icon.drawing=off \
+    width=dynamic \
+    updates=on
+
+sketchybar --add item memory right \
+    --set memory \
+    update_freq=30 \
+    icon="󰍜" \
+    icon.color=$COLOR_LOVE \
+    icon.font="CaskaydiaCove Nerd Font:Bold:14.0" \
+    script="$PLUGIN_DIR/memory.sh" \
+    click_script="open -a Activity\ Monitor && osascript -e 'tell application \"Activity Monitor\" to activate'" \
+    popup.height=10 \
+    --subscribe memory mouse.entered mouse.exited
+
+sketchybar --add item memory.detail popup.memory \
+    --set memory.detail \
+    label="Total: ..." \
+    label.color=0xffe0def4 \
+    label.font="CaskaydiaCove Nerd Font:Regular:11.0" \
+    padding_left=8 \
+    padding_right=8 \
+    icon.drawing=off \
+    width=dynamic \
+    script="$PLUGIN_DIR/memory_detail.sh" \
+    updates=on
+
+sketchybar --add item memory.detail2 popup.memory \
+    --set memory.detail2 \
+    label="Wired: ..." \
+    label.color=0xffe0def4 \
+    label.font="CaskaydiaCove Nerd Font:Regular:11.0" \
+    padding_left=8 \
+    padding_right=8 \
+    icon.drawing=off \
+    width=dynamic \
+    updates=on
+
+sketchybar --add item memory.detail3 popup.memory \
+    --set memory.detail3 \
+    label="Active: ..." \
+    label.color=0xffe0def4 \
+    label.font="CaskaydiaCove Nerd Font:Regular:11.0" \
+    padding_left=8 \
+    padding_right=8 \
+    icon.drawing=off \
+    width=dynamic \
+    updates=on
+
+sketchybar --add item memory.detail4 popup.memory \
+    --set memory.detail4 \
+    label="Free: ..." \
+    label.color=0xffe0def4 \
+    label.font="CaskaydiaCove Nerd Font:Regular:11.0" \
+    padding_left=8 \
+    padding_right=8 \
+    icon.drawing=off \
+    width=dynamic \
+    updates=on
+
+sketchybar --add item disk right \
+    --set disk \
+    update_freq=300 \
+    icon="󰆼" \
+    icon.color=$COLOR_GOLD \
+    icon.font="CaskaydiaCove Nerd Font:Bold:14.0" \
+    script="$PLUGIN_DIR/disk.sh" \
+    click_script="open /System/Applications/Utilities/Disk\ Utility.app" \
+    popup.height=10 \
+    --subscribe disk mouse.entered mouse.exited
+
+sketchybar --add item disk.detail popup.disk \
+    --set disk.detail \
+    label="Total: ..." \
+    label.color=0xffe0def4 \
+    label.font="CaskaydiaCove Nerd Font:Regular:11.0" \
+    padding_left=8 \
+    padding_right=8 \
+    icon.drawing=off \
+    width=dynamic \
+    script="$PLUGIN_DIR/disk_detail.sh" \
+    updates=on
+
+sketchybar --add item disk.detail2 popup.disk \
+    --set disk.detail2 \
+    label="Used: ..." \
+    label.color=0xffe0def4 \
+    label.font="CaskaydiaCove Nerd Font:Regular:11.0" \
+    padding_left=8 \
+    padding_right=8 \
+    icon.drawing=off \
+    width=dynamic \
+    updates=on
+
+sketchybar --add item disk.detail3 popup.disk \
+    --set disk.detail3 \
+    label="Avail: ..." \
+    label.color=0xffe0def4 \
+    label.font="CaskaydiaCove Nerd Font:Regular:11.0" \
+    padding_left=8 \
+    padding_right=8 \
+    icon.drawing=off \
+    width=dynamic \
+    updates=on
+
+# Only add battery if a battery exists
+if pmset -g batt 2>/dev/null | grep -q "%"; then
+sketchybar --add item battery right \
+      --set battery \
+      update_freq=120 \
+      icon="󰁺" \
+      icon.color=$COLOR_ACCENT \
+      icon.font="CaskaydiaCove Nerd Font:Bold:14.0" \
+      script="$PLUGIN_DIR/battery.sh" \
+      --subscribe battery system_woke power_source_change
+fi
+
+sketchybar --add item claude_usage right \
+    --set claude_usage \
+    update_freq=60 \
+    icon="󰊚" \
+    icon.color=$COLOR_LOVE \
+    icon.font="CaskaydiaCove Nerd Font:Bold:16.0" \
+    label.font="CaskaydiaCove Nerd Font:Bold:14.0" \
+    label.color=$COLOR_TEXT \
+    script="$PLUGIN_DIR/claude_usage.sh" \
+    click_script="open https://claude.ai/usage" \
+    popup.height=10 \
+    --subscribe claude_usage mouse.entered mouse.exited
+
+sketchybar --add item claude_usage.detail popup.claude_usage \
+    --set claude_usage.detail \
+    label="Session: 0%" \
+    label.color=0xffe0def4 \
+    label.font="CaskaydiaCove Nerd Font:Regular:11.0" \
+    padding_left=8 \
+    padding_right=8 \
+    icon.drawing=off \
+    width=dynamic \
+    script="$PLUGIN_DIR/claude_detail.sh" \
+    updates=on
+
+sketchybar --add item claude_usage.weekly popup.claude_usage \
+    --set claude_usage.weekly \
+    label="Weekly: 0%" \
+    label.color=0xffe0def4 \
+    label.font="CaskaydiaCove Nerd Font:Regular:11.0" \
+    padding_left=8 \
+    padding_right=8 \
+    icon.drawing=off \
+    width=dynamic \
+
+# Start the OmniWM workspace watcher
 launchctl load $HOME/Library/LaunchAgents/com.omniwm.sketchybar-watcher.plist 2>/dev/null
 
 sketchybar --update

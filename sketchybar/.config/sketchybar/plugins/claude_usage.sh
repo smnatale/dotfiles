@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# Check for hover events
+case "$SENDER" in
+  "mouse.entered")
+    sketchybar --set claude_usage popup.drawing=on
+    exit 0
+    ;;
+  "mouse.exited")
+    sketchybar --set claude_usage popup.drawing=off
+    exit 0
+    ;;
+esac
+
 # Claude Code Usage plugin for sketchybar
 # Displays session (5h) and weekly (7d) usage percentages
 

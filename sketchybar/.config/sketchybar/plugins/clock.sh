@@ -1,8 +1,10 @@
 #!/bin/sh
 
-# The $NAME variable is passed from sketchybar and holds the name of
-# the item invoking this script:
-# https://felixkratz.github.io/SketchyBar/config/events#events-and-scripting
-
-sketchybar --set "$NAME" label="$(date '+%d/%m %H:%M')"
-
+# Check if this is a mouse event
+if [ "$1" = "mouse.entered" ]; then
+  sketchybar --set "$NAME" background.color=0x990c0c0c
+elif [ "$1" = "mouse.exited" ]; then
+  sketchybar --set "$NAME" background.color=0x660c0c0c
+else
+  sketchybar --set "$NAME" label="$(date '+%d/%m %H:%M')"
+fi

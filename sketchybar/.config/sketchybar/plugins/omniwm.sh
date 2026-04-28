@@ -7,7 +7,7 @@ WORKSPACE_UUID="${NAME#space.}"
 FOCUSED=$(/Applications/OmniWM.app/Contents/MacOS/omniwmctl query active-workspace --format json | /usr/bin/jq -r '.result.payload.workspace.id' 2>/dev/null)
 
 if [ "$WORKSPACE_UUID" = "$FOCUSED" ]; then
-    sketchybar --set $NAME label.color=0xffe0def4
+    sketchybar --set $NAME icon.color=0xff0c0c0c background.color=0xffc4a7e7
 else
-    sketchybar --set $NAME label.color=0xff6e6a86
+    sketchybar --set $NAME icon.color=0xff908caa background.color=0x660c0c0c
 fi
