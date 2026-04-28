@@ -2,6 +2,8 @@
 
 My macOS dotfiles, managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
+<img width="1728" height="1117" alt="image" src="https://github.com/user-attachments/assets/c44a3f6c-dbf9-4edf-8d40-d7b568ccc803" />
+
 This setup is built around a few core ideas:
 
 - `omniwm` for a Hyprland-style tiling workflow on macOS
