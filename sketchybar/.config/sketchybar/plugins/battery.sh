@@ -2,7 +2,7 @@
 
 # Check if battery exists - pmset returns different output on Macs vs PCs
 BATTERY_INFO="$(pmset -g batt 2>/dev/null)"
-PERCENTAGE="$(echo "$BATTERY_INFO" | grep -Eo "\d+%" | cut -d% -f1)"
+PERCENTAGE="$(echo "$BATTERY_INFO" | grep -Eo "[0-9]+%" | cut -d% -f1)"
 
 # If no percentage found, there's no battery
 if [ -z "$PERCENTAGE" ]; then
@@ -24,7 +24,7 @@ case "${PERCENTAGE}" in
   *) ICON="󰂎"
 esac
 
-if [[ "$CHARGING" != "" ]]; then
+if [ -n "$CHARGING" ]; then
   ICON="󰚥"
 fi
 

@@ -32,3 +32,7 @@ echo 'sessionKey=sk-ant-...; lastActiveOrg=...' > ~/.config/sketchybar/claude_co
 ```
 
 > This file is gitignored — never commit your cookie.
+
+## Sketchybar Codex Usage Widget
+
+The sketchybar config also includes a Codex usage widget. It reads the local Codex auth file at `~/.codex/auth.json`, uses the embedded access token to query the Codex usage endpoint, and shows remaining usage plus reset countdown.

@@ -8,7 +8,7 @@
     <array>
         <string>/bin/bash</string>
         <string>-c</string>
-        <string>~/.config/sketchybar/plugins/omniwm-watch.sh</string>
+        <string>/Users/samuelnatale/.config/sketchybar/plugins/omniwm-watch.sh</string>
     </array>
     <key>RunAtLoad</key>
     <true/>

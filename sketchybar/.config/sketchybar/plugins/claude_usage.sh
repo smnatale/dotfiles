@@ -30,7 +30,7 @@ fi
 
 # Fetch fresh data if no cache hit
 if [ -z "$SESSION" ]; then
-    RESPONSE=$("$PLUGIN_DIR/claude_fetch" 2>/dev/null)
+    RESPONSE=$("$PLUGIN_DIR/claude_fetch.lua" 2>/dev/null)
 
     if echo "$RESPONSE" | jq -e '.error' > /dev/null 2>&1; then
         sketchybar --set "$NAME" label="err"
