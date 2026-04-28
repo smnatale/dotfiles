@@ -1,3 +1,5 @@
 claude_cookie
 sketchybar/.config/sketchybar/plugins/claude_fetch
 scripts/.local/bin/claude*
+omniwm/.config/omniwm/*.json
+omniwm/.config/omniwm/runtime-state.json
