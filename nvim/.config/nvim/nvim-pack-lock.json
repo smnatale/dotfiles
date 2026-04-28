@@ -123,6 +123,10 @@
     "vim-fugitive": {
       "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",
       "src": "https://github.com/tpope/vim-fugitive"
+    },
+    "zdiff.nvim": {
+      "rev": "3af2b8ad102e6905b5b38c60115a66696b2ffda4",
+      "src": "https://github.com/martindur/zdiff.nvim"
     }
   }
 }
