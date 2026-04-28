@@ -15,4 +15,4 @@ cursor-style-blink = false
 shell-integration-features = no-cursor
 confirm-close-surface = false
 
-background-opacity = 0.90
+background-opacity = 0.95

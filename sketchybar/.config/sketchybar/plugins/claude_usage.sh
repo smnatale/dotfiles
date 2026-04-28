@@ -33,15 +33,20 @@ if [ -z "$SESSION" ]; then
     RESPONSE=$("$PLUGIN_DIR/claude_fetch.lua" 2>/dev/null)
 
     if echo "$RESPONSE" | jq -e '.error' > /dev/null 2>&1; then
-        sketchybar --set "$NAME" label="err"
-        exit 1
+        if [ -f "$CACHE_FILE" ]; then
+            SESSION=$(jq -r '.session // "?"' "$CACHE_FILE")
+            WEEKLY=$(jq -r '.weekly // "?"' "$CACHE_FILE")
+        else
+            sketchybar --set "$NAME" label="err"
+            exit 1
+        fi
+    else
+        SESSION=$(echo "$RESPONSE" | jq -r '.session // 0')
+        WEEKLY=$(echo "$RESPONSE" | jq -r '.weekly // 0')
+        SESSION_RESET=$(echo "$RESPONSE" | jq -r '.session_reset // ""')
+        WEEKLY_RESET=$(echo "$RESPONSE" | jq -r '.weekly_reset // ""')
+        echo "$RESPONSE" > "$CACHE_FILE"
     fi
-
-    SESSION=$(echo "$RESPONSE" | jq -r '.session // 0')
-    WEEKLY=$(echo "$RESPONSE" | jq -r '.weekly // 0')
-    SESSION_RESET=$(echo "$RESPONSE" | jq -r '.session_reset // ""')
-    WEEKLY_RESET=$(echo "$RESPONSE" | jq -r '.weekly_reset // ""')
-    echo "$RESPONSE" > "$CACHE_FILE"
 fi
 
 # Read reset times from cache if not set
