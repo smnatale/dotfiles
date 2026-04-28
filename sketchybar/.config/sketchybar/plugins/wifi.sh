@@ -9,10 +9,11 @@ case "$SENDER" in
     ;;
   *)
     if ifconfig en1 2>/dev/null | grep -q "inet "; then
-      SSID=$(networksetup -getairportnetwork en1 2>/dev/null | grep -v "not associated" | cut -d: -f2 | xargs)
+      # Try to get SSID using system_profiler (more reliable)
+      SSID=$(system_profiler SPAirPortDataType 2>/dev/null | awk '/Current Network Information:/ {getline; print $0; exit}' | sed 's/://g' | xargs)
       if [ -n "$SSID" ]; then
         ICON="󰤨"
-        LABEL=""
+        LABEL="wifi"
       else
         ICON="󰤨"
         LABEL="wifi"

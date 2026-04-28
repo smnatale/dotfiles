@@ -1,20 +1,23 @@
 #!/bin/sh
 
-# Get network details
-SSID=$(networksetup -getairportnetwork en1 2>/dev/null | grep -v "not associated" | grep -v "not a Wi-Fi" | cut -d: -f2 | xargs)
-if [ -z "$SSID" ] || [ "$SSID" = "You are not associated with an AirPort network." ]; then
+# Get network details using system_profiler (more reliable than networksetup/airport)
+WIFI_INFO=$(system_profiler SPAirPortDataType 2>/dev/null)
+
+# Get SSID (get first occurrence only)
+SSID=$(echo "$WIFI_INFO" | awk '/Current Network Information:/ {getline; print $0; exit}' | sed 's/://g' | xargs)
+if [ -z "$SSID" ]; then
   SSID="Not connected"
 fi
 
+# Get IP
 IP=$(ifconfig en1 2>/dev/null | grep "inet " | awk '{print $2}')
 if [ -z "$IP" ]; then
   IP="N/A"
 fi
 
-SIGNAL=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I 2>/dev/null | grep "agrCtlRSSI" | awk '{print $2}')
-if [ -n "$SIGNAL" ]; then
-  SIGNAL="${SIGNAL} dBm"
-else
+# Get Signal strength from system_profiler
+SIGNAL=$(echo "$WIFI_INFO" | grep "Signal / Noise" | head -1 | awk '{print $3 " " $4}')
+if [ -z "$SIGNAL" ]; then
   SIGNAL="N/A"
 fi
 
