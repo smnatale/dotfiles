@@ -12,6 +12,8 @@ brew bundle
 stow nvim zsh ghostty sketchybar # etc.
 ```
 
+The SketchyBar Claude and Codex widgets use `font-sketchybar-app-font` for their app icons, so make sure `brew bundle` has installed that font cask before starting the bar.
+
 ## Sketchybar Claude Usage Widget
 
 The sketchybar config includes a widget that displays your Claude.ai session (5h) and weekly (7d) usage in the status bar. It requires a couple of extra steps:

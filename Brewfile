@@ -119,6 +119,8 @@ cask "android-studio"
 cask "brave-browser"
 # Terminal-based AI coding assistant
 cask "claude-code"
+# SketchyBar app icon font used by Claude and Codex widgets
+cask "font-sketchybar-app-font"
 # Universal database tool and SQL client
 cask "dbeaver-community"
 # App to build and share containerised applications and microservices

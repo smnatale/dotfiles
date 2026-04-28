@@ -91,9 +91,9 @@ local claude_usage = sbar.add("item", "claude_usage", {
   position = "right",
   update_freq = 60,
   icon = {
-    string = "󰊚",
-    color = colors.love,
-    font = "CaskaydiaCove Nerd Font:Bold:16.0",
+    string = ":claude:",
+    color = colors.claude,
+    font = "sketchybar-app-font:Regular:16.0",
   },
   label = { color = colors.text },
   script = plugin_dir .. "/claude_usage.sh",
@@ -122,9 +122,9 @@ local codex_usage = sbar.add("item", "codex_usage", {
   position = "right",
   update_freq = 60,
   icon = {
-    string = "󰚩",
-    color = colors.accent,
-    font = "CaskaydiaCove Nerd Font:Bold:16.0",
+    string = ":codex:",
+    color = colors.text,
+    font = "sketchybar-app-font:Regular:16.0",
   },
   label = { color = colors.text },
   script = plugin_dir .. "/codex_usage.sh",
@@ -175,12 +175,32 @@ sbar.add("item", "claude_usage.weekly", {
   width = "dynamic",
 })
 
-sbar.add("bracket", { "clock", "battery", "cpu", "claude_usage", "codex_usage" }, {
+sbar.add("bracket", { "clock", "battery", "cpu" }, {
   background = {
     color = colors.inactive,
     corner_radius = 8,
     height = 26,
     padding_left = 8,
     padding_right = 8,
+  },
+})
+
+sbar.add("item", "pill_gap", {
+  position = "right",
+  width = 10,
+  background = { drawing = false },
+  icon = { drawing = false },
+  label = { drawing = false },
+})
+
+sbar.exec("sketchybar --move pill_gap before claude_usage")
+
+sbar.add("bracket", { "claude_usage", "codex_usage" }, {
+  background = {
+    color = colors.inactive,
+    corner_radius = 8,
+    height = 26,
+    padding_left = 4,
+    padding_right = 4,
   },
 })
