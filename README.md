@@ -106,10 +106,13 @@ Useful bindings:
 
 `zsh` is set up for a practical shell-first workflow:
 
-- `zinit` for plugin management
-- lazy-loaded completion and `nvm`
+- standard Zsh layering with `.zshenv`, `.zprofile`, and `.zshrc`
+- Oh My Zsh as the interactive shell baseline
+- eager completion initialization, plus lazy-loaded `nvm`
+- Atuin for searchable shell history
+- Homebrew-managed `zsh-autosuggestions`, `zsh-syntax-highlighting`, and `zsh-system-clipboard`
 - aliases for `nvim`, `tmux-sessionizer`, and `lazygit`
-- `oh-my-posh` prompt styling
+- an OMZ-based prompt with git branch and status counts
 - paths for Go, Android, Bun, Node, PostgreSQL, and local binaries
 
 ### Neovim

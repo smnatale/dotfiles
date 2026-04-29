@@ -4,6 +4,8 @@ tap "mobile-dev-inc/tap"
 tap "nikitabobko/tap"
 tap "sst/tap"
 tap "txn2/tap"
+# Magical shell history
+brew "atuin"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Clone of cat(1) with syntax highlighting and Git integration
@@ -26,6 +28,12 @@ brew "fd"
 brew "fzf"
 # Prompt theming engine for any shell
 brew "jandedobbeleer/oh-my-posh/oh-my-posh"
+# Fish-like fast/unobtrusive autosuggestions for Zsh
+brew "zsh-autosuggestions"
+# Fish shell-like syntax highlighting for Zsh
+brew "zsh-syntax-highlighting"
+# System clipboard key bindings for Zsh Line Editor with vi mode
+brew "zsh-system-clipboard"
 # GitHub command-line tool
 brew "gh"
 # Audit git repos for secrets
