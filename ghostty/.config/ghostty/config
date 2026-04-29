@@ -1,5 +1,6 @@
 font-family = "CaskaydiaCove Nerd Font"
 font-size = 20
+font-feature = -liga,-calt,-dlig
 background = 090B10
 theme = Rose Pine
 window-theme = ghostty
@@ -15,4 +16,7 @@ cursor-style-blink = false
 shell-integration-features = no-cursor
 confirm-close-surface = false
 
-background-opacity = 0.95
+background-opacity = 0.90
+background-blur-radius = 25
+auto-update = check
+auto-update-channel = stable

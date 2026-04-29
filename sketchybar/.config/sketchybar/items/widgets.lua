@@ -149,6 +149,19 @@ sbar.add("item", "codex_usage.detail", {
   updates = true,
 })
 
+sbar.add("item", "codex_usage.weekly", {
+  position = "popup.codex_usage",
+  label = {
+    string = "Weekly: 0%",
+    color = colors.text,
+    font = "CaskaydiaCove Nerd Font:Regular:11.0",
+  },
+  padding_left = 8,
+  padding_right = 8,
+  icon = { drawing = false },
+  width = "dynamic",
+})
+
 sbar.add("item", "codex_usage.reset", {
   position = "popup.codex_usage",
   label = {

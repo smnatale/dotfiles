@@ -83,7 +83,9 @@ fi
 echo "$RESPONSE" > "$CACHE_FILE"
 
 USED=$(printf '%s' "$RESPONSE" | jq -r '.rate_limit.primary_window.used_percent // 0')
+WEEKLY=$(printf '%s' "$RESPONSE" | jq -r '.rate_limit.secondary_window.used_percent // 0')
 RESET_AFTER=$(printf '%s' "$RESPONSE" | jq -r '.rate_limit.primary_window.reset_after_seconds // 0')
+WEEKLY_RESET_AFTER=$(printf '%s' "$RESPONSE" | jq -r '.rate_limit.secondary_window.reset_after_seconds // 0')
 
 USED_DISPLAY=$(( USED ))
 if [ "$USED_DISPLAY" -lt 0 ]; then
@@ -92,16 +94,30 @@ elif [ "$USED_DISPLAY" -gt 100 ]; then
   USED_DISPLAY=100
 fi
 
-COUNTDOWN="$(format_duration "$RESET_AFTER")"
-LABEL="${USED_DISPLAY}%"
+WEEKLY_DISPLAY=$(( WEEKLY ))
+if [ "$WEEKLY_DISPLAY" -lt 0 ]; then
+  WEEKLY_DISPLAY=0
+elif [ "$WEEKLY_DISPLAY" -gt 100 ]; then
+  WEEKLY_DISPLAY=100
+fi
+
+COLOR="0xffe0def4"
+MAX=$USED
+RESET_AFTER_TO_USE="$RESET_AFTER"
+if [ "$WEEKLY" -gt "$MAX" ] 2>/dev/null; then
+  MAX=$WEEKLY
+  RESET_AFTER_TO_USE="$WEEKLY_RESET_AFTER"
+fi
+
+COUNTDOWN="$(format_duration "$RESET_AFTER_TO_USE")"
+LABEL="${USED_DISPLAY}%/${WEEKLY_DISPLAY}%"
 if [ -n "$COUNTDOWN" ]; then
   LABEL="${LABEL} ${COUNTDOWN}"
 fi
 
-COLOR="0xffe0def4"
-if [ "$USED" -ge 90 ] 2>/dev/null; then
+if [ "$MAX" -ge 90 ] 2>/dev/null; then
   COLOR="0xffeb6f92"
-elif [ "$USED" -ge 70 ] 2>/dev/null; then
+elif [ "$MAX" -ge 70 ] 2>/dev/null; then
   COLOR="0xfff6c177"
 fi
 

@@ -21,12 +21,14 @@ format_duration() {
 
 if [ ! -f "$CACHE_FILE" ]; then
   sketchybar --set codex_usage.detail label="Used: codex auth" \
+             --set codex_usage.weekly label="Weekly: -" \
              --set codex_usage.reset label="Reset: -"
   exit 0
 fi
 
 EMAIL=$(jq -r '.email // ""' "$CACHE_FILE")
 USED=$(jq -r '.rate_limit.primary_window.used_percent // 0' "$CACHE_FILE")
+WEEKLY=$(jq -r '.rate_limit.secondary_window.used_percent // 0' "$CACHE_FILE")
 RESET_AFTER=$(jq -r '.rate_limit.primary_window.reset_after_seconds // 0' "$CACHE_FILE")
 
 COUNTDOWN="$(format_duration "$RESET_AFTER")"
@@ -38,4 +40,5 @@ else
 fi
 
 sketchybar --set codex_usage.detail label="$DETAIL" \
+           --set codex_usage.weekly label="Weekly: ${WEEKLY}%" \
            --set codex_usage.reset label="Reset: ${COUNTDOWN}"
