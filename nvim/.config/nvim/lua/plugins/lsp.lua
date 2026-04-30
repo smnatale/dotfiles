@@ -12,7 +12,7 @@ require("mason-tool-installer").setup({
 	ensure_installed = {
 		"stylua",
 		"prettierd",
-		"eslint_d",
+		"eslint",
 		"lua_ls",
 		"tailwindcss-language-server",
 		"ts_ls",
