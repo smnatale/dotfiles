@@ -88,8 +88,9 @@ The Codex widget reads `~/.codex/auth.json`, uses the stored access token, and d
 
 `tmux` is configured for a fast, editor-like terminal workflow:
 
-- `F12` is the prefix but I use [Hyperkey](https://hyperkey.app/) to rebind this to my Caps Lock
+- `F12` is the prefix but I use [Hyperkey](https://hyperkey.app/) to rebind this to my Caps Lock, with a top-right indicator while prefix mode is active
 - `Option`-free navigation and split management
+- Vim-style scrollback through tmux copy mode
 - `lazygit` opens in a popup
 - `tmux-sessionizer` jumps between project sessions quickly
 
@@ -101,6 +102,7 @@ Useful bindings:
 - `F12` then `v` for a vertical split
 - `F12` then `g` for `lazygit`
 - `F12` then `f` for the sessionizer popup
+- `F12` then `m` or `[` for copy mode, then `j`/`k`, `/`, `v`, and `y` to move, search, select, and copy to the macOS clipboard
 
 ### zsh
 
