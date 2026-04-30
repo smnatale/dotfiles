@@ -25,10 +25,18 @@ This setup is built around a few core ideas:
 
 ```bash
 brew bundle
+git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 stow omniwm sketchybar tmux zsh ghostty nvim
 ```
 
 If you only want part of the setup, stow the packages you need individually.
+
+To check a machine after setup:
+
+```bash
+brew bundle check
+stow -n -v -t ~ zsh
+```
 
 ## Workflow
 
@@ -56,6 +64,14 @@ It currently surfaces:
 - Codex usage
 
 The bar depends on the `font-sketchybar-app-font` cask for app icons, so make sure `brew bundle` has installed it before starting the bar.
+
+The config is written in Lua and uses [SbarLua](https://github.com/FelixKratz/SbarLua), which must be installed separately so `require("sketchybar")` can load:
+
+```sh
+git clone https://github.com/FelixKratz/SbarLua.git /tmp/SbarLua
+cd /tmp/SbarLua
+make install
+```
 
 Also you need to do 
 ```
@@ -116,6 +132,8 @@ Useful bindings:
 - aliases for `nvim`, `tmux-sessionizer`, and `lazygit`
 - an OMZ-based prompt with git branch and status counts
 - paths for Go, Android, Bun, Node, PostgreSQL, and local binaries
+
+Make sure `~/.oh-my-zsh` exists before expecting the full interactive shell to work. The config sources Oh My Zsh from there for the `git` and `nvm` plugins, and the prompt expects OMZ's `git_current_branch` helper. The Homebrew-managed zsh integrations come from the repo `Brewfile`, so `brew bundle check` should be clean before debugging shell behavior.
 
 ### Neovim
 

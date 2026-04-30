@@ -23,8 +23,10 @@ CACHE_MAX_AGE=60 # 1 minute
 if [ -f "$CACHE_FILE" ]; then
     cache_age=$(( $(date +%s) - $(stat -f %m "$CACHE_FILE") ))
     if [ "$cache_age" -lt "$CACHE_MAX_AGE" ]; then
-        SESSION=$(jq -r '.session // "?"' "$CACHE_FILE")
-        WEEKLY=$(jq -r '.weekly // "?"' "$CACHE_FILE")
+        if jq -e '.session, .weekly' "$CACHE_FILE" >/dev/null 2>&1; then
+            SESSION=$(jq -r '.session // "?"' "$CACHE_FILE")
+            WEEKLY=$(jq -r '.weekly // "?"' "$CACHE_FILE")
+        fi
     fi
 fi
 
@@ -33,11 +35,11 @@ if [ -z "$SESSION" ]; then
     RESPONSE=$("$PLUGIN_DIR/claude_fetch.lua" 2>/dev/null)
 
     if echo "$RESPONSE" | jq -e '.error' > /dev/null 2>&1; then
-        if [ -f "$CACHE_FILE" ]; then
+        if [ -f "$CACHE_FILE" ] && jq -e '.session, .weekly' "$CACHE_FILE" >/dev/null 2>&1; then
             SESSION=$(jq -r '.session // "?"' "$CACHE_FILE")
             WEEKLY=$(jq -r '.weekly // "?"' "$CACHE_FILE")
         else
-            sketchybar --set "$NAME" label="err"
+            sketchybar --set "$NAME" drawing=off popup.drawing=off
             exit 1
         fi
     else
@@ -50,7 +52,7 @@ if [ -z "$SESSION" ]; then
 fi
 
 # Read reset times from cache if not set
-if [ -z "$SESSION_RESET" ] && [ -f "$CACHE_FILE" ]; then
+if [ -z "$SESSION_RESET" ] && [ -f "$CACHE_FILE" ] && jq -e . "$CACHE_FILE" >/dev/null 2>&1; then
     SESSION_RESET=$(jq -r '.session_reset // ""' "$CACHE_FILE")
     WEEKLY_RESET=$(jq -r '.weekly_reset // ""' "$CACHE_FILE")
 fi
@@ -88,4 +90,4 @@ if [ -n "$RESET_ISO" ]; then
     fi
 fi
 
-sketchybar --set "$NAME" label="$LABEL" label.color="$COLOR"
+sketchybar --set "$NAME" drawing=on label="$LABEL" label.color="$COLOR"

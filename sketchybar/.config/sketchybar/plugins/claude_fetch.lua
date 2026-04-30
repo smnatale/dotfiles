@@ -44,7 +44,7 @@ if access_token == "" then
 end
 
 local usage_cmd = table.concat({
-  curl_bin .. " -fsS",
+  curl_bin .. " -sS -w '\\n%{http_code}'",
   "-H " .. shell_quote("Authorization: Bearer " .. access_token),
   "-H " .. shell_quote("anthropic-beta: oauth-2025-04-20"),
   "-H " .. shell_quote("Accept: application/json"),
@@ -56,6 +56,13 @@ if raw_response == "" then
   error_json("http error")
   os.exit(1)
 end
+
+local body, status = raw_response:match("^(.*)\n([0-9][0-9][0-9])$")
+if status and status ~= "200" then
+  error_json("http " .. status)
+  os.exit(1)
+end
+raw_response = body or raw_response
 
 local five_hour = raw_response:match([["five_hour"%s*:%s*(%b{})]])
 local seven_day = raw_response:match([["seven_day"%s*:%s*(%b{})]])

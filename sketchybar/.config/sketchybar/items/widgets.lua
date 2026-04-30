@@ -3,6 +3,17 @@ local colors = require("colors")
 
 local plugin_dir = os.getenv("CONFIG_DIR") .. "/plugins"
 
+local function has_battery()
+  local handle = io.popen("pmset -g batt 2>/dev/null")
+  if not handle then
+    return false
+  end
+
+  local output = handle:read("*a") or ""
+  handle:close()
+  return output:match("%d+%%") ~= nil
+end
+
 sbar.add("item", "spacer", {
   position = "center",
   background = { drawing = false },
@@ -17,16 +28,24 @@ local clock = sbar.add("item", "clock", {
   click_script = "open /System/Library/PreferencePanes/DateAndTime.prefPane",
   background = { drawing = false },
 })
-clock:subscribe({ "mouse.entered", "mouse.exited" })
 
-local battery = sbar.add("item", "battery", {
-  position = "right",
-  update_freq = 120,
-  icon = { string = "󰁺", color = colors.accent },
-  script = plugin_dir .. "/battery.sh",
-  background = { drawing = false },
-})
-battery:subscribe({ "system_woke", "power_source_change" })
+local status_items = { "clock" }
+
+if has_battery() then
+  local battery = sbar.add("item", "battery", {
+    position = "right",
+    update_freq = 120,
+    icon = { string = "󰁺", color = colors.accent },
+    script = plugin_dir .. "/battery.sh",
+    background = { drawing = false },
+  })
+  local update_battery = function()
+    sbar.exec("NAME=battery " .. plugin_dir .. "/battery.sh")
+  end
+  battery:subscribe("system_woke", update_battery)
+  battery:subscribe("power_source_change", update_battery)
+  table.insert(status_items, "battery")
+end
 
 local cpu = sbar.add("graph", "cpu", 52, {
   position = "right",
@@ -86,6 +105,7 @@ end)
 cpu:subscribe("mouse.clicked", function()
   sbar.exec("open -a 'Activity Monitor'")
 end)
+table.insert(status_items, "cpu")
 
 local claude_usage = sbar.add("item", "claude_usage", {
   position = "right",
@@ -96,12 +116,23 @@ local claude_usage = sbar.add("item", "claude_usage", {
     font = "sketchybar-app-font:Regular:16.0",
   },
   label = { color = colors.text },
-  script = plugin_dir .. "/claude_usage.sh",
   click_script = "open https://claude.ai/usage",
   popup = { height = 10 },
+  drawing = false,
   background = { drawing = false },
 })
-claude_usage:subscribe({ "mouse.entered", "mouse.exited" })
+local update_claude_usage = function()
+  sbar.exec("NAME=claude_usage " .. plugin_dir .. "/claude_usage.sh")
+end
+claude_usage:subscribe("routine", update_claude_usage)
+claude_usage:subscribe("forced", update_claude_usage)
+claude_usage:subscribe("mouse.entered", function()
+  claude_usage:set({ popup = { drawing = true } })
+  sbar.exec(plugin_dir .. "/claude_detail.sh")
+end)
+claude_usage:subscribe("mouse.exited", function()
+  claude_usage:set({ popup = { drawing = false } })
+end)
 
 sbar.add("item", "claude_usage.detail", {
   position = "popup.claude_usage",
@@ -127,12 +158,23 @@ local codex_usage = sbar.add("item", "codex_usage", {
     font = "sketchybar-app-font:Regular:16.0",
   },
   label = { color = colors.text },
-  script = plugin_dir .. "/codex_usage.sh",
   click_script = "open https://chatgpt.com/codex/cloud/settings/analytics#usage",
   popup = { height = 10 },
+  drawing = false,
   background = { drawing = false },
 })
-codex_usage:subscribe({ "mouse.entered", "mouse.exited" })
+local update_codex_usage = function()
+  sbar.exec("NAME=codex_usage " .. plugin_dir .. "/codex_usage.sh")
+end
+codex_usage:subscribe("routine", update_codex_usage)
+codex_usage:subscribe("forced", update_codex_usage)
+codex_usage:subscribe("mouse.entered", function()
+  codex_usage:set({ popup = { drawing = true } })
+  sbar.exec(plugin_dir .. "/codex_detail.sh")
+end)
+codex_usage:subscribe("mouse.exited", function()
+  codex_usage:set({ popup = { drawing = false } })
+end)
 
 sbar.add("item", "codex_usage.detail", {
   position = "popup.codex_usage",
@@ -188,7 +230,7 @@ sbar.add("item", "claude_usage.weekly", {
   width = "dynamic",
 })
 
-sbar.add("bracket", { "clock", "battery", "cpu" }, {
+sbar.add("bracket", status_items, {
   background = {
     color = colors.inactive,
     corner_radius = 8,

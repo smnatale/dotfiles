@@ -3,6 +3,7 @@
 CACHE_FILE="/tmp/sketchybar_codex_usage.json"
 CACHE_MAX_AGE=60
 ENDPOINT="https://chatgpt.com/backend-api/wham/usage"
+HOME="${HOME:-/Users/$(id -un)}"
 AUTH_FILE="$HOME/.codex/auth.json"
 
 format_duration() {
@@ -71,12 +72,12 @@ if [ -z "$RESPONSE" ]; then
 fi
 
 if [ -z "$RESPONSE" ]; then
-  sketchybar --set "$NAME" label="codex auth" label.color="0xffeb6f92"
+  sketchybar --set "$NAME" drawing=off popup.drawing=off
   exit 1
 fi
 
 if ! printf '%s' "$RESPONSE" | jq -e '.rate_limit.primary_window.used_percent' >/dev/null 2>&1; then
-  sketchybar --set "$NAME" label="codex auth" label.color="0xffeb6f92"
+  sketchybar --set "$NAME" drawing=off popup.drawing=off
   exit 1
 fi
 
@@ -125,4 +126,4 @@ if [ "${FETCH_FAILED:-0}" -ne 0 ] 2>/dev/null && [ -f "$CACHE_FILE" ]; then
   LABEL="${LABEL} stale"
 fi
 
-sketchybar --set "$NAME" label="$LABEL" label.color="$COLOR"
+sketchybar --set "$NAME" drawing=on label="$LABEL" label.color="$COLOR"
