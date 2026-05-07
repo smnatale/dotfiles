@@ -416,50 +416,5 @@
         },
       },
     },
-    "Rosé Pine": {
-      "editor.background": "#090B10FF",
-      "editor.gutter.background": "#090B10FF",
-      "editor.subheader.background": "#070708FF",
-      "editor.highlighted_line.background": "#070708FF",
-      "ghost_element.background": "#090B10FF",
-      "surface.background": "#070708FF",
-      "elevated_surface.background": "#070708FF",
-      "panel.background": "#090B10FF",
-      "background": "#090B10FF",
-      "status_bar.background": "#090B10FF",
-      "title_bar.background": "#090B10FF",
-      "toolbar.background": "#090B10FF",
-      "tab_bar.background": "#070708FF",
-      "tab.inactive_background": "#070708FF",
-      "tab.active_background": "#090B10FF",
-      "element.background": "#090B10FF",
-      "element.disabled": "#070708FF",
-      "terminal.background": "#090B10FF",
-      "syntax": {
-        "attribute": {
-          "color": "#C4A7E7FF",
-        },
-        "boolean": {
-          "color": "#f6c177",
-        },
-        "constant": {
-          "color": "#f6c177",
-        },
-        "emphasis.strong": {
-          "color": "#9CCFD8FF",
-        },
-        "number": {
-          "color": "#f6c177",
-        },
-        "property": {
-          "color": "#9ccfd8",
-        },
-        "tag": {
-          "color": "#9CCFD8FF",
-        },
-      },
-      "panel.overlay_background": "#070708FF",
-      "panel.overlay_hover": "#090B10FF",
-    },
   },
 }
