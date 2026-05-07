@@ -32,6 +32,7 @@ local bottom_pane_config = {
 	},
 	border = true,
 	sorting_strategy = "descending",
+	path_display = { "truncate" },
 	hidden = true,
 }
 

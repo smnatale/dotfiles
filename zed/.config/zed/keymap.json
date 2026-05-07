@@ -1,0 +1,77 @@
+[
+  {
+    "context": "Workspace || Editor",
+    "bindings": {
+      "f12": "terminal_panel::Toggle",
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-e": "project_panel::ToggleFocus",
+      "ctrl-g": "git_panel::ToggleFocus",
+      "ctrl-f": "file_finder::Toggle",
+      "ctrl-shift-f": "workspace::NewSearch",
+      "ctrl-q": "pane::CloseActiveItem",
+      "ctrl-a": "agent::ToggleFocus",
+    },
+  },
+  {
+    "context": "Picker",
+    "bindings": {
+      "J": "menu::SelectNext",
+      "K": "menu::SelectPrevious",
+    },
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-n": "workspace::NewTerminal",
+      "ctrl-q": "pane::CloseActiveItem",
+      "ctrl-l": "pane::ActivateNextItem",
+      "ctrl-h": "pane::ActivatePreviousItem",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "U": "vim::Redo",
+      "space w": "workspace::Save",
+      "space q": "pane::CloseActiveItem",
+      "space h": "editor::Hover",
+      "space g d": "editor::GoToDefinition",
+      "space g r": "editor::GoToImplementation",
+      "space c a": "editor::ToggleCodeActions",
+      "space r n": "editor::Rename",
+      "space [": "editor::Fold",
+      "space ]": "editor::UnfoldLines",
+      "space s f": "file_finder::Toggle",
+      "space s g": "workspace::NewSearch",
+      "space s b": "tab_switcher::Toggle",
+      "space d": "diagnostics::Deploy",
+      "space e": "project_panel::ToggleFocus",
+      "space v": "pane::SplitRight",
+      "L": "pane::ActivateNextItem",
+      "H": "pane::ActivatePreviousItem",
+      "J": [
+        "action::Sequence",
+        ["vim::ScrollDown", "editor::ScrollCursorCenter"],
+      ],
+      "K": [
+        "action::Sequence",
+        ["vim::ScrollUp", "editor::ScrollCursorCenter"],
+      ],
+    },
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "a": "project_panel::NewFile",
+      "shift-a": "project_panel::NewDirectory",
+      "r": "project_panel::Rename",
+      "d": "project_panel::Delete",
+      "y": "project_panel::Copy",
+      "p": "project_panel::Paste",
+      "l": "project_panel::Open",
+    },
+  },
+]
