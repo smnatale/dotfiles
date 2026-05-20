@@ -3,7 +3,6 @@
 
 export PATH="$HOME/.local/bin:$PATH"
 
-export NVM_DIR="$HOME/.nvm"
 export BUN_INSTALL="$HOME/.bun"
 export GOPATH="$HOME/go"
 export NODE_PATH="/usr/local/lib/node_modules"

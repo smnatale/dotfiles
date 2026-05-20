@@ -1,3 +1,5 @@
+setopt prompt_subst
+
 git_prompt_summary() {
 	command git rev-parse --is-inside-work-tree >/dev/null 2>&1 || return
 
@@ -5,7 +7,7 @@ git_prompt_summary() {
 	local -i untracked=0 staged=0 modified=0 deleted=0 renamed=0 unmerged=0 ahead=0 behind=0
 	local -a parts
 
-	branch="$(git_current_branch 2>/dev/null)"
+	branch="$(command git symbolic-ref --quiet --short HEAD 2>/dev/null || command git rev-parse --short HEAD 2>/dev/null)"
 	git_status_text="$(command git status --porcelain=v1 --branch 2>/dev/null)" || return
 
 	while IFS= read -r line; do
