@@ -6,7 +6,6 @@ My macOS dotfiles, managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
 This setup is built around a few core ideas:
 
-- `omniwm` for a Hyprland-style tiling workflow on macOS
 - `sketchybar` to replace the native menu bar with the info I actually want
 - `kitty` sessions plus `kitty-sessionizer` for fast context switching between projects
 - `claude` global settings for shared hooks, permissions, and formatting across all repos
@@ -15,11 +14,9 @@ This setup is built around a few core ideas:
 
 ## What's In Here
 
-- `omniwm/` - window manager settings, keybinds, layouts, and app rules
 - `sketchybar/` - status bar config, widgets, plugins, and launch agent helpers
 - `kitty/` - terminal config plus the `kitty-sessionizer` helper
 - `zsh/` - shell config, prompt, aliases, and lazy-loading setup
-- `ghostty/` - terminal config
 - `nvim/` - Neovim config, LSP, editing workflow, and AI integration
 - `claude/` - Claude Code global settings, PostToolUse formatting hooks, and permissions
 
@@ -28,7 +25,7 @@ This setup is built around a few core ideas:
 ```bash
 brew bundle
 git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
-stow omniwm sketchybar kitty zsh ghostty nvim claude
+stow sketchybar kitty zsh nvim claude
 ```
 
 If you only want part of the setup, stow the packages you need individually. Note: run `mkdir -p ~/.claude` before stowing `claude` on a fresh machine to prevent stow from folding the directory.
@@ -41,18 +38,6 @@ stow -n -v -t ~ zsh
 ```
 
 ## Workflow
-
-### OmniWM
-
-`omniwm` is the window manager layer for the desktop. The config leans into:
-
-- tiled layouts by default
-- strong window borders and visible gaps
-- workspace switching with `Option+1` through `Option+4`
-- `Option+Shift+<number>` for moving windows between workspaces
-- a quake-style terminal for quick access
-
-The config lives in [`omniwm/.config/omniwm/settings.toml`](omniwm/.config/omniwm/settings.toml).
 
 ### SketchyBar
 
