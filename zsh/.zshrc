@@ -2,7 +2,6 @@ typeset -g ZSH_CONFIG_DIR="${ZDOTDIR:-$HOME}/.config/zsh"
 
 source "${ZSH_CONFIG_DIR}/helpers.zsh"
 
-source_if_exists "${ZSH_CONFIG_DIR}/oh-my-zsh.zsh"
 source_if_exists "${ZSH_CONFIG_DIR}/completion.zsh"
 source_if_exists "${ZSH_CONFIG_DIR}/plugins.zsh"
 

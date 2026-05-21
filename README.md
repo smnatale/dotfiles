@@ -25,7 +25,7 @@ This setup is built around a few core ideas:
 ```bash
 brew bundle
 git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
-stow sketchybar kitty zsh nvim claude
+stow sketchybar kitty zsh nvim claude -t ~/
 ```
 
 If you only want part of the setup, stow the packages you need individually. Note: run `mkdir -p ~/.claude` before stowing `claude` on a fresh machine to prevent stow from folding the directory.
@@ -58,11 +58,6 @@ The config is written in Lua and uses [SbarLua](https://github.com/FelixKratz/Sb
 git clone https://github.com/FelixKratz/SbarLua.git /tmp/SbarLua
 cd /tmp/SbarLua
 make install
-```
-
-Also you need to do 
-```
-chmod +x ~/Library/LaunchAgents/com.omniwm.sketchybar-watcher.plist
 ```
 
 #### Claude usage widget
@@ -101,7 +96,7 @@ The sessionizer helper lives in [`kitty/.local/bin/kitty-sessionizer`](kitty/.lo
 Useful bindings:
 
 - `F12` then `f` for the workspace switcher
-- `F12` then `n` for a new tab in the current workspace
+- `F12` then `c` for a new tab in the current workspace
 - `F12` then `d` to close the current tab
 
 ### zsh
@@ -110,14 +105,14 @@ Useful bindings:
 
 - standard Zsh layering with `.zshenv`, `.zprofile`, and `.zshrc`
 - Oh My Zsh as the interactive shell baseline
-- eager completion initialization, plus lazy-loaded `nvm`
+- eager completion initialization, plus `fnm` for Node version management
 - Atuin for searchable shell history
 - Homebrew-managed `zsh-autosuggestions`, `zsh-syntax-highlighting`, and `zsh-system-clipboard`
 - aliases for `nvim`, `kitty-sessionizer`, and `lazygit`
 - an OMZ-based prompt with git branch and status counts
 - paths for Go, Android, Bun, Node, PostgreSQL, and local binaries
 
-Make sure `~/.oh-my-zsh` exists before expecting the full interactive shell to work. The config sources Oh My Zsh from there for the `git` and `nvm` plugins, and the prompt expects OMZ's `git_current_branch` helper. The Homebrew-managed zsh integrations come from the repo `Brewfile`, so `brew bundle check` should be clean before debugging shell behavior.
+Make sure `~/.oh-my-zsh` exists before expecting the full interactive shell to work. The prompt expects OMZ's `git_current_branch` helper. The Homebrew-managed zsh integrations come from the repo `Brewfile`, so `brew bundle check` should be clean before debugging shell behavior.
 
 ### Claude Code
 
@@ -143,4 +138,3 @@ Project-specific settings (MCP servers, specialized build commands) still live i
 
 - This repo is organized as stow packages, so each top-level directory maps to a package.
 - Some configs expect local secrets or machine-specific files, such as the Claude cookie and Codex auth state.
-- The SketchyBar OmniWM watcher is wired through a LaunchAgent at [`sketchybar/Library/LaunchAgents/com.omniwm.sketchybar-watcher.plist`](sketchybar/Library/LaunchAgents/com.omniwm.sketchybar-watcher.plist).
