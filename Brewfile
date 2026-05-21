@@ -26,6 +26,8 @@ brew "fastlane"
 brew "fd"
 # Command-line fuzzy finder written in Go
 brew "fzf"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
 # Prompt theming engine for any shell
 brew "jandedobbeleer/oh-my-posh/oh-my-posh"
 # Fish-like fast/unobtrusive autosuggestions for Zsh
@@ -86,8 +88,6 @@ brew "ripgrep"
 brew "stow"
 # Parser generator tool
 brew "tree-sitter-cli"
-# Terminal multiplexer
-brew "tmux"
 # Language for application scale JavaScript development
 brew "typescript"
 # Language Server Protocol implementation for TypeScript wrapping tsserver
@@ -125,6 +125,8 @@ cask "firefox"
 cask "font-caskaydia-cove-nerd-font"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
+# Fast, featureful, GPU-based terminal emulator
+cask "kitty"
 # Web browser
 cask "google-chrome"
 # Interactive tool for analyzing MongoDB data

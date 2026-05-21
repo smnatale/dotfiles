@@ -8,15 +8,15 @@ This setup is built around a few core ideas:
 
 - `omniwm` for a Hyprland-style tiling workflow on macOS
 - `sketchybar` to replace the native menu bar with the info I actually want
-- `tmux` plus `tmux-sessionizer` for fast context switching between projects
+- `kitty` sessions plus `kitty-sessionizer` for fast context switching between projects
 - `codex` and `claude` surfaced in the bar so usage is visible at a glance
-- `ghostty`, `zsh`, and `nvim` as the terminal-first daily drivers
+- `kitty`, `zsh`, and `nvim` as the terminal-first daily drivers
 
 ## What's In Here
 
 - `omniwm/` - window manager settings, keybinds, layouts, and app rules
 - `sketchybar/` - status bar config, widgets, plugins, and launch agent helpers
-- `tmux/` - tmux config plus the `tmux-sessionizer` helper
+- `kitty/` - terminal config plus the `kitty-sessionizer` helper
 - `zsh/` - shell config, prompt, aliases, and lazy-loading setup
 - `ghostty/` - terminal config
 - `nvim/` - Neovim config, LSP, editing workflow, and AI integration
@@ -26,7 +26,7 @@ This setup is built around a few core ideas:
 ```bash
 brew bundle
 git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
-stow omniwm sketchybar tmux zsh ghostty nvim
+stow omniwm sketchybar kitty zsh ghostty nvim
 ```
 
 If you only want part of the setup, stow the packages you need individually.
@@ -100,25 +100,22 @@ The widget looks for that exact item name, so keep it consistent.
 
 The Codex widget reads `~/.codex/auth.json`, uses the stored access token, and displays usage percentage plus reset timing in the bar.
 
-### tmux
+### Kitty
 
-`tmux` is configured for a fast, editor-like terminal workflow:
+`kitty` is configured for a fast, workspace-oriented terminal workflow:
 
 - `F12` is the prefix but I use [Hyperkey](https://hyperkey.app/) to rebind this to my Caps Lock, with a top-right indicator while prefix mode is active
-- `Option`-free navigation and split management
-- Vim-style scrollback through tmux copy mode
-- `lazygit` opens in a popup
-- `tmux-sessionizer` jumps between project sessions quickly
+- session-scoped tabs, so each workspace only shows its own terminals
+- `kitty-sessionizer` jumps between open sessions and project roots with `fzf`
+- new workspaces are generated as cached Kitty session files under `~/.cache/kitty-sessionizer`
 
-The sessionizer helper lives in [`tmux/.local/bin/tmux-sessionizer`](tmux/.local/bin/tmux-sessionizer).
+The sessionizer helper lives in [`kitty/.local/bin/kitty-sessionizer`](kitty/.local/bin/kitty-sessionizer).
 
 Useful bindings:
 
-- `F12` then `s` for a horizontal split
-- `F12` then `v` for a vertical split
-- `F12` then `g` for `lazygit`
-- `F12` then `f` for the sessionizer popup
-- `F12` then `m` or `[` for copy mode, then `j`/`k`, `/`, `v`, and `y` to move, search, select, and copy to the macOS clipboard
+- `F12` then `f` for the workspace switcher
+- `F12` then `n` for a new tab in the current workspace
+- `F12` then `d` to close the current tab
 
 ### zsh
 
@@ -129,7 +126,7 @@ Useful bindings:
 - eager completion initialization, plus lazy-loaded `nvm`
 - Atuin for searchable shell history
 - Homebrew-managed `zsh-autosuggestions`, `zsh-syntax-highlighting`, and `zsh-system-clipboard`
-- aliases for `nvim`, `tmux-sessionizer`, and `lazygit`
+- aliases for `nvim`, `kitty-sessionizer`, and `lazygit`
 - an OMZ-based prompt with git branch and status counts
 - paths for Go, Android, Bun, Node, PostgreSQL, and local binaries
 

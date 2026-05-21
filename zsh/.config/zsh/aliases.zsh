@@ -1,3 +1,3 @@
 alias n='nvim'
-alias tms='tmux-sessionizer'
+alias ks='kitty-sessionizer'
 alias lg='lazygit'
