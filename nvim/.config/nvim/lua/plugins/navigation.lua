@@ -3,6 +3,7 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim" },
+	{ src = "https://github.com/nvim-telescope/telescope-frecency.nvim" },
 	{ src = "https://github.com/rachartier/tiny-code-action.nvim" },
 	{ src = "https://github.com/ThePrimeagen/harpoon", rev = "87b1a3506211538f460786c23f98ec63ad9af4e5" },
 })
@@ -68,6 +69,7 @@ if vim.uv.fs_stat(fzf_path) and not vim.uv.fs_stat(fzf_lib) then
 end
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("ui-select")
+require("telescope").load_extension("frecency")
 
 local harpoon = require("harpoon")
 harpoon:setup()

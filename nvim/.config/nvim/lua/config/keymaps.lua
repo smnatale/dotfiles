@@ -32,7 +32,12 @@ vim.keymap.set("n", "<leader>w", ":w<cr>", { silent = true, noremap = true, desc
 vim.keymap.set({ "n", "t" }, "<leader>q", ":q<cr>", { silent = true, noremap = true, desc = "Quit current buffer" })
 
 -- Little one from Primeagen to mass replace string in a file
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { silent = false, desc = "Search and replace word under cursor" })
+vim.keymap.set(
+	"n",
+	"<leader>s",
+	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+	{ silent = false, desc = "Search and replace word under cursor" }
+)
 
 -- Navigate through buffers
 vim.keymap.set("n", "<S-l>", ":bnext<CR>", { silent = true, desc = "Next buffer" })

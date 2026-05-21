@@ -1,7 +1,10 @@
+require("vim._core.ui2").enable({})
 vim.g.mapleader = " " -- space leader key
 
 vim.o.termguicolors = true -- enable 24-bit colors
 vim.o.updatetime = 200 -- save swap file with 200ms debouncing
+vim.o.swapfile = false -- disable swapfile
+vim.o.backup = false -- disable backup on q
 vim.o.autoread = true -- auto update file if changed outside of nvim
 vim.o.undofile = true -- persistant undo history
 vim.o.number = true -- enable line numbers
@@ -36,3 +39,4 @@ vim.opt.fillchars = { eob = " " }
 vim.o.laststatus = 3 -- global statusline
 
 vim.diagnostic.config({ virtual_text = true }) -- inline diagnostics
+vim.o.cmdheight = 0

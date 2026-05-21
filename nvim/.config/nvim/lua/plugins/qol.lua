@@ -42,6 +42,15 @@ MiniIcons.mock_nvim_web_devicons()
 -- better jump capabilities
 require("mini.jump").setup()
 
+-- file tree for screensharing
+local MiniFiles = require("mini.files")
+MiniFiles.setup({})
+
+vim.keymap.set("n", "<leader>ft", function()
+	MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+	MiniFiles.reveal_cwd()
+end, { desc = "Trigger mini.files in current path" })
+
 -- override vim.notify and show lsp info
 require("mini.notify").setup({
 	lsp_progress = {
