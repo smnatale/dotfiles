@@ -9,6 +9,7 @@ This setup is built around a few core ideas:
 - `omniwm` for a Hyprland-style tiling workflow on macOS
 - `sketchybar` to replace the native menu bar with the info I actually want
 - `kitty` sessions plus `kitty-sessionizer` for fast context switching between projects
+- `claude` global settings for shared hooks, permissions, and formatting across all repos
 - `codex` and `claude` surfaced in the bar so usage is visible at a glance
 - `kitty`, `zsh`, and `nvim` as the terminal-first daily drivers
 
@@ -20,16 +21,17 @@ This setup is built around a few core ideas:
 - `zsh/` - shell config, prompt, aliases, and lazy-loading setup
 - `ghostty/` - terminal config
 - `nvim/` - Neovim config, LSP, editing workflow, and AI integration
+- `claude/` - Claude Code global settings, PostToolUse formatting hooks, and permissions
 
 ## Install
 
 ```bash
 brew bundle
 git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
-stow omniwm sketchybar kitty zsh ghostty nvim
+stow omniwm sketchybar kitty zsh ghostty nvim claude
 ```
 
-If you only want part of the setup, stow the packages you need individually.
+If you only want part of the setup, stow the packages you need individually. Note: run `mkdir -p ~/.claude` before stowing `claude` on a fresh machine to prevent stow from folding the directory.
 
 To check a machine after setup:
 
@@ -131,6 +133,17 @@ Useful bindings:
 - paths for Go, Android, Bun, Node, PostgreSQL, and local binaries
 
 Make sure `~/.oh-my-zsh` exists before expecting the full interactive shell to work. The config sources Oh My Zsh from there for the `git` and `nvm` plugins, and the prompt expects OMZ's `git_current_branch` helper. The Homebrew-managed zsh integrations come from the repo `Brewfile`, so `brew bundle check` should be clean before debugging shell behavior.
+
+### Claude Code
+
+`claude` manages the global `~/.claude/settings.json` that applies to every project:
+
+- **PostToolUse hooks**: auto-formats on every Write/Edit — prettier+eslint for JS/TS, gofumpt+goimports for Go, stylua for Lua
+- **Global permissions**: pre-approved commands for git, gh, go, npx, yarn, make, and common shell tools so agents spend less time asking for permission
+- **Tmux notifications**: bell file pattern for async task completion in tmux sessions
+- **Plugins**: typescript-lsp, gopls-lsp, swift-lsp, lua-lsp, playwright, frontend-design
+
+Project-specific settings (MCP servers, specialized build commands) still live in each project's `.claude/settings.local.json`.
 
 ### Neovim
 

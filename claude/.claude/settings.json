@@ -1,0 +1,112 @@
+{
+  "model": "claude-opus-4-6",
+  "effortLevel": "high",
+  "theme": "dark-ansi",
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "voiceEnabled": true,
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git status:*)",
+      "Bash(git branch:*)",
+      "Bash(git show:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh pr checks:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh issue list:*)",
+      "Bash(gh run view:*)",
+      "Bash(gh run list:*)",
+      "Bash(go build:*)",
+      "Bash(go test:*)",
+      "Bash(go vet:*)",
+      "Bash(go get:*)",
+      "Bash(go run:*)",
+      "Bash(go generate:*)",
+      "Bash(gofumpt:*)",
+      "Bash(goimports:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx jest:*)",
+      "Bash(npx vitest:*)",
+      "Bash(npx prettier:*)",
+      "Bash(npx eslint:*)",
+      "Bash(npx playwright:*)",
+      "Bash(yarn tsc:*)",
+      "Bash(yarn test:*)",
+      "Bash(yarn lint:*)",
+      "Bash(yarn jest:*)",
+      "Bash(yarn eslint:*)",
+      "Bash(yarn relay:*)",
+      "Bash(yarn install:*)",
+      "Bash(yarn workspace:*)",
+      "Bash(make:*)",
+      "Bash(sqlc generate:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(wc:*)",
+      "Bash(sort:*)",
+      "Read(//tmp/**)",
+      "Read(//private/tmp/**)"
+    ]
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -n \"$TMUX\" ]; then touch /tmp/tmux-bell-$(tmux display-message -p '#S'); fi"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -n \"$TMUX\" ]; then touch /tmp/tmux-bell-$(tmux display-message -p '#S'); fi"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -n \"$TMUX\" ]; then rm -f /tmp/tmux-bell-$(tmux display-message -p '#S'); fi"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // .tool_response.filePath // empty' | { read -r f; [ -z \"$f\" ] && exit 0; case \"$f\" in *.ts|*.tsx|*.js|*.jsx) npx --no-install prettier --write \"$f\" 2>/dev/null; npx --no-install eslint --fix \"$f\" 2>/dev/null ;; *.go) gofumpt -w \"$f\" 2>/dev/null; goimports -w \"$f\" 2>/dev/null ;; *.lua) stylua \"$f\" 2>/dev/null ;; esac; exit 0; }",
+            "timeout": 30,
+            "statusMessage": "Formatting..."
+          }
+        ]
+      }
+    ]
+  }
+}
