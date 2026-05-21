@@ -110,7 +110,7 @@ focus
 focus_os_window
 EOF
 
-	kitten @ action goto_session "$session_file"
+	kitty @ action goto_session "$session_file"
 }
 
 build_menu() {
@@ -170,7 +170,7 @@ create_worktree() {
 		{
 			printf "+ New branch\n"
 			available_branches "$root" || true
-		} | fzf --ansi --height=100% --reverse \
+		} | fzf --ansi --height=100% \
 			--prompt="Branch > " \
 			--header="Pick a branch or create new" \
 			--no-multi
@@ -213,8 +213,8 @@ select_worktree() {
 	local selected
 	selected="$(
 		build_menu "$root" |
-			fzf --ansi --height=100% --reverse \
-				--prompt="Worktree > " \
+			fzf --ansi --height=100% \
+				--prompt="> " \
 				--header="Enter: switch/create, Esc: cancel" \
 				--delimiter=$'\t' \
 				--with-nth=4.. \
@@ -257,7 +257,7 @@ EOF
 		*)
 			require_cmd git "Install git."
 			require_cmd fzf "Install with: brew install fzf"
-			require_cmd kitten "Install Kitty or make sure kitten is on PATH."
+			require_cmd kitty "Install Kitty or make sure kitty is on PATH."
 
 			if ! git rev-parse --git-dir >/dev/null 2>&1; then
 				echo "Not inside a git repository." >&2

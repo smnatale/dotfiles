@@ -33,6 +33,9 @@ CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/kitty-sessionizer"
 CONFIG_FILE="$CONFIG_DIR/$CONFIG_FILE_NAME"
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/kitty-sessionizer"
 SESSION_DIR="$CACHE_DIR/sessions"
+PROJECTS_CACHE_FILE="$CACHE_DIR/projects.tsv"
+PROJECTS_CACHE_LOCK="$CACHE_DIR/projects.lock"
+PROJECTS_CACHE_HEADER="# kitty-sessionizer-projects-v2"
 
 if [[ -f "$CONFIG_FILE" ]]; then
 	source "$CONFIG_FILE"
@@ -57,6 +60,7 @@ Open an fzf workspace switcher for Kitty sessions and project directories.
 Config: $CONFIG_FILE
   KS_SEARCH_PATHS=(~/Projects/work ~/dotfiles ~/Projects/personal:2)
   KS_EXTRA_SEARCH_PATHS=(~/src:2)
+  KS_PROJECT_CACHE_TTL=300
 EOF
 }
 
@@ -169,12 +173,12 @@ EOF
 }
 
 kitty_ls() {
-	if ! kitten @ ls 2>/dev/null; then
+	if ! kitty @ ls 2>/dev/null; then
 		cat >&2 <<EOF
 kitty-sessionizer needs Kitty remote control.
 
 Run it inside Kitty with allow_remote_control enabled, or via:
-  map f12>f launch --type=overlay --allow-remote-control /bin/zsh -lc 'KITTY_SESSIONIZER_HOLD=1 kitty-sessionizer'
+  map f12>f launch --type=overlay --allow-remote-control /bin/bash -c 'KITTY_SESSIONIZER_HOLD=1 exec "$HOME/.local/bin/kitty-sessionizer"'
 EOF
 		exit 1
 	fi
@@ -238,43 +242,103 @@ find_project_dirs() {
 	done
 }
 
-is_known_open_path() {
-	local path="$1"
-	local open_paths_file="$2"
+file_mtime() {
+	stat -f "%m" "$1" 2>/dev/null || stat -c "%Y" "$1" 2>/dev/null
+}
 
-	grep -Fxq "$path" "$open_paths_file"
+project_cache_is_fresh() {
+	local ttl="${KS_PROJECT_CACHE_TTL:-300}"
+	local mtime
+	local now
+
+	project_cache_has_current_format || return 1
+	[[ "$ttl" =~ ^[0-9]+$ ]] || ttl=300
+	(( ttl > 0 )) || return 1
+
+	mtime="$(file_mtime "$PROJECTS_CACHE_FILE")" || return 1
+	now="$(date +%s)"
+
+	(( now - mtime < ttl ))
+}
+
+project_cache_has_current_format() {
+	local header
+
+	[[ -s "$PROJECTS_CACHE_FILE" ]] || return 1
+	IFS= read -r header <"$PROJECTS_CACHE_FILE" || return 1
+	[[ "$header" == "$PROJECTS_CACHE_HEADER" ]]
+}
+
+project_cache_rows() {
+	project_cache_has_current_format || return 1
+	tail -n +2 "$PROJECTS_CACHE_FILE"
+}
+
+generate_project_cache() {
+	local project
+	local real
+	local base
+	local pretty
+
+	printf "%s\n" "$PROJECTS_CACHE_HEADER"
+	while IFS= read -r project; do
+		normalize_dir "$project" 2>/dev/null || true
+	done < <(find_project_dirs) |
+		awk '!seen[$0]++' |
+		while IFS= read -r real; do
+			[[ -n "$real" ]] || continue
+			base="$(basename "$real")"
+			pretty="$(pretty_path "$real")"
+			printf "project\t%s\t%s\t[new]  %s  %s\n" "$real" "$real" "$base" "$pretty"
+		done
+}
+
+refresh_project_cache() {
+	local tmp
+
+	mkdir -p "$CACHE_DIR"
+	if ! mkdir "$PROJECTS_CACHE_LOCK" 2>/dev/null; then
+		return 0
+	fi
+
+	tmp="$(mktemp "$CACHE_DIR/projects.XXXXXX")" || {
+		rmdir "$PROJECTS_CACHE_LOCK"
+		return 1
+	}
+
+	if generate_project_cache >"$tmp"; then
+		mv "$tmp" "$PROJECTS_CACHE_FILE"
+	else
+		rm -f "$tmp"
+		rmdir "$PROJECTS_CACHE_LOCK"
+		return 1
+	fi
+
+	rmdir "$PROJECTS_CACHE_LOCK"
+}
+
+project_lines() {
+	if project_cache_is_fresh; then
+		project_cache_rows
+		return
+	fi
+
+	if project_cache_has_current_format; then
+		(KITTY_SESSIONIZER_HOLD= refresh_project_cache) >/dev/null 2>&1 &
+		project_cache_rows
+		return
+	fi
+
+	refresh_project_cache
+	project_cache_rows 2>/dev/null || true
 }
 
 build_menu() {
 	local kitty_data="$1"
 	local open_paths_file="$2"
-	local project
-	local real
-	local base
-	local pretty
-	local seen_projects_file
 
 	open_session_lines "$kitty_data"
-	seen_projects_file="$(mktemp "${TMPDIR:-/tmp}/kitty-sessionizer-seen-projects.XXXXXX")"
-	trap "rm -f '$open_paths_file' '$seen_projects_file'" EXIT
-
-	while IFS= read -r project; do
-		real="$(normalize_dir "$project" || true)"
-		[[ -n "$real" ]] || continue
-
-		if is_known_open_path "$real" "$open_paths_file"; then
-			continue
-		fi
-
-		if grep -Fxq "$real" "$seen_projects_file"; then
-			continue
-		fi
-		printf "%s\n" "$real" >>"$seen_projects_file"
-
-		base="$(basename "$real")"
-		pretty="$(pretty_path "$real")"
-		printf "project\t%s\t%s\t[new]  %s  %s\n" "$real" "$real" "$base" "$pretty"
-	done < <(find_project_dirs)
+	project_lines | awk -F '\t' 'FILENAME == ARGV[1] { open[$0] = 1; next } !($2 in open)' "$open_paths_file" -
 }
 
 focus_or_launch_project() {
@@ -286,7 +350,7 @@ focus_or_launch_project() {
 	base="$(basename "$path")"
 	session_file="$(session_file_for_path "$path" "$base")"
 	write_session_file "$path" "$session_file" "$base"
-	kitten @ action goto_session "$session_file"
+	kitty @ action goto_session "$session_file"
 }
 
 select_workspace() {
@@ -308,8 +372,8 @@ select_workspace() {
 
 	selected="$(
 		build_menu "$kitty_data" "$open_paths_file" |
-			fzf --ansi --height=100% --reverse \
-				--prompt="Kitty Workspace > " \
+			fzf --ansi --height=100% \
+				--prompt="> " \
 				--header="Enter: switch/create, Esc: cancel" \
 				--delimiter=$'\t' \
 				--with-nth=4.. \
@@ -322,7 +386,7 @@ select_workspace() {
 
 	case "$kind" in
 		session)
-			kitten @ action goto_session "$target"
+			kitty @ action goto_session "$target"
 			;;
 		project)
 			focus_or_launch_project "$target"
@@ -341,13 +405,13 @@ main() {
 			exit 0
 			;;
 		"")
-			require_cmd kitten "Install Kitty or make sure kitten is on PATH."
+			require_cmd kitty "Install Kitty or make sure kitty is on PATH."
 			require_cmd fzf "Install with: brew install fzf"
 			require_cmd jq "Install with: brew install jq"
 			select_workspace
 			;;
 		*)
-			require_cmd kitten "Install Kitty or make sure kitten is on PATH."
+			require_cmd kitty "Install Kitty or make sure kitty is on PATH."
 			kitty_ls >/dev/null
 			focus_or_launch_project "$1"
 			;;
