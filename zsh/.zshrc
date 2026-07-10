@@ -61,6 +61,8 @@ bindkey '^[[B' history-search-forward
 
 alias n='nvim'
 alias lg='lazygit'
+alias oc='opencode'
+alias cc='claude'
 
 if (( $+commands[fzf] )); then
 	source <(fzf --zsh)
