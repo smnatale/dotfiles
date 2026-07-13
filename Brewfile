@@ -1,4 +1,5 @@
 # Brews
+brew "borders"
 brew "bun"
 brew "fnm"
 brew "fzf"
@@ -6,6 +7,7 @@ brew "go"
 brew "jq"
 brew "lazygit"
 brew "neovim"
+brew "node"
 brew "opencode"
 brew "powerlevel10k"
 brew "python@3.14"
