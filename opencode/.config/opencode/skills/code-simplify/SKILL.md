@@ -36,11 +36,13 @@ Trigger: `/code-simplify` command
 
 ### Step 4: Draft simplified version
 - Preserve behavior exactly
-- Run project verification commands
-- Keep changes proportional
+- Run project verification commands (e.g. `make test`, `npm test`, `cargo check`)
+- If verification fails, fix issues before proceeding
+- Keep changes proportional to the problem
 
 ### Step 5: Present and apply
 - Show diff with before/after for each change
 - Explain why each change removes unnecessary complexity
-- Wait for approval before applying
-- Re-run verification after applying
+- Wait for explicit approval before applying
+- Apply changes by editing files in place
+- Re-run verification after applying; report results

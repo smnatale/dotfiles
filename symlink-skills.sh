@@ -1,11 +1,13 @@
 #!/bin/bash
+set -e
 
 # Script to symlink opencode skills to claude skills
 # This ensures all opencode skills are available in claude
 
-# Define directories
-OPENCODE_SKILLS_DIR="/Users/samnatale/dotfiles/opencode/.config/opencode/skills"
-CLAUDE_SKILLS_DIR="/Users/samnatale/dotfiles/claude/.claude/skills"
+# Derive paths from script location
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+OPENCODE_SKILLS_DIR="$SCRIPT_DIR/opencode/.config/opencode/skills"
+CLAUDE_SKILLS_DIR="$SCRIPT_DIR/claude/.claude/skills"
 
 # Create claude skills directory if it doesn't exist
 echo "Creating claude skills directory if it doesn't exist..."
@@ -24,15 +26,15 @@ for skill_dir in "$OPENCODE_SKILLS_DIR"/*/; do
     if [ -f "$skill_dir/SKILL.md" ]; then
         skill_name=$(basename "$skill_dir")
         symlink_path="$CLAUDE_SKILLS_DIR/$skill_name"
-        
+
         # Remove existing symlink or directory if it exists
         if [ -L "$symlink_path" ] || [ -d "$symlink_path" ]; then
             rm -rf "$symlink_path"
         fi
-        
+
         # Create symlink to the opencode skill directory
-        ln -s "$skill_dir" "$symlink_path"
-        
+        ln -s "${skill_dir%/}" "$symlink_path"
+
         echo "Symlinked: $skill_name"
     fi
 done
