@@ -1,0 +1,29 @@
+# macOS
+.DS_Store
+.localized
+
+# Editors/IDEs
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.code-workspace
+
+# Secrets/sensitive
+.env
+.env.*
+*.key
+*.pem
+secrets/
+
+# Generated/lock files
+nvim/.config/nvim/nvim-pack-lock.json
+
+# Dependencies
+node_modules/
+
+# General
+*.log
+*.tmp
+*.bak
