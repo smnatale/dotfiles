@@ -6,12 +6,14 @@ vim.pack.add({
 	"https://github.com/antoinemadec/FixCursorHold.nvim",
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/fredrikaverpil/neotest-golang",
+	"https://github.com/marilari88/neotest-vitest",
 })
 
 -- options
 require("neotest").setup({
 	adapters = {
 		require("neotest-golang")(),
+		require("neotest-vitest")(),
 	},
 })
 
