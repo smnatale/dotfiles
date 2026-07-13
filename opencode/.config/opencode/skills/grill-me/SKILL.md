@@ -12,6 +12,6 @@ If only a raw idea or feature description is provided, first help me shape it in
 
 For each question, provide your recommended answer.
 
-Ask the questions one at a time.
+CRITICAL: Ask exactly ONE question per response. Never list multiple questions. Wait for the user's answer before asking the next question.
 
 If a question can be answered by exploring the codebase, explore the codebase instead of asking.
