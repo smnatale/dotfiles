@@ -14,6 +14,12 @@ vim.api.nvim_create_autocmd("PackChanged", {
 -- plugins
 vim.pack.add({ "https://github.com/dmtrKovalenko/fff.nvim" })
 
+-- ensure binary is available
+local fff_download = require("fff.download")
+if not fff_download.binary_exists then
+	fff_download.download_or_build_binary()
+end
+
 -- options
 local fff = require("fff")
 
