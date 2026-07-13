@@ -3,7 +3,10 @@
   "permission": {
     "skill": {
       "*": "allow",
-      "code-simplify": "ask"
+      "code-simplify": "ask",
+      "tdd": "ask",
+      "grill-me": "ask",
+      "scaffold": "ask"
     }
   }
 }
