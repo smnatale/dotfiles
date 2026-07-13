@@ -1,20 +1,4 @@
 {
-  "model": "claude-opus-4-6",
-  "effortLevel": "high",
-  "theme": "dark-ansi",
-  "voice": {
-    "enabled": true,
-    "mode": "hold"
-  },
-  "voiceEnabled": true,
-  "enabledPlugins": {
-    "frontend-design@claude-plugins-official": true,
-    "playwright@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true,
-    "gopls-lsp@claude-plugins-official": true,
-    "swift-lsp@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true
-  },
   "permissions": {
     "allow": [
       "Bash(git diff:*)",
@@ -78,6 +62,7 @@
       "Bash(rm -fr:*)"
     ]
   },
+  "model": "claude-opus-4-6",
   "hooks": {
     "Notification": [
       {
@@ -122,5 +107,25 @@
         ]
       }
     ]
-  }
+  },
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true
+  },
+  "effortLevel": "medium",
+  "tui": "fullscreen",
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "skipWorkflowUsageWarning": true,
+  "theme": "dark-ansi",
+  "preferredNotifChannel": "terminal_bell",
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true,
+  "voiceEnabled": true
 }

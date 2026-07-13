@@ -39,4 +39,4 @@ vim.opt.fillchars = { eob = " " }
 vim.o.laststatus = 3 -- global statusline
 
 vim.diagnostic.config({ virtual_text = true }) -- inline diagnostics
-vim.o.cmdheight = 0
+vim.opt.cmdheight = 0

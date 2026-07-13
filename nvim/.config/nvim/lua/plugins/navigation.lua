@@ -25,16 +25,25 @@ vim.api.nvim_create_autocmd("PackChanged", {
 	end,
 })
 
+local telescope_actions = require("telescope.actions")
 local bottom_pane_config = {
-	layout_strategy = "bottom_pane",
-	layout_config = {
-		height = 0.4,
-		prompt_position = "bottom",
-	},
-	border = true,
-	sorting_strategy = "descending",
+	-- layout_strategy = "bottom_pane",
+	-- layout_config = {
+	-- 	height = 0.4,
+	-- 	prompt_position = "bottom",
+	-- },
+	-- border = true,
+	-- sorting_strategy = "descending",
 	path_display = { "truncate" },
 	hidden = true,
+	mappings = {
+		i = {
+			["<C-q>"] = telescope_actions.smart_send_to_qflist + telescope_actions.open_qflist,
+		},
+		n = {
+			["<C-q>"] = telescope_actions.smart_send_to_qflist + telescope_actions.open_qflist,
+		},
+	},
 }
 
 require("telescope").setup({
