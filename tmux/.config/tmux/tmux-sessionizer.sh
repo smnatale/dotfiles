@@ -46,7 +46,7 @@ done
 
 [ -z "$menu" ] && exit 0
 
-selection=$(printf '%s' "$menu" | sort -t$'\t' -k4,4 -k1,1 | fzf --height 100% --delimiter=$'\t' --with-nth=1)
+selection=$(printf '%s' "$menu" | LC_ALL=C sort -t$'\t' -k4,4r -k1,1 | fzf --height 100% --delimiter=$'\t' --with-nth=1)
 [ -z "$selection" ] && exit 0
 
 sess=$(printf '%s' "$selection" | cut -f2)
