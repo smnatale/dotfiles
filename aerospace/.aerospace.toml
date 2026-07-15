@@ -114,6 +114,7 @@ gaps.outer.top =        2
     # alt-comma = 'layout accordion horizontal vertical'
 
     alt-q = 'close --quit-if-last-window'
+    alt-f = 'fullscreen'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
     alt-h = 'focus left'
