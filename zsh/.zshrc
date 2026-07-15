@@ -31,7 +31,6 @@ fi
 
 # Zsh options
 setopt no_beep              # Disable terminal bell
-setopt auto_cd              # Type directory name to cd into it
 setopt extended_glob        # Enable extended globbing (**, ~(foo|bar), etc.)
 setopt auto_pushd           # cd pushes old dir onto the directory stack
 setopt pushd_ignore_dups    # Don't push duplicate directories onto the stack
