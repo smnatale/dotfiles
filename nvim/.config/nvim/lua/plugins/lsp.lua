@@ -22,6 +22,7 @@ require("mason-tool-installer").setup({
 		"sqls",
 		"jsonls",
 		"yamlls",
+		"biome",
 	},
 	auto_update = false,
 	run_on_start = true,
