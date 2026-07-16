@@ -17,7 +17,7 @@ require("mason-tool-installer").setup({
 		"eslint",
 		"lua_ls",
 		"tailwindcss-language-server",
-		"ts_ls",
+		"tsgo",
 		"gopls",
 		"sqls",
 		"jsonls",

@@ -26,7 +26,14 @@ require("conform").setup({
 			prepend_args = { "--language", "postgresql" },
 		},
 		biome = {
-			require_cwd = true,
+			condition = function(_, ctx)
+				return vim.fs.root(ctx.filename, { "biome.json" }) ~= nil
+			end,
+		},
+		prettierd = {
+			condition = function(_, ctx)
+				return vim.fs.root(ctx.filename, { "biome.json" }) == nil
+			end,
 		},
 	},
 })
