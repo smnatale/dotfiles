@@ -12,23 +12,18 @@ require("conform").setup({
 	},
 	formatters_by_ft = {
 		lua = { "stylua" },
-		javascript = { "biome", "prettierd" },
-		javascriptreact = { "biome", "prettierd" },
-		typescript = { "biome", "prettierd" },
-		typescriptreact = { "biome", "prettierd" },
+		javascript = { "biome-check", "prettierd" },
+		javascriptreact = { "biome-check", "prettierd" },
+		typescript = { "biome-check", "prettierd" },
+		typescriptreact = { "biome-check", "prettierd" },
 		graphql = { "prettierd" },
 		go = { "goimports", "gofmt" },
-		json = { "biome", "prettierd" },
+		json = { "biome-check", "prettierd" },
 		sql = { "sql_formatter" },
 	},
 	formatters = {
 		sql_formatter = {
 			prepend_args = { "--language", "postgresql" },
-		},
-		biome = {
-			condition = function(_, ctx)
-				return vim.fs.root(ctx.filename, { "biome.json" }) ~= nil
-			end,
 		},
 		prettierd = {
 			condition = function(_, ctx)
