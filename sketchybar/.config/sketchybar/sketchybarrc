@@ -99,9 +99,8 @@ battery=(
   padding_left=0
   padding_right=0
   update_freq=120
-  background.corner_radius=6
-  background.padding_left=2
-  background.padding_right=2
+  background.padding_left=0
+  background.padding_right=0
 )
 sketchybar --add item battery right \
   --subscribe battery system_woke power_source_change \
