@@ -8,11 +8,11 @@ FOCUSED=$(aerospace list-workspaces --focused 2>/dev/null)
 for sid in 1 2 3 4 5; do
   if [ "$FOCUSED" = "$sid" ]; then
     sketchybar --set space.$sid \
-      label.color=0xff191724 \
-      background.color=0xffc4a7e7
+      label.color=0xffe0def4 \
+      background.color=0xe6191724
   else
     sketchybar --set space.$sid \
       label.color=0xff6e6a86 \
-      background.color=0xff26233a
+      background.color=0x00000000
   fi
 done

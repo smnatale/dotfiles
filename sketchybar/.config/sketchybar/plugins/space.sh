@@ -8,10 +8,10 @@ FOCUSED=$(aerospace list-workspaces --focused 2>/dev/null)
 
 if [ "$FOCUSED" = "$SID" ]; then
     sketchybar --set "$NAME" \
-        label.color=0xff191724 \
-        background.color=0xffc4a7e7
+        label.color=0xffe0def4 \
+        background.color=0xe6191724
 else
     sketchybar --set "$NAME" \
         label.color=0xff6e6a86 \
-        background.color=0xff26233a
+        background.color=0x00000000
 fi
