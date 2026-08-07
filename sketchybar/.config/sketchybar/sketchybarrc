@@ -32,8 +32,8 @@ sketchybar --bar "${bar[@]}"
 defaults=(
   padding_left=4
   padding_right=4
-  icon.font="FantasqueSansM Nerd Font Mono:Regular:14.0"
-  label.font="FantasqueSansM Nerd Font Mono:Regular:14.0"
+  icon.font="FantasqueSansM Nerd Font Mono:Regular:16.0"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:16.0"
   icon.color=0xffe0def4
   label.color=0xffe0def4
   background.color=0x00000000
@@ -50,11 +50,20 @@ sketchybar --default "${defaults[@]}"
 # Register the custom event from AeroSpace
 sketchybar --add event aerospace_workspace_change
 
+# Apple logo (opens System Settings)
+apple=(
+  icon=""
+  icon.font="FantasqueSansM Nerd Font Mono:Regular:18.0"
+  label.drawing=off
+  click_script="open x-apple.systempreferences:"
+)
+sketchybar --add item apple left --set apple "${apple[@]}"
+
 # Aerospace workspaces (1-5) - using item type, not space type
 for sid in $(seq 1 5); do
   space=(
     label="$sid"
-    label.font="FantasqueSansM Nerd Font Mono:Bold:14.0"
+    label.font="FantasqueSansM Nerd Font Mono:Bold:16.0"
     label.color=0xff6e6a86
     icon.drawing=off
     background.color=0x00000000
@@ -80,7 +89,7 @@ clock=(
   update_freq=10
   script="$CONFIG_DIR/plugins/clock.sh"
   label.color=0xffe0def4
-  label.font="FantasqueSansM Nerd Font Mono:Regular:14.0"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:16.0"
 )
 sketchybar --add item clock right --set clock "${clock[@]}"
 
