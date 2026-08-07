@@ -42,8 +42,10 @@ defaults=(
   background.padding_right=4
   icon.padding_left=4
   icon.padding_right=4
+  icon.y_offset=1
   label.padding_left=4
   label.padding_right=4
+  label.y_offset=1
 )
 sketchybar --default "${defaults[@]}"
 
@@ -53,7 +55,7 @@ sketchybar --add event aerospace_workspace_change
 # Apple logo (opens System Settings)
 apple=(
   icon=""
-  icon.font="FantasqueSansM Nerd Font Mono:Regular:18.0"
+  icon.font="FantasqueSansM Nerd Font Mono:Regular:16.0"
   label.drawing=off
   click_script="open x-apple.systempreferences:"
 )
