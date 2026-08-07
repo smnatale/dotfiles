@@ -91,5 +91,21 @@ clock=(
 )
 sketchybar --add item clock right --set clock "${clock[@]}"
 
+# Battery (top right, after clock)
+battery=(
+  script="$CONFIG_DIR/plugins/battery.sh"
+  icon.font="FantasqueSansM Nerd Font Mono:Regular:16.0"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:16.0"
+  padding_left=0
+  padding_right=0
+  update_freq=120
+  background.corner_radius=6
+  background.padding_left=2
+  background.padding_right=2
+)
+sketchybar --add item battery right \
+  --subscribe battery system_woke power_source_change \
+  --set battery "${battery[@]}"
+
 # Force initial updates so the clock appears immediately
 sketchybar --update
