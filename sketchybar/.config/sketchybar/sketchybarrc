@@ -63,15 +63,11 @@ sketchybar --add item apple left --set apple "${apple[@]}"
 for sid in $(seq 1 5); do
   space=(
     label="$sid"
-    label.font="FantasqueSansM Nerd Font Mono:Bold:16.0"
+    label.font="FantasqueSansM Nerd Font Mono:Regular:16.0"
     label.color=0xff6e6a86
     icon.drawing=off
-    background.color=0x00000000
-    background.corner_radius=4
-    background.padding_left=4
-    background.padding_right=4
-    label.padding_left=4
-    label.padding_right=4
+    label.padding_left=2
+    label.padding_right=2
     click_script="$AEROSPACE workspace $sid"
     script="$CONFIG_DIR/plugins/aerospace.sh $sid"
   )

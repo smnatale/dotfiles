@@ -23,9 +23,11 @@ FOCUSED="${FOCUSED_WORKSPACE:-$("$AEROSPACE" list-workspaces --focused 2>/dev/nu
 if [ "$SID" = "$FOCUSED" ]; then
   sketchybar --set "$NAME" \
     label.color=0xffe0def4 \
-    background.color=0xe6191724
+    label.font="FantasqueSansM Nerd Font Mono:Bold:16.0" \
+    background.color=0x00000000
 else
   sketchybar --set "$NAME" \
     label.color=0xff6e6a86 \
+    label.font="FantasqueSansM Nerd Font Mono:Regular:16.0" \
     background.color=0x00000000
 fi
