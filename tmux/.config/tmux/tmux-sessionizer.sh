@@ -1,69 +1,44 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PROJECTS_DIR="$HOME/Projects"
+paths="${TMUX_SESSIONIZER_PATHS:-$HOME}"
+default_depth="${TMUX_SESSIONIZER_DEPTH:-1}"
 
-# Menu lines: display_label<TAB>session_name<TAB>path<TAB>type
-menu=""
+expand_tilde() { echo "${1/#~/$HOME}"; }
 
-# 1. Existing tmux sessions (skip worktree sessions, handled in section 3)
-if tmux ls &>/dev/null; then
-  while IFS= read -r sess; do
-    [[ "$sess" == *"("* ]] && continue
-    menu+="[switch] ${sess}"$'\t'"${sess}"$'\t'"$sess"$'\t'"switch"$'\n'
-  done < <(tmux list-sessions -F '#{session_name}')
+selected=$(
+  {
+    # Existing tmux sessions
+    tmux list-sessions -F '[TMUX] #{session_name}' 2>/dev/null || true
+
+    # Discovered directories from paths
+    for entry in $paths; do
+      # Extract optional depth suffix (e.g., ~/foo:2)
+      [[ "$entry" =~ ^([^:]+):([0-9]+)$ ]] && path="${BASH_REMATCH[1]}" depth="${BASH_REMATCH[2]}" || { path="$entry"; depth="$default_depth"; }
+      path=$(expand_tilde "$path")
+      for expanded in $path; do
+        [ -d "$expanded" ] || continue
+        find "$expanded" -mindepth 1 -maxdepth "$depth" -type d
+      done
+    done
+  } | fzf --height 100% --color=bg:#090B10,fg:#e0def4,hl:#c4a7e7,fg+:#e0def4,bg+:#403d52,hl+:#9ccfd8,info:#6e6a86,prompt:#31748f,pointer:#ebbcba,marker:#eb6f92,spinner:#f6c177,header:#6e6a86,border:#26233a
+)
+
+[ -z "$selected" ] && exit 0
+
+# If existing session selected, switch to it
+if [[ "$selected" =~ ^\[TMUX\]\ (.+)$ ]]; then
+  sess="${BASH_REMATCH[1]}"
+  [ -z "${TMUX:-}" ] && tmux attach -t "$sess" || tmux switch-client -t "$sess"
+  exit 0
 fi
 
-# 2. Top-level projects not already a session
-for dir in "$PROJECTS_DIR"/*/; do
-  [ -d "$dir" ] || continue
-  name=$(basename "$dir")
-  tmux has-session -t "$name" 2>/dev/null && continue
-  menu+="[new] ${name}"$'\t'"${name}"$'\t'"${dir}"$'\t'"new"$'\n'
-done
-
-# 3. Worktrees inside each project's .worktrees/
-for dir in "$PROJECTS_DIR"/*/; do
-  { [ -d "$dir/.git" ] || [ -f "$dir/.git" ]; } || continue
-  (cd "$dir" && git worktree prune 2>/dev/null) || true
-  wt_dir="${dir}.worktrees"
-  [ -d "$wt_dir" ] || continue
-  project_name=$(basename "$dir")
-  for branch_dir in "$wt_dir"/*/; do
-    [ -d "$branch_dir" ] || continue
-    branch_name=$(basename "$branch_dir")
-    sess_name="${project_name}(${branch_name})"
-    if tmux has-session -t "$sess_name" 2>/dev/null; then
-      label="[switch] ${project_name} (${branch_name})"
-      type="switch"
-    else
-      label="[new] ${project_name} (${branch_name}) [worktree]"
-      type="new"
-    fi
-    menu+="${label}"$'\t'"${sess_name}"$'\t'"${branch_dir}"$'\t'"${type}"$'\n'
-  done
-done
-
-[ -z "$menu" ] && exit 0
-
-selection=$(printf '%s' "$menu" | LC_ALL=C sort -t$'\t' -k4,4r -k1,1 | fzf --height 100% --delimiter=$'\t' --with-nth=1)
-[ -z "$selection" ] && exit 0
-
-sess=$(printf '%s' "$selection" | cut -f2)
-path=$(printf '%s' "$selection" | cut -f3)
-type=$(printf '%s' "$selection" | cut -f4)
-
-if [ "$type" = "switch" ]; then
-  if [ -z "${TMUX:-}" ]; then
-    tmux attach -t "$sess"
-  else
-    tmux switch-client -t "$sess"
-  fi
+# Otherwise, create and switch/attach
+sess=$(basename "$selected")
+if [ -z "${TMUX:-}" ]; then
+  tmux has-session -t "$sess" 2>/dev/null || tmux new-session -ds "$sess" -c "$selected"
+  tmux attach -t "$sess"
 else
-  if [ -z "${TMUX:-}" ]; then
-    tmux new-session -s "$sess" -c "$path"
-  else
-    tmux new-session -d -s "$sess" -c "$path"
-    tmux switch-client -t "$sess"
-  fi
+  tmux has-session -t "$sess" 2>/dev/null || tmux new-session -ds "$sess" -c "$selected"
+  tmux switch-client -t "$sess"
 fi
