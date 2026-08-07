@@ -3,6 +3,18 @@
 # Sketchybar main configuration
 # Rose Pine theme, matching nvim & kitty
 
+# Resolve aerospace binary path (sketchybar often has minimal PATH)
+if [ -x "/opt/homebrew/bin/aerospace" ]; then
+  AEROSPACE="/opt/homebrew/bin/aerospace"
+elif [ -x "/usr/local/bin/aerospace" ]; then
+  AEROSPACE="/usr/local/bin/aerospace"
+elif command -v aerospace >/dev/null 2>&1; then
+  AEROSPACE="$(command -v aerospace)"
+else
+  echo "ERROR: aerospace not found" >&2
+  exit 1
+fi
+
 # Bar appearance
 bar=(
   position=top
@@ -35,6 +47,9 @@ defaults=(
 )
 sketchybar --default "${defaults[@]}"
 
+# Register the custom event from AeroSpace
+sketchybar --add event aerospace_workspace_change
+
 # Aerospace workspaces (1-5) - using item type, not space type
 for sid in $(seq 1 5); do
   space=(
@@ -47,24 +62,17 @@ for sid in $(seq 1 5); do
     background.padding_right=4
     label.padding_left=4
     label.padding_right=4
-    click_script="aerospace workspace $sid"
+    click_script="$AEROSPACE workspace $sid"
+    script="$CONFIG_DIR/plugins/aerospace.sh $sid"
   )
-  sketchybar --add item space.$sid left --set space.$sid "${space[@]}"
+  sketchybar --add item space.$sid left \
+    --subscribe space.$sid aerospace_workspace_change \
+    --set space.$sid "${space[@]}"
 done
 
-# Background aerospace updater - loops every 100ms for instant workspace highlighting
-# sketchybar's update_freq only supports integers, so we use a background loop
-LOOP_PID_FILE="/tmp/sketchybar_aerospace_loop.pid"
-if [ -f "$LOOP_PID_FILE" ]; then
-  kill "$(cat "$LOOP_PID_FILE")" 2>/dev/null
-fi
-(
-  while pgrep -x sketchybar > /dev/null 2>&1; do
-    "$CONFIG_DIR/plugins/aerospace.sh"
-    sleep 0.1
-  done
-) &
-echo $! > "$LOOP_PID_FILE"
+# Trigger initial highlight for the currently focused workspace
+FOCUSED_INIT=$("$AEROSPACE" list-workspaces --focused 2>/dev/null)
+sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE="$FOCUSED_INIT"
 
 # Clock (top right)
 clock=(
@@ -75,5 +83,5 @@ clock=(
 )
 sketchybar --add item clock right --set clock "${clock[@]}"
 
-# Force initial updates
+# Force initial updates so the clock appears immediately
 sketchybar --update
