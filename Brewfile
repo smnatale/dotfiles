@@ -1,6 +1,7 @@
 # Brews
 brew "borders"
 brew "bun"
+brew "sketchybar"
 brew "fnm"
 brew "fzf"
 brew "go"
