@@ -17,6 +17,8 @@ brew "tmux"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 brew "zsh-system-clipboard"
+brew "bat"
+brew "fd"
 
 # Casks
 cask "aerospace"
