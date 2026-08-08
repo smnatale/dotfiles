@@ -7,6 +7,7 @@ export BUN_INSTALL="$HOME/.bun"                       # Bun package manager inst
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home"  # Zulu JDK 17
 export ANDROID_HOME="$HOME/Library/Android/sdk"       # Android SDK root
 export NODE_PATH="/usr/local/lib/node_modules"        # Global node_modules location
+export TMUX_SESSIONIZER_PATHS="$HOME/Projects"          # Tmux sessionizer search paths
 
 # PATH additions
 export PATH="$HOME/scripts:$PATH"                     # Personal scripts
