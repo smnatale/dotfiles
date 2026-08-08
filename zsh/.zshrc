@@ -76,6 +76,7 @@ alias oc='opencode' # OpenCode
 alias cc='claude'  # Claude CLI
 alias tms='~/.config/tmux/tmux-sessionizer.sh' # Tmux sessionizer
 alias tmw='~/.config/tmux/tmux-worktree.sh'    # Tmux worktree
+alias wm='workmux'
 
 # fzf - fuzzy finder (Ctrl-T for file search, Ctrl-R for history, Alt-C for cd)
 export FZF_DEFAULT_OPTS='--color=bg:#090B10,fg:#e0def4,hl:#c4a7e7,fg+:#e0def4,bg+:#403d52,hl+:#9ccfd8,info:#6e6a86,prompt:#31748f,pointer:#ebbcba,marker:#eb6f92,spinner:#f6c177,header:#6e6a86,border:#26233a'
