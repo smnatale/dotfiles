@@ -22,10 +22,10 @@ fi
 if [ "$CHARGING" -eq 1 ]; then
     ICON="󰂄"
     COLOR="0xff9ccfd8"
-    BG="0x209ccfd8"
+    BG="0x00000000"
 else
-    if [ "$PERCENT" -le 10 ]; then ICON="󰂎"; COLOR="0xffeb6f92"; BG="0x20eb6f92"
-    elif [ "$PERCENT" -le 20 ]; then ICON="󰁺"; COLOR="0xfff6c177"; BG="0x20f6c177"
+    if [ "$PERCENT" -le 10 ]; then ICON="󰂎"; COLOR="0xffeb6f92"; BG="0x00000000"
+    elif [ "$PERCENT" -le 20 ]; then ICON="󰁺"; COLOR="0xfff6c177"; BG="0x00000000"
     elif [ "$PERCENT" -le 30 ]; then ICON="󰁻"; COLOR="0xffe0def4"; BG="0x00000000"
     elif [ "$PERCENT" -le 40 ]; then ICON="󰁼"; COLOR="0xffe0def4"; BG="0x00000000"
     elif [ "$PERCENT" -le 50 ]; then ICON="󰁽"; COLOR="0xffe0def4"; BG="0x00000000"
