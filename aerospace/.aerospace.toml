@@ -83,7 +83,7 @@ gaps.inner.vertical =   16
 gaps.outer.left =       8
 gaps.outer.right =      8
 gaps.outer.bottom =     2
-gaps.outer.top =        26
+gaps.outer.top =        32
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes

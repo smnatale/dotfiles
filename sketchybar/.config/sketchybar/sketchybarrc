@@ -32,8 +32,8 @@ sketchybar --bar "${bar[@]}"
 defaults=(
   padding_left=4
   padding_right=4
-  icon.font="FantasqueSansM Nerd Font Mono:Regular:16.0"
-  label.font="FantasqueSansM Nerd Font Mono:Regular:16.0"
+  icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
   icon.color=0xffe0def4
   label.color=0xff6e6a86
   background.color=0x00000000
@@ -55,7 +55,7 @@ sketchybar --add event aerospace_workspace_change
 # Apple logo (opens System Settings)
 apple=(
   icon=""
-  icon.font="FantasqueSansM Nerd Font Mono:Regular:16.0"
+  icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
   label.drawing=off
   click_script="open x-apple.systempreferences:"
 )
@@ -65,11 +65,16 @@ sketchybar --add item apple left --set apple "${apple[@]}"
 for sid in $(seq 1 5); do
   space=(
     label="$sid"
-    label.font="FantasqueSansM Nerd Font Mono:Regular:16.0"
+    label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
     label.color=0xff6e6a86
     icon.drawing=off
-    label.padding_left=2
-    label.padding_right=2
+    label.width=24
+    padding_left=0          # override global 4
+    padding_right=0         # override global 4
+    background.padding_left=0   # override global 4
+    background.padding_right=0  # override global 4
+    icon.padding_left=0     # unnecessary but inherited
+    icon.padding_right=0    # unnecessary but inherited
     click_script="$AEROSPACE workspace $sid"
     script="$CONFIG_DIR/plugins/aerospace.sh $sid"
   )
@@ -87,15 +92,15 @@ clock=(
   update_freq=10
   script="$CONFIG_DIR/plugins/clock.sh"
   label.color=0xffe0def4
-  label.font="FantasqueSansM Nerd Font Mono:Regular:16.0"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
 )
 sketchybar --add item clock right --set clock "${clock[@]}"
 
 # Battery (top right, after clock)
 battery=(
   script="$CONFIG_DIR/plugins/battery.sh"
-  icon.font="FantasqueSansM Nerd Font Mono:Regular:16.0"
-  label.font="FantasqueSansM Nerd Font Mono:Regular:16.0"
+  icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
   padding_left=0
   padding_right=0
   update_freq=120
