@@ -20,6 +20,7 @@ brew "zsh-syntax-highlighting"
 brew "zsh-system-clipboard"
 brew "bat"
 brew "fd"
+brew "workmux"
 
 # Casks
 cask "aerospace"
@@ -29,4 +30,5 @@ cask "godot"
 cask "hyperkey"
 cask "kitty"
 cask "obs"
+cask "tuna"
 cask "vlc"
