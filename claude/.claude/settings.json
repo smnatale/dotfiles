@@ -1,7 +1,7 @@
 {
-  "model": "claude-fable-5[1m]",
-  "theme": "dark-ansi",
+  "model": "claude-sonnet-5",
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true
-  }
+  },
+  "theme": "dark-ansi"
 }

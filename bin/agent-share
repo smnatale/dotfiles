@@ -65,6 +65,13 @@ managed_by_us() {
 
 clean_broken_symlinks() {
   local dir="$1"
+  # The root itself may be a stale/dangling symlink (e.g. left over from a
+  # previous layout); remove it so mkdir -p below can recreate it as a
+  # real directory.
+  if [[ -L "$dir" && ! -e "$dir" ]]; then
+    rm -f "$dir"
+    return 0
+  fi
   [[ -d "$dir" ]] || return 0
   find "$dir" -maxdepth 1 -type l ! -exec test -e {} \; -delete
 }
@@ -184,7 +191,11 @@ sync_skills() {
   for i in "${!agents[@]}"; do
     local root="${agent_skills_roots[$i]}"
     clean_broken_symlinks "$root"
-    mkdir -p "$root"
+    if ! mkdir -p "$root"; then
+      echo "failed to create $root" >&2
+      failed=1
+      continue
+    fi
     for source in "$agents_dir/skills"/*; do
       [[ -d "$source" && -f "$source/SKILL.md" ]] || continue
       name="$(basename "$source")"
@@ -194,14 +205,23 @@ sync_skills() {
       if [[ -e "$target" || -L "$target" ]]; then
         if managed_by_us "$target"; then
           rm -f "$target"
-          ln -s "$source" "$target"
+          if ln -s "$source" "$target"; then
+            echo "relinked: $target"
+          else
+            echo "failed to link $target" >&2
+            failed=1
+          fi
         else
           echo "refusing to overwrite $target; run 'agent-share check' for details" >&2
           failed=1
         fi
       else
-        ln -s "$source" "$target"
-        echo "linked:  $target"
+        if ln -s "$source" "$target"; then
+          echo "linked:  $target"
+        else
+          echo "failed to link $target" >&2
+          failed=1
+        fi
       fi
     done
   done
@@ -220,10 +240,6 @@ case "$command_name" in
       sync_instructions "$i" || failed=1
     done
     sync_skills || failed=1
-    if [[ "$failed" -eq 0 ]]; then
-      echo ""
-      echo "Run 'stow claude codex opencode' from your dotfiles directory to install static config."
-    fi
     exit "$failed"
     ;;
   *)
