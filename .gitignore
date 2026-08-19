@@ -29,6 +29,7 @@ opencode/.config/opencode/skills/
 opencode/.config/opencode/package.json
 opencode/.config/opencode/package-lock.json
 opencode/.config/opencode/.gitignore
+CLAUDE.MD
 
 # General
 *.log
