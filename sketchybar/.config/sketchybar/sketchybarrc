@@ -18,7 +18,7 @@ fi
 # Bar appearance
 bar=(
   position=top
-  height=24
+  height=32
   color=0x00000000
   padding_left=0
   padding_right=0
