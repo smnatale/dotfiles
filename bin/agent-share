@@ -1,0 +1,232 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Generate agent instructions and skill symlinks into home directory paths from
+# the canonical shared source in this repository. Stow handles static config;
+# this script handles generated/shared content.
+# Existing real files are never overwritten; broken symlinks are cleaned up.
+
+repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+agents_dir="$repo_dir/agents"
+shared_instructions="$agents_dir/shared/AGENTS.md"
+command_name="${1:-sync}"
+
+die() { echo "agent-share: $*" >&2; exit 1; }
+
+# Parallel arrays for agent configuration
+agents=(claude codex opencode)
+agent_overlays=(
+  "$agents_dir/overlays/claude.md"
+  "$agents_dir/overlays/codex.md"
+  "$agents_dir/overlays/opencode.md"
+)
+agent_outputs=(
+  "$HOME/CLAUDE.md"
+  "$HOME/.codex/AGENTS.md"
+  "$HOME/.config/opencode/AGENTS.md"
+)
+agent_skills_roots=(
+  "$HOME/.claude/skills"
+  "$HOME/.codex/skills"
+  "$HOME/.config/opencode/skills"
+)
+
+managed_by_us() {
+  local file="$1"
+  # Broken symlink
+  [[ -L "$file" && ! -e "$file" ]] && return 0
+  # Regular file: check if its content matches what we would generate
+  if [[ -f "$file" && ! -L "$file" ]]; then
+    local i tmpfile
+    for i in "${!agents[@]}"; do
+      if [[ "${agent_outputs[$i]}" == "$file" ]]; then
+        tmpfile="$(mktemp)"
+        {
+          cat "$shared_instructions"
+          if [[ -s "${agent_overlays[$i]}" ]]; then
+            echo ""
+            cat "${agent_overlays[$i]}"
+          fi
+        } > "$tmpfile"
+        cmp -s "$file" "$tmpfile" && { rm -f "$tmpfile"; return 0; }
+        rm -f "$tmpfile"
+        break
+      fi
+    done
+  fi
+  # Symlink pointing to a skill directory in agents/skills/
+  if [[ -L "$file" ]]; then
+    local target
+    target="$(readlink "$file")"
+    [[ "$target" == "$agents_dir/skills/"* ]] && return 0
+  fi
+  return 1
+}
+
+clean_broken_symlinks() {
+  local dir="$1"
+  [[ -d "$dir" ]] || return 0
+  find "$dir" -maxdepth 1 -type l ! -exec test -e {} \; -delete
+}
+
+check_instructions() {
+  local i="$1" output="${agent_outputs[$1]}"
+  if [[ ! -e "$output" && ! -L "$output" ]]; then
+    echo "missing: $output"
+    return 1
+  elif managed_by_us "$output"; then
+    echo "ok:      $output"
+  else
+    echo "conflict: $output"
+    return 1
+  fi
+}
+
+check_skill() {
+  local source="$1" target="$2"
+  if [[ ! -e "$target" && ! -L "$target" ]]; then
+    echo "missing: $target"
+    return 1
+  elif managed_by_us "$target"; then
+    echo "ok:      $target"
+  else
+    echo "conflict: $target"
+    return 1
+  fi
+}
+
+check_all() {
+  [[ -f "$shared_instructions" ]] || die "source instructions not found: $shared_instructions"
+  local failed=0 i source target name
+  for i in "${!agents[@]}"; do
+    check_instructions "$i" || failed=1
+  done
+  for i in "${!agents[@]}"; do
+    local root="${agent_skills_roots[$i]}"
+    for source in "$agents_dir/skills"/*; do
+      [[ -d "$source" && -f "$source/SKILL.md" ]] || continue
+      name="$(basename "$source")"
+      [[ "$name" != .* ]] || continue
+      target="$root/$name"
+      check_skill "$source" "$target" || failed=1
+    done
+  done
+  return "$failed"
+}
+
+sync_instructions() {
+  local i="$1" output="${agent_outputs[$1]}"
+  local tmpfile
+  tmpfile="$(mktemp)"
+  {
+    cat "$shared_instructions"
+    if [[ -s "${agent_overlays[$i]}" ]]; then
+      echo ""
+      cat "${agent_overlays[$i]}"
+    fi
+  } > "$tmpfile"
+
+  if [[ -e "$output" || -L "$output" ]]; then
+    if managed_by_us "$output"; then
+      if cmp -s "$output" "$tmpfile"; then
+        rm -f "$tmpfile"
+        return 0
+      fi
+      rm -f "$tmpfile"
+      {
+        cat "$shared_instructions"
+        if [[ -s "${agent_overlays[$i]}" ]]; then
+          echo ""
+          cat "${agent_overlays[$i]}"
+        fi
+      } > "$output"
+      echo "updated: $output"
+    else
+      rm -f "$tmpfile"
+      echo "refusing to overwrite $output; run 'agent-share check' for details" >&2
+      return 1
+    fi
+  else
+    rm -f "$tmpfile"
+    mkdir -p "$(dirname "$output")"
+    {
+      cat "$shared_instructions"
+      if [[ -s "${agent_overlays[$i]}" ]]; then
+        echo ""
+        cat "${agent_overlays[$i]}"
+      fi
+    } > "$output"
+    echo "created: $output"
+  fi
+}
+
+remove_stale_skills() {
+  local i target link_target name
+  for i in "${!agents[@]}"; do
+    local root="${agent_skills_roots[$i]}"
+    [[ -d "$root" ]] || continue
+    for target in "$root"/*; do
+      [[ -e "$target" || -L "$target" ]] || continue
+      # Only remove symlinks we manage that point to a non-existent source
+      if [[ -L "$target" ]]; then
+        link_target="$(readlink "$target")"
+        if [[ "$link_target" == "$agents_dir/skills/"* && ! -e "$link_target" ]]; then
+          rm -f "$target"
+          echo "removed: $target (stale)"
+        fi
+      fi
+    done
+  done
+}
+
+sync_skills() {
+  local failed=0 i source target name
+  for i in "${!agents[@]}"; do
+    local root="${agent_skills_roots[$i]}"
+    clean_broken_symlinks "$root"
+    mkdir -p "$root"
+    for source in "$agents_dir/skills"/*; do
+      [[ -d "$source" && -f "$source/SKILL.md" ]] || continue
+      name="$(basename "$source")"
+      # Skip hidden/backup directories
+      [[ "$name" != .* ]] || continue
+      target="$root/$name"
+      if [[ -e "$target" || -L "$target" ]]; then
+        if managed_by_us "$target"; then
+          rm -f "$target"
+          ln -s "$source" "$target"
+        else
+          echo "refusing to overwrite $target; run 'agent-share check' for details" >&2
+          failed=1
+        fi
+      else
+        ln -s "$source" "$target"
+        echo "linked:  $target"
+      fi
+    done
+  done
+  remove_stale_skills
+  return "$failed"
+}
+
+case "$command_name" in
+  check)
+    check_all
+    ;;
+  sync)
+    [[ -f "$shared_instructions" ]] || die "source instructions not found: $shared_instructions"
+    failed=0
+    for i in "${!agents[@]}"; do
+      sync_instructions "$i" || failed=1
+    done
+    sync_skills || failed=1
+    if [[ "$failed" -eq 0 ]]; then
+      echo ""
+      echo "Run 'stow claude codex opencode' from your dotfiles directory to install static config."
+    fi
+    exit "$failed"
+    ;;
+  *)
+    die "usage: $0 [sync|check]"
+    ;;
+esac
