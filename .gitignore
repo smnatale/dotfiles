@@ -23,6 +23,13 @@ nvim/.config/nvim/nvim-pack-lock.json
 # Dependencies
 node_modules/
 
+# Opencode generated/shared content (managed by agent-share, not stow)
+opencode/.config/opencode/AGENTS.md
+opencode/.config/opencode/skills/
+opencode/.config/opencode/package.json
+opencode/.config/opencode/package-lock.json
+opencode/.config/opencode/.gitignore
+
 # General
 *.log
 *.tmp
