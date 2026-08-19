@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Dotfiles installer. Idempotent: safe to run after git pull.
+# Usage: ./install
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$script_dir"
+
+die() { echo "install: $*" >&2; exit 1; }
+info() { echo "==> $*"; }
+
+# ---------------------------------------------------------------------------
+# 1. Homebrew
+# ---------------------------------------------------------------------------
+if ! command -v brew >/dev/null 2>&1; then
+  info "Installing Homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+info "Installing brew dependencies..."
+brew bundle --file="$script_dir/Brewfile"
+
+# ---------------------------------------------------------------------------
+# 2. Stow packages
+# ---------------------------------------------------------------------------
+stow_packages=(
+  aerospace
+  bat
+  claude
+  codex
+  kitty
+  nvim
+  opencode
+  sketchybar
+  tmux
+  vicinae
+  workmux
+  zsh
+)
+
+# Resolve safe conflicts before stowing: if a real file in ~ matches the
+# dotfiles version exactly, remove it so stow can create a symlink.
+resolve_safe_conflicts() {
+  local pkg="$1"
+  local pkg_file home_file
+  find "$pkg" -type f | while IFS= read -r pkg_file; do
+    home_file="$HOME/${pkg_file#$pkg/}"
+    if [[ -f "$home_file" && ! -L "$home_file" ]] && cmp -s "$pkg_file" "$home_file"; then
+      rm "$home_file"
+      echo "  resolved: $home_file (identical, removed for stow)"
+    fi
+  done
+}
+
+info "Stowing packages..."
+for pkg in "${stow_packages[@]}"; do
+  if [[ ! -d "$pkg" ]]; then
+    echo "  missing: $pkg" >&2
+    continue
+  fi
+
+  resolve_safe_conflicts "$pkg"
+
+  if stow --restow "$pkg" 2>/dev/null; then
+    echo "  stowed: $pkg"
+  else
+    echo "  conflict: $pkg (manual intervention required)" >&2
+  fi
+done
+
+# ---------------------------------------------------------------------------
+# 3. Agent shared content
+# ---------------------------------------------------------------------------
+info "Syncing agent shared content..."
+"$script_dir/bin/agent-share" sync
+
+# ---------------------------------------------------------------------------
+# 4. Shell
+# ---------------------------------------------------------------------------
+if [[ "$SHELL" != *"/zsh" ]]; then
+  info "Changing default shell to zsh..."
+  chsh -s "$(which zsh)"
+fi
+
+# ---------------------------------------------------------------------------
+# 5. Tmux plugins
+# ---------------------------------------------------------------------------
+if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
+  info "Installing Tmux Plugin Manager..."
+  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+fi
+
+info "Done."
+echo ""
+echo "Next steps:"
+echo "  - Restart your terminal or run: source ~/.zshrc"
+echo "  - Inside tmux, press prefix + I to install tmux plugins"
+echo "  - If stow reported conflicts, run: stow --adopt <package>"
