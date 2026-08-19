@@ -39,18 +39,20 @@ stow_packages=(
   zsh
 )
 
-# Resolve safe conflicts before stowing: if a real file in ~ matches the
-# dotfiles version exactly, remove it so stow can create a symlink.
-resolve_safe_conflicts() {
+# Check whether a stow package appears to already be stowed (at least one
+# expected symlink exists in home pointing back into this repo).
+is_stowed() {
   local pkg="$1"
-  local pkg_file home_file
-  find "$pkg" -type f | while IFS= read -r pkg_file; do
-    home_file="$HOME/${pkg_file#$pkg/}"
-    if [[ -f "$home_file" && ! -L "$home_file" ]] && cmp -s "$pkg_file" "$home_file"; then
-      rm "$home_file"
-      echo "  resolved: $home_file (identical, removed for stow)"
+  local pkg_file
+  while IFS= read -r pkg_file; do
+    local home_file="$HOME/${pkg_file#$pkg/}"
+    if [[ -L "$home_file" ]]; then
+      local target
+      target="$(readlink "$home_file")"
+      [[ "$target" == "$script_dir/"* ]] && return 0
     fi
-  done
+  done < <(find "$pkg" -maxdepth 3 -type f | head -20)
+  return 1
 }
 
 info "Stowing packages..."
@@ -60,12 +62,17 @@ for pkg in "${stow_packages[@]}"; do
     continue
   fi
 
-  resolve_safe_conflicts "$pkg"
-
-  if stow --restow "$pkg" 2>/dev/null; then
-    echo "  stowed: $pkg"
+  if is_stowed "$pkg"; then
+    stow --restow "$pkg"
+    echo "  restowed: $pkg"
   else
-    echo "  conflict: $pkg (manual intervention required)" >&2
+    if stow "$pkg" 2>/dev/null; then
+      echo "  stowed: $pkg"
+    else
+      echo "  conflict: $pkg" >&2
+      echo "           Run: stow --adopt $pkg   (moves your existing file into the repo)" >&2
+      echo "           Or:  rm ~/$(find "$pkg" -maxdepth 1 | head -1 | sed "s|^$pkg/||")   (if you don't need the existing file)" >&2
+    fi
   fi
 done
 
@@ -96,4 +103,3 @@ echo ""
 echo "Next steps:"
 echo "  - Restart your terminal or run: source ~/.zshrc"
 echo "  - Inside tmux, press prefix + I to install tmux plugins"
-echo "  - If stow reported conflicts, run: stow --adopt <package>"
