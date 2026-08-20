@@ -1,0 +1,30 @@
+theme = "rose-pine"
+diff_view = "side-by-side"
+appearance = "dark"
+mouse = true
+leader = " "
+comment_vim = true
+relative_line_numbers = false
+cursor_line = true
+transparent_background = true
+scroll_offset = 5
+
+[[comment_types]]
+id = "issue"
+color = "#eb6f92"
+definition = "must fix before merge"
+
+[[comment_types]]
+id = "suggestion"
+color = "#9ccfd8"
+definition = "possible improvements"
+
+[[comment_types]]
+id = "note"
+color = "#c4a7e7"
+definition = "ask for clarification"
+
+[[comment_types]]
+id = "praise"
+color = "#31748f"
+definition = "positive feedback"

@@ -15,6 +15,7 @@ brew "python@3.14"
 brew "ripgrep"
 brew "stow"
 brew "tmux"
+brew "tuicr"
 
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"

@@ -1,0 +1,53 @@
+# Rosé Pine theme for tuicr
+# upstream: https://github.com/rose-pine/rose-pine-theme
+
+panel_bg = "#1f1d2e"
+bg_highlight = "#403d52"
+fg_primary = "#e0def4"
+fg_secondary = "#908caa"
+fg_dim = "#6e6a86"
+
+diff_add = "#9ccfd8"
+diff_add_bg = "#21202e"
+diff_del = "#eb6f92"
+diff_del_bg = "#2e1f24"
+diff_context = "#e0def4"
+diff_hunk_header = "#c4a7e7"
+expanded_context_fg = "#6e6a86"
+
+syntax_add_bg = "#21202e"
+syntax_del_bg = "#2e1f24"
+syntax_theme = "rose-pine-syntax.tmTheme"
+
+file_added = "#9ccfd8"
+file_modified = "#f6c177"
+file_deleted = "#eb6f92"
+file_renamed = "#c4a7e7"
+
+reviewed = "#9ccfd8"
+pending = "#f6c177"
+
+comment_note = "#c4a7e7"
+comment_suggestion = "#9ccfd8"
+comment_issue = "#eb6f92"
+comment_praise = "#31748f"
+
+border_focused = "#ebbcba"
+border_unfocused = "#26233a"
+status_bar_bg = "#191724"
+cursor_color = "#524f67"
+cursor_line_bg = "#21202e"
+branch_name = "#c4a7e7"
+help_indicator = "#908caa"
+
+message_info_fg = "#191724"
+message_info_bg = "#9ccfd8"
+message_warning_fg = "#191724"
+message_warning_bg = "#f6c177"
+message_error_fg = "#191724"
+message_error_bg = "#eb6f92"
+update_badge_fg = "#191724"
+update_badge_bg = "#f6c177"
+
+mode_fg = "#191724"
+mode_bg = "#ebbcba"

@@ -34,6 +34,7 @@ stow_packages=(
   opencode
   sketchybar
   tmux
+  tuicr
   vicinae
   workmux
   zsh
@@ -63,14 +64,14 @@ for pkg in "${stow_packages[@]}"; do
   fi
 
   if is_stowed "$pkg"; then
-    stow --restow "$pkg"
+    stow --restow -t "$HOME" "$pkg"
     echo "  restowed: $pkg"
   else
-    if stow "$pkg" 2>/dev/null; then
+    if stow -t "$HOME" "$pkg" 2>/dev/null; then
       echo "  stowed: $pkg"
     else
       echo "  conflict: $pkg" >&2
-      echo "           Run: stow --adopt $pkg   (moves your existing file into the repo)" >&2
+      echo "           Run: stow --adopt -t \"$HOME\" $pkg   (moves your existing file into the repo)" >&2
       echo "           Or:  rm ~/$(find "$pkg" -maxdepth 1 | head -1 | sed "s|^$pkg/||")   (if you don't need the existing file)" >&2
     fi
   fi
