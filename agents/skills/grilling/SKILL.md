@@ -21,6 +21,8 @@ Format each question like this:
 
 Each round the user answers reshapes the tree: settled decisions push the frontier outward and unblock questions that depended on them. Recompute the frontier and ask the next round. A question whose answer depends on another question still open in this round belongs to a _later_ round, not this one.
 
+**Context you already have.** If the user already answered a question earlier in the conversation and you need to reconfirm it, include that in your recommendation: "You mentioned X earlier - just confirming that's still the case?" Don't make them restate what they already told you.
+
 Finding _facts_ is your job, never the user's. When a frontier question needs a fact from the environment (filesystem, tools, etc.), dispatch a sub-agent to find it; don't ask the user for anything you could look up yourself. Don't block on it: a running exploration is an unsettled prerequisite, so only the questions downstream of it wait for the sub-agent to report; ask the rest of the frontier now. The _decisions_ are the user's: put each to them and wait.
 
-The session ends when the frontier is empty: you've visited every branch of the design tree and nothing remains silently assumed. Do not act until the user confirms you share the same understanding.
+The session ends when the frontier is empty: you've visited every branch of the design tree and nothing remains silently assumed. Before acting, summarize the key decisions back to the user so they can catch any misalignment. Do not act until the user confirms you share the same understanding.
