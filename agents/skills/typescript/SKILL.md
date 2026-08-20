@@ -5,7 +5,7 @@ description: States the user's general TypeScript preferences - type safety defa
 
 # TypeScript
 
-General preferences for any TypeScript codebase. Repo-specific or lint-enforced rules belong in that repo's own CLAUDE.md, not here - this skill only covers taste that should hold everywhere.
+TypeScript taste that should hold everywhere. Repo-specific or lint-enforced rules belong in that repo's own CLAUDE.md.
 
 | Rule | Summary |
 |------|---------|

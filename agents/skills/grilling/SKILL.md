@@ -7,7 +7,7 @@ Interview the user relentlessly until you reach a shared understanding. Map this
 
 Work the tree in **rounds**. The **frontier** is every decision whose prerequisites are already settled: the questions you can ask _now_ without guessing at answers you haven't heard yet. Ask the whole frontier in one round: number each question and give your recommended answer. Then wait for the user's answers before the next round.
 
-Each question should be formatted like so:
+Format each question like this:
 
 ```
 ❓ **Q1** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
@@ -19,4 +19,4 @@ Each round the user answers reshapes the tree: settled decisions push the fronti
 
 Finding _facts_ is your job, never the user's. When a frontier question needs a fact from the environment (filesystem, tools, etc.), dispatch a sub-agent to find it; don't ask the user for anything you could look up yourself. Don't block on it: a running exploration is an unsettled prerequisite, so only the questions downstream of it wait for the sub-agent to report; ask the rest of the frontier now. The _decisions_ are the user's: put each to them and wait.
 
-The session is done when the frontier is empty: every branch of the design tree visited, nothing left silently assumed. Do not act on it until the user confirms you have reached a shared understanding.
+The session ends when the frontier is empty: you've visited every branch of the design tree and nothing remains silently assumed. Do not act until the user confirms you share the same understanding.
