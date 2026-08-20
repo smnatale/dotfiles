@@ -1,5 +1,4 @@
 {
-  "model": "claude-sonnet-5",
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true
   },
