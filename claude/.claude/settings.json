@@ -2,5 +2,6 @@
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true
   },
-  "theme": "dark-ansi"
+  "theme": "dark-ansi",
+  "model": "claude-opus-4-6"
 }
