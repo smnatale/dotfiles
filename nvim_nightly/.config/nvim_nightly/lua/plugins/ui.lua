@@ -11,3 +11,7 @@ code_action.setup({
 
 local fidget = require("fidget")
 fidget.setup()
+
+require("hlslens").setup()
+
+require("smartcolumn").setup()

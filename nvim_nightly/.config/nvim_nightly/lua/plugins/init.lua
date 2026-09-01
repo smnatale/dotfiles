@@ -24,6 +24,8 @@ vim.pack.add({
 	"https://github.com/windwp/nvim-ts-autotag",
 	"https://github.com/rachartier/tiny-inline-diagnostic.nvim",
 	"https://github.com/rachartier/tiny-cmdline.nvim",
+	"https://github.com/kevinhwang91/nvim-hlslens",
+	"https://github.com/m4xshen/smartcolumn.nvim",
 	"https://github.com/nvim-mini/mini.nvim",
 	"https://github.com/nvim-lualine/lualine.nvim",
 	"https://github.com/martindur/zdiff.nvim",
