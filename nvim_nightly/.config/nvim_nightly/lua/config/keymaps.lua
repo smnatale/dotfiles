@@ -1,0 +1,93 @@
+-- Disable Space bar since it will be used as the leader key
+vim.keymap.set({ "n", "v" }, "<leader>", "<nop>", { desc = "Disable leader key default" })
+
+-- Redo remap
+vim.keymap.set("n", "U", "<C-r>", { desc = "Redo" })
+
+-- after a search, press escape to clear highlights
+vim.keymap.set("n", "<Esc>", ":nohl<CR>", { silent = true, desc = "Clear search highlights" })
+
+-- Swap between split buffers
+vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { silent = true, desc = "Move to left split" })
+vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", { silent = true, desc = "Move to below split" })
+vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", { silent = true, desc = "Move to above split" })
+vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { silent = true, desc = "Move to right split" })
+vim.keymap.set("n", "<leader>rr", ":wincmd r<CR>", { silent = true, desc = "Rotate split buffers" })
+
+-- Save and quit current file quicker
+vim.keymap.set("n", "<leader>w", ":w<cr>", { silent = true, noremap = true, desc = "Save current file" })
+vim.keymap.set({ "n", "t" }, "<leader>q", ":q<cr>", { silent = true, noremap = true, desc = "Quit current buffer" })
+
+-- Navigate through buffers
+vim.keymap.set("n", "<S-l>", ":bnext<CR>", { silent = true, desc = "Next buffer" })
+vim.keymap.set("n", "<S-h>", ":bprevious<CR>", { silent = true, desc = "Previous buffer" })
+
+-- Close currently active buffer
+vim.keymap.set("n", "<C-c>", ":bwipeout<CR>", { silent = true, desc = "Close current buffer" })
+
+-- Center buffer when navigating up and down
+vim.keymap.set("n", "<S-k>", "<C-u>zz", { desc = "Scroll up and center" })
+vim.keymap.set("n", "<S-j>", "<C-d>zz", { desc = "Scroll down and center" })
+
+-- Center buffer when progressing through search results
+vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result centered" })
+vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result centered" })
+
+-- Paste without replacing paste with what you are highlighted over
+vim.keymap.set("n", "<leader>p", '"_dP', { desc = "Paste without replacing register" })
+
+-- Yank to system clipboard
+vim.keymap.set("n", "<leader>y", '"+y', { desc = "Yank to system clipboard" })
+vim.keymap.set("v", "<leader>y", '"+y', { desc = "Yank selection to system clipboard" })
+vim.keymap.set("n", "<leader>Y", '"+Y', { desc = "Yank line to system clipboard" })
+
+-- Open buffer to the right
+vim.keymap.set("n", "<leader>v", ":vsplit<CR>", { silent = true, desc = "Vertical split" })
+
+-- Move selection up and down
+vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv", { silent = true, desc = "Move selection down" })
+vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv", { silent = true, desc = "Move selection up" })
+
+-- Copy file path / selection reference for pasting into AI chats
+local function copy_ref(opts)
+	-- "%" is the current buffer's file name; ":." makes it relative to the cwd
+	local path = vim.fn.expand("%:.")
+	-- ref is what ends up in the clipboard; start with just the path
+	local ref = path
+
+	if opts.visual then
+		-- '< and '> are only set after leaving visual mode, so read the live selection:
+		-- "v" is the line where visual mode was started (the anchor)
+		local start_line = vim.fn.line("v")
+		-- "." is the line the cursor is on now (the moving end of the selection)
+		local end_line = vim.fn.line(".")
+		-- if the selection was made upward, swap so start is always the smaller line
+		if start_line > end_line then
+			start_line, end_line = end_line, start_line
+		end
+		-- append the range, e.g. "lua/config/keymaps.lua:1:23"
+		ref = path .. ":" .. start_line .. ":" .. end_line
+	end
+
+	-- ask for an optional free-text note on the command line (Enter to skip)
+	local note = vim.fn.input("Prompt (optional): ")
+	if note ~= "" then
+		-- append the note after the ref, separated by a space
+		ref = ref .. " " .. note
+	end
+
+	-- write ref into the "+" register, which is the system clipboard
+	vim.fn.setreg("+", ref)
+	-- show a confirmation message with what was copied
+	vim.notify("Copied: " .. ref)
+end
+
+-- normal mode: copy just the file path
+vim.keymap.set("n", "<leader>cp", function()
+	copy_ref({})
+end, { desc = "Copy file path" })
+
+-- visual mode: copy the file path plus the selected line range
+vim.keymap.set("v", "<leader>cp", function()
+	copy_ref({ visual = true })
+end, { desc = "Copy file path with line range" })
