@@ -36,7 +36,7 @@ vim.pack.add({
 	"https://github.com/nvim-telescope/telescope-fzf-native.nvim",
 	"https://github.com/nvim-telescope/telescope-ui-select.nvim",
 	"https://github.com/rachartier/tiny-code-action.nvim",
-	{ src = "https://github.com/nvim-telescope/telescope-frecency.nvim", version = "1.2.2" },
+	"https://github.com/nvim-telescope/telescope-frecency.nvim",
 	"https://github.com/L3MON4D3/LuaSnip",
 	"https://github.com/Saghen/blink.lib",
 	"https://github.com/Saghen/blink.cmp",

@@ -15,6 +15,11 @@ vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { silent = true, desc = "Move to r
 vim.keymap.set("n", "<leader>rr", ":wincmd r<CR>", { silent = true, desc = "Rotate split buffers" })
 vim.keymap.set("n", "<leader>re", ":restart<CR>", { silent = true, desc = "Restart Neovim" })
 
+local multicursor_ns = vim.api.nvim_create_namespace("nvim.multicursor")
+vim.keymap.set("n", "<leader>cc", function()
+	vim.api.nvim_buf_clear_namespace(0, multicursor_ns, 0, -1)
+end, { desc = "Clear multicursors" })
+
 -- Save and quit current file quicker
 vim.keymap.set("n", "<leader>w", ":w<cr>", { silent = true, noremap = true, desc = "Save current file" })
 vim.keymap.set({ "n", "t" }, "<leader>q", ":q<cr>", { silent = true, noremap = true, desc = "Quit current buffer" })

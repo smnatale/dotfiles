@@ -122,8 +122,7 @@
     },
     "telescope-frecency.nvim": {
       "rev": "d4f1bb2a939cc02720bceb635095246751db144f",
-      "src": "https://github.com/nvim-telescope/telescope-frecency.nvim",
-      "version": "'1.2.2'"
+      "src": "https://github.com/nvim-telescope/telescope-frecency.nvim"
     },
     "telescope-fzf-native.nvim": {
       "rev": "b25b749b9db64d375d782094e2b9dce53ad53a40",
