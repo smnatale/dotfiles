@@ -4,14 +4,14 @@ cmdline.setup({
 	width = { value = "70%" },
 })
 
-local code_action = require("tiny-code-action")
-code_action.setup({
-	picker = "buffer",
-})
-
 local fidget = require("fidget")
-fidget.setup()
+fidget.setup({})
 
 require("hlslens").setup()
 
 require("smartcolumn").setup()
+
+local chainsaw = require("chainsaw")
+chainsaw.setup({})
+
+vim.keymap.set({ "n", "x" }, "<leader>lg", chainsaw.variableLog, { desc = "Log variable" })

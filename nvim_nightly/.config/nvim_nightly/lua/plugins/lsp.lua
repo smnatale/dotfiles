@@ -7,7 +7,7 @@ require("mason-tool-installer").setup({
 		"eslint",
 		"lua_ls",
 		"tailwindcss-language-server",
-		"vtsls",
+		"ts_ls",
 		"gopls",
 		"sqls",
 		"jsonls",
@@ -36,7 +36,11 @@ vim.api.nvim_create_autocmd(
 			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, opts("Find references"))
 
 			vim.keymap.set({ "n", "v" }, "<leader>ca", function()
-				require("tiny-code-action").code_action()
+				require("tiny-code-action").code_action({
+					filter = function(action)
+						return not action.disabled
+					end,
+				})
 			end, opts("Code action"))
 			vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts("Format buffer"))
 

@@ -8,6 +8,10 @@
       "rev": "d34c58439271f5e73ed79c2b8d1a09731c4525f1",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
+    "actions-preview.nvim": {
+      "rev": "0ac9c2aa3cfc8c885321c0862b50b6b1c3392405",
+      "src": "https://github.com/aznhe21/actions-preview.nvim"
+    },
     "blink.cmp": {
       "rev": "61ffe3e9cedb59eac31484248a1de6a0e37f8d21",
       "src": "https://github.com/Saghen/blink.cmp"
@@ -19,6 +23,10 @@
     "conform.nvim": {
       "rev": "016802de402556da54c36bd7359b441266b01cdd",
       "src": "https://github.com/stevearc/conform.nvim"
+    },
+    "fastaction.nvim": {
+      "rev": "b147d91727cb35be4f722f17e7d4ed5b4a5801d8",
+      "src": "https://github.com/chaitanyabsprip/fastaction.nvim"
     },
     "fff.nvim": {
       "rev": "d84c0a10cd5ea23285cb5575fa90179f51710f99",
@@ -60,6 +68,22 @@
       "rev": "ff483051a47e27d84bdef47703538df1ed9f4a47",
       "src": "https://github.com/rose-pine/neovim"
     },
+    "nui.nvim": {
+      "rev": "10fc361835c856ba4233ef5ea135b919bf3dce97",
+      "src": "https://github.com/MunifTanjim/nui.nvim"
+    },
+    "nvim-chainsaw": {
+      "rev": "78a0e68c59f4e7760f33dacde0ff21b2498c015e",
+      "src": "https://github.com/chrisgrieser/nvim-chainsaw"
+    },
+    "nvim-hlslens": {
+      "rev": "be2d7b2be01860b5445a007ff2bc72b29896db6b",
+      "src": "https://github.com/kevinhwang91/nvim-hlslens"
+    },
+    "nvim-lightbulb": {
+      "rev": "b8c08c5f3b1586dfcdd9f34d7d54fe6982e01ac9",
+      "src": "https://github.com/kosayoda/nvim-lightbulb"
+    },
     "nvim-lspconfig": {
       "rev": "16286347bdba1333c7d124d9de9fe6630731b2b2",
       "src": "https://github.com/neovim/nvim-lspconfig"
@@ -83,6 +107,18 @@
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "pretty_hover": {
+      "rev": "934df974ef6158b100fe910e8556e6c4a66614c2",
+      "src": "https://github.com/Fildo7525/pretty_hover"
+    },
+    "real-icons.nvim": {
+      "rev": "51a91399326a3b8371ea78426807b957aa972fce",
+      "src": "https://github.com/Mirsmog/real-icons.nvim"
+    },
+    "smartcolumn.nvim": {
+      "rev": "5351ae24e992a397d2abac48b7774dc8ef0acf40",
+      "src": "https://github.com/m4xshen/smartcolumn.nvim"
     },
     "telescope-frecency.nvim": {
       "rev": "d4f1bb2a939cc02720bceb635095246751db144f",
