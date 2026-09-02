@@ -32,7 +32,6 @@ vim.pack.add({
 	"https://github.com/j-hui/fidget.nvim",
 	"https://github.com/chrisgrieser/nvim-chainsaw",
 	"https://github.com/nvim-lua/plenary.nvim",
-	"https://github.com/MunifTanjim/nui.nvim",
 	"https://github.com/nvim-telescope/telescope.nvim",
 	"https://github.com/nvim-telescope/telescope-fzf-native.nvim",
 	"https://github.com/nvim-telescope/telescope-ui-select.nvim",
