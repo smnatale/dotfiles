@@ -19,6 +19,7 @@ vim.pack.add({
 	"https://github.com/martindur/zdiff.nvim",
 	"https://github.com/lewis6991/gitsigns.nvim",
 	"https://github.com/j-hui/fidget.nvim",
+	"https://github.com/artemave/workspace-diagnostics.nvim",
 	"https://github.com/chrisgrieser/nvim-chainsaw",
 	"https://github.com/nvim-lua/plenary.nvim",
 	"https://github.com/nvim-telescope/telescope.nvim",
@@ -45,5 +46,6 @@ require("plugins.lualine")
 require("plugins.mini")
 require("plugins.oil")
 require("plugins.telescope")
+require("plugins.cheatsh")
 require("plugins.treesitter")
 require("plugins.misc")

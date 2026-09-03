@@ -132,6 +132,10 @@
       "rev": "79aedb401bbdc7e4202f7881eab5f6feb2105b0a",
       "src": "https://github.com/wansmer/treesj"
     },
+    "workspace-diagnostics.nvim": {
+      "rev": "a35321d8401878cc9558e357acfd0da58b582739",
+      "src": "https://github.com/artemave/workspace-diagnostics.nvim"
+    },
     "zdiff.nvim": {
       "rev": "6e2a105d7cc138b25e2907589ad2c5251e608424",
       "src": "https://github.com/martindur/zdiff.nvim"
