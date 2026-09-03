@@ -42,6 +42,7 @@ require("blink.cmp").setup({
 			"path",
 			"snippets",
 			"buffer",
+			"ripgrep",
 		},
 		per_filetype = {
 			sql = { "lsp", "snippets", "buffer" },
@@ -49,6 +50,16 @@ require("blink.cmp").setup({
 		providers = {
 			lsp = {
 				score_offset = 90,
+			},
+			ripgrep = {
+				module = "blink-ripgrep",
+				name = "Ripgrep",
+				opts = {
+					prefix_min_len = 3,
+					backend = {
+						use = "gitgrep-or-ripgrep",
+					},
+				},
 			},
 		},
 	},

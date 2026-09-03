@@ -8,6 +8,10 @@
       "rev": "d34c58439271f5e73ed79c2b8d1a09731c4525f1",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
+    "blink-ripgrep.nvim": {
+      "rev": "c5a23c4388c945374bf37c5e68f6604062aa0696",
+      "src": "https://github.com/mikavilpas/blink-ripgrep.nvim"
+    },
     "blink.cmp": {
       "rev": "61ffe3e9cedb59eac31484248a1de6a0e37f8d21",
       "src": "https://github.com/Saghen/blink.cmp"

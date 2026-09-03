@@ -30,6 +30,7 @@ vim.pack.add({
 	"https://github.com/L3MON4D3/LuaSnip",
 	"https://github.com/Saghen/blink.lib",
 	"https://github.com/Saghen/blink.cmp",
+	"https://github.com/mikavilpas/blink-ripgrep.nvim",
 	"https://github.com/rafamadriz/friendly-snippets",
 	"https://github.com/wansmer/treesj",
 	"https://github.com/abecodes/tabout.nvim",
