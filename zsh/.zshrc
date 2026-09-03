@@ -71,7 +71,7 @@ bindkey '^[[A' history-search-backward # Up arrow searches history
 bindkey '^[[B' history-search-forward  # Down arrow searches history
 
 # Short aliases
-alias n='nvim'     # Neovim
+alias n='NVIM_APPNAME=nvim_nightly nvim'     # Neovim
 alias lg='lazygit' # Lazygit TUI
 alias oc='opencode' # OpenCode
 alias cc='claude'  # Claude CLI
