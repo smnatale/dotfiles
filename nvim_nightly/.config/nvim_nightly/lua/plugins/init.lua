@@ -1,14 +1,3 @@
-vim.api.nvim_create_autocmd("PackChanged", {
-	callback = function(ev)
-		local name, kind = ev.data.spec.name, ev.data.kind
-		if name == "telescope-fzf-native.nvim" and (kind == "install" or kind == "update") then
-			if vim.fn.executable("make") == 1 then
-				vim.system({ "make" }, { cwd = ev.data.path }):wait()
-			end
-		end
-	end,
-})
-
 vim.pack.add({
 	"https://github.com/stevearc/oil.nvim",
 	"https://github.com/refractalize/oil-git-status.nvim",

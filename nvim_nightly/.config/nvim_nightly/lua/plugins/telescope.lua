@@ -3,6 +3,19 @@ local builtin = require("telescope.builtin")
 local actions = require("telescope.actions")
 local code_action = require("tiny-code-action")
 
+vim.api.nvim_create_autocmd("PackChanged", {
+	desc = "Build telescope-fzf-native after install/update",
+	group = vim.api.nvim_create_augroup("telescope_fzf_build", { clear = true }),
+	callback = function(ev)
+		local name, kind = ev.data.spec.name, ev.data.kind
+		if name == "telescope-fzf-native.nvim" and (kind == "install" or kind == "update") then
+			if vim.fn.executable("make") == 1 then
+				vim.system({ "make" }, { cwd = ev.data.path }):wait()
+			end
+		end
+	end,
+})
+
 telescope.setup({
 	defaults = {
 		path_display = { "truncate", "filename_first" },
