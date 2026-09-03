@@ -30,6 +30,7 @@ vim.pack.add({
 	"https://github.com/Saghen/blink.lib",
 	"https://github.com/Saghen/blink.cmp",
 	"https://github.com/rafamadriz/friendly-snippets",
+	"https://github.com/wansmer/treesj",
 })
 
 require("plugins.blink")
@@ -43,4 +44,4 @@ require("plugins.mini")
 require("plugins.oil")
 require("plugins.telescope")
 require("plugins.treesitter")
-require("plugins.ui")
+require("plugins.misc")
