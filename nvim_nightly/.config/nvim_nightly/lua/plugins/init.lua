@@ -31,6 +31,8 @@ vim.pack.add({
 	"https://github.com/Saghen/blink.cmp",
 	"https://github.com/rafamadriz/friendly-snippets",
 	"https://github.com/wansmer/treesj",
+	"https://github.com/abecodes/tabout.nvim",
+	"https://github.com/mawkler/modicator.nvim",
 })
 
 require("plugins.blink")

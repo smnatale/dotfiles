@@ -5,7 +5,7 @@ lualine.setup({
 	},
 	sections = {
 		lualine_a = { "mode" },
-		lualine_c = { { "filename", path = 1 } },
+		lualine_c = { { "filename", path = 4 } },
 		lualine_b = { "branch", "diff" },
 		lualine_x = {
 			{

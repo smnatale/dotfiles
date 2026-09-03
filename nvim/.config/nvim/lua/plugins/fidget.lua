@@ -5,4 +5,4 @@ vim.pack.add({
 
 -- options
 local fidget = require("fidget")
-fidget.setup()
+fidget.setup({})

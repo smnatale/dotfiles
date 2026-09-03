@@ -52,6 +52,10 @@
       "rev": "a311ed247d527db9592bb434356badc705363746",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
+    "modicator.nvim": {
+      "rev": "7f867b4980946f115f4ccb922637d70d89a59cb4",
+      "src": "https://github.com/mawkler/modicator.nvim"
+    },
     "neovim": {
       "rev": "ff483051a47e27d84bdef47703538df1ed9f4a47",
       "src": "https://github.com/rose-pine/neovim"
@@ -91,6 +95,10 @@
     "smartcolumn.nvim": {
       "rev": "5351ae24e992a397d2abac48b7774dc8ef0acf40",
       "src": "https://github.com/m4xshen/smartcolumn.nvim"
+    },
+    "tabout.nvim": {
+      "rev": "9a3499480a8e53dcaa665e2836f287e3b7764009",
+      "src": "https://github.com/abecodes/tabout.nvim"
     },
     "telescope-frecency.nvim": {
       "rev": "d4f1bb2a939cc02720bceb635095246751db144f",
