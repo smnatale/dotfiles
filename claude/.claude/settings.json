@@ -1,7 +1,13 @@
 {
+  "model": "claude-opus-4-6",
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh"
+  },
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true
   },
   "theme": "dark-ansi",
-  "model": "claude-opus-4-6"
+  "editorMode": "normal",
+  "verbose": false
 }
