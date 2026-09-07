@@ -37,7 +37,7 @@ selected=$(
         done < <(find "$expanded" -mindepth 1 -maxdepth "$depth" -type d)
       done
     done
-  } | fzf --height 100% --color=bg:#090B10,fg:#e0def4,hl:#c4a7e7,fg+:#e0def4,bg+:#403d52,hl+:#9ccfd8,info:#6e6a86,prompt:#31748f,pointer:#ebbcba,marker:#eb6f92,spinner:#f6c177,header:#6e6a86,border:#26233a
+  } | fzf --height 100% --color=bg:-1,fg:#e0def4,hl:#c4a7e7,fg+:#e0def4,bg+:#403d52,hl+:#9ccfd8,info:#6e6a86,prompt:#31748f,pointer:#ebbcba,marker:#eb6f92,spinner:#f6c177,header:#6e6a86,border:#26233a
 )
 
 [ -z "$selected" ] && exit 0

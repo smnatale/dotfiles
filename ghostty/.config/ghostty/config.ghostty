@@ -1,0 +1,16 @@
+background = 090B10
+font-family = FantasqueSansM Nerd Font Mono
+font-size = 24
+theme = Rose Pine
+
+background-opacity = 0.9
+background-blur = macos-glass-regular
+font-thicken = true
+
+macos-titlebar-style = hidden
+macos-window-buttons = hidden
+
+mouse-hide-while-typing = true
+cursor-style = block
+cursor-style-blink = false
+custom-shader = shaders/cursor_warp.glsl
