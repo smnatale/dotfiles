@@ -93,16 +93,18 @@ clock=(
   script="$CONFIG_DIR/plugins/clock.sh"
   label.color=0xffe0def4
   label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  padding_left=4
+  padding_right=4
 )
 sketchybar --add item clock right --set clock "${clock[@]}"
+sketchybar --set clock padding_left=4 padding_right=4
 
-# Battery (top right, after clock)
 battery=(
   script="$CONFIG_DIR/plugins/battery.sh"
   icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
   label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
-  padding_left=0
-  padding_right=0
+  padding_left=4
+  padding_right=4
   update_freq=120
   background.padding_left=0
   background.padding_right=0
@@ -110,6 +112,55 @@ battery=(
 sketchybar --add item battery right \
   --subscribe battery system_woke power_source_change \
   --set battery "${battery[@]}"
+sketchybar --set battery padding_left=4 padding_right=4
+
+disk=(
+  script="$CONFIG_DIR/plugins/disk.sh"
+  icon="󰋊"
+  icon.color=0xff6e6a86
+  label.color=0xff6e6a86
+  update_freq=60
+  icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  padding_left=4
+  padding_right=4
+  background.padding_left=0
+  background.padding_right=0
+)
+sketchybar --add item disk right --set disk "${disk[@]}"
+sketchybar --set disk padding_left=4 padding_right=4
+
+memory=(
+  script="$CONFIG_DIR/plugins/memory.sh"
+  icon="󰍛"
+  icon.color=0xff6e6a86
+  label.color=0xff6e6a86
+  update_freq=5
+  icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  padding_left=4
+  padding_right=4
+  background.padding_left=0
+  background.padding_right=0
+)
+sketchybar --add item memory right --set memory "${memory[@]}"
+sketchybar --set memory padding_left=4 padding_right=4
+
+cpu=(
+  script="$CONFIG_DIR/plugins/cpu.sh"
+  icon="󰻠"
+  icon.color=0xff6e6a86
+  label.color=0xff6e6a86
+  update_freq=2
+  icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  padding_left=4
+  padding_right=4
+  background.padding_left=0
+  background.padding_right=0
+)
+sketchybar --add item cpu right --set cpu "${cpu[@]}"
+sketchybar --set cpu padding_left=4 padding_right=4
 
 # Force initial updates so the clock appears immediately
 sketchybar --update

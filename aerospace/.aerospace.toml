@@ -62,7 +62,7 @@ gaps.inner.horizontal = 16
 gaps.inner.vertical =   16
 gaps.outer.left =       8
 gaps.outer.right =      8
-gaps.outer.bottom =     2
+gaps.outer.bottom =     8
 gaps.outer.top = [
     { monitor.'built-in' = 0 },
     32
