@@ -21,8 +21,8 @@ require("blink.cmp").setup({
 		["<Tab>"] = { "accept", "fallback" },
 		["<CR>"] = { "accept", "fallback" },
 		["<S-Tab>"] = { "show" },
-		["<S-j>"] = { "select_next", "fallback" },
-		["<S-k>"] = { "select_prev", "fallback" },
+		["<C-j>"] = { "select_next", "fallback" },
+		["<C-k>"] = { "select_prev", "fallback" },
 	},
 	completion = {
 		menu = {
