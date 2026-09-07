@@ -4,21 +4,25 @@ vim.keymap.set({ "n", "v" }, "<leader>", "<nop>", { desc = "Disable leader key d
 -- Redo remap
 vim.keymap.set("n", "U", "<C-r>", { desc = "Redo" })
 
--- after a search, press escape to clear highlights
-vim.keymap.set("n", "<Esc>", ":nohl<CR>", { silent = true, desc = "Clear search highlights" })
-
 -- Swap between split buffers
-vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { silent = true, desc = "Move to left split" })
+vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", {
+	silent = true,
+	desc = "Move to left split",
+})
 vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", { silent = true, desc = "Move to below split" })
-vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", { silent = true, desc = "Move to above split" })
+vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", {
+	silent = true,
+	desc = "Move to above split",
+})
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { silent = true, desc = "Move to right split" })
 vim.keymap.set("n", "<leader>rr", ":wincmd r<CR>", { silent = true, desc = "Rotate split buffers" })
 vim.keymap.set("n", "<leader>re", ":restart<CR>", { silent = true, desc = "Restart Neovim" })
 
 local multicursor_ns = vim.api.nvim_create_namespace("nvim.multicursor")
-vim.keymap.set("n", "<leader>cc", function()
+vim.keymap.set("n", "<Esc>", function()
+	vim.cmd.nohlsearch()
 	vim.api.nvim_buf_clear_namespace(0, multicursor_ns, 0, -1)
-end, { desc = "Clear multicursors" })
+end, { desc = "Clear search highligts & multicursors" })
 
 -- Save and quit current file quicker
 vim.keymap.set("n", "<leader>w", ":w<cr>", { silent = true, noremap = true, desc = "Save current file" })
@@ -87,11 +91,6 @@ local function copy_ref(opts)
 	-- show a confirmation message with what was copied
 	vim.notify("Copied: " .. ref)
 end
-
--- normal mode: copy just the file path
-vim.keymap.set("n", "<leader>cp", function()
-	copy_ref({})
-end, { desc = "Copy file path" })
 
 -- visual mode: copy the file path plus the selected line range
 vim.keymap.set("v", "<leader>cp", function()

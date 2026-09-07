@@ -1,5 +1,6 @@
 require("vim._core.ui2").enable({})
 vim.g.mapleader = " " -- space leader key
+vim.g.maplocalleader = " " -- space leader key
 
 vim.o.termguicolors = true -- enable 24-bit colors
 vim.o.updatetime = 200 -- save swap file with 200ms debouncing

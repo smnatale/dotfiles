@@ -62,7 +62,7 @@ local function project_root()
 end
 
 vim.keymap.set("n", "<leader>sf", function()
-	telescope.extensions.frecency.frecency({ cwd = project_root(), workspace = "CWD" })
+	telescope.extensions.frecency.frecency({ cwd = project_root(), workspace = "CWD", hidden = true })
 end, { desc = "Find files" })
 vim.keymap.set("n", "<leader>sF", function()
 	builtin.find_files({ cwd = project_root() })

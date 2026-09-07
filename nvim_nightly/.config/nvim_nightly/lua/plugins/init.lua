@@ -18,6 +18,7 @@ vim.pack.add({
 	"https://github.com/nvim-lualine/lualine.nvim",
 	"https://github.com/martindur/zdiff.nvim",
 	"https://github.com/lewis6991/gitsigns.nvim",
+	"https://github.com/folke/trouble.nvim",
 	"https://github.com/j-hui/fidget.nvim",
 	"https://github.com/artemave/workspace-diagnostics.nvim",
 	"https://github.com/chrisgrieser/nvim-chainsaw",
@@ -35,6 +36,14 @@ vim.pack.add({
 	"https://github.com/wansmer/treesj",
 	"https://github.com/abecodes/tabout.nvim",
 	"https://github.com/mawkler/modicator.nvim",
+	"https://github.com/fredrikaverpil/godoc.nvim",
+	"https://github.com/nvim-neotest/neotest",
+	"https://github.com/nvim-neotest/nvim-nio",
+	"https://github.com/nvim-lua/plenary.nvim",
+	"https://github.com/antoinemadec/FixCursorHold.nvim",
+	"https://github.com/nvim-treesitter/nvim-treesitter",
+	"https://github.com/fredrikaverpil/neotest-golang",
+	"https://github.com/olexsmir/gopher.nvim",
 })
 
 require("plugins.blink")
@@ -47,6 +56,8 @@ require("plugins.lualine")
 require("plugins.mini")
 require("plugins.oil")
 require("plugins.telescope")
-require("plugins.cheatsh")
 require("plugins.treesitter")
 require("plugins.misc")
+require("plugins.golang")
+require("plugins.trouble")
+require("plugins.testing")
