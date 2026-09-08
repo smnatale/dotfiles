@@ -120,6 +120,10 @@
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
+    "quicker.nvim": {
+      "rev": "4a6883cb13fe097a20a046eb55f6dffd239276e3",
+      "src": "https://github.com/stevearc/quicker.nvim"
+    },
     "smartcolumn.nvim": {
       "rev": "5351ae24e992a397d2abac48b7774dc8ef0acf40",
       "src": "https://github.com/m4xshen/smartcolumn.nvim"
