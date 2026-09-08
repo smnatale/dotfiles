@@ -69,7 +69,7 @@ gaps.outer.top = 36
     # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
     # You can uncomment the following lines to open up terminal with alt + enter shortcut
     # (like in i3)
-    alt-enter = 'exec-and-forget open -n /Applications/kitty.app'
+    alt-enter = 'exec-and-forget open -n /Applications/Ghostty.app'
     alt-b = 'exec-and-forget open -n /Applications/Brave\ Browser.app'
     alt-e = 'exec-and-forget open .'
     alt-s = 'exec-and-forget screencapture -i -c'
