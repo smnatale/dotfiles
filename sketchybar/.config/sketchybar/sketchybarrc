@@ -165,5 +165,22 @@ cpu=(
 sketchybar --add item cpu right --set cpu "${cpu[@]}"
 sketchybar --set cpu padding_left=4 padding_right=4
 
+youtube=(
+  script="$CONFIG_DIR/plugins/youtube.sh"
+  icon="󰗃"
+  icon.color="$ROSE_PINE_LOVE"
+  label.color="$ROSE_PINE_MUTED"
+  update_freq=3600
+  icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  padding_left=4
+  padding_right=4
+  background.padding_left=0
+  background.padding_right=0
+  click_script="open https://www.youtube.com/@sam_natale"
+)
+sketchybar --add item youtube right --set youtube "${youtube[@]}"
+sketchybar --set youtube padding_left=4 padding_right=16
+
 # Force initial updates so the clock appears immediately
 sketchybar --update
