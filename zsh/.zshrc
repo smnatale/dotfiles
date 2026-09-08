@@ -76,7 +76,6 @@ alias lg='lazygit' # Lazygit TUI
 alias oc='opencode' # OpenCode
 alias cc='claude'  # Claude CLI
 alias tms='~/.config/tmux/tmux-sessionizer.sh' # Tmux sessionizer
-alias tmw='~/.config/tmux/tmux-worktree.sh'    # Tmux worktree
 alias wm='workmux'
 
 # fzf - fuzzy finder (Ctrl-T for file search, Ctrl-R for history, Alt-C for cd)
