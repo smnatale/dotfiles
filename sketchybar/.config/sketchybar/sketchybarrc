@@ -22,7 +22,7 @@ bar=(
   position=top
   height=32
   color=0x00000000
-  padding_left=0
+  padding_left=2
   padding_right=0
   margin=0
   corner_radius=0
@@ -96,18 +96,29 @@ clock=(
   script="$CONFIG_DIR/plugins/clock.sh"
   label.color="$ROSE_PINE_FOAM"
   label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
-  padding_left=4
+  padding_left=2
   padding_right=4
+  label.padding_left=0
 )
 sketchybar --add item clock right --set clock "${clock[@]}"
-sketchybar --set clock padding_left=4 padding_right=4
+sketchybar --set clock padding_left=2 padding_right=4 label.padding_left=0
 
+separator=(
+  label="│"
+  label.color="$ROSE_PINE_MUTED"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:20.0"
+  icon.drawing=off
+  padding_left=6
+  padding_right=6
+  background.drawing=off
+)
 battery=(
   script="$CONFIG_DIR/plugins/battery.sh"
   icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
   label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
   padding_left=4
-  padding_right=4
+  padding_right=2
+  label.padding_right=0
   update_freq=120
   background.padding_left=0
   background.padding_right=0
@@ -115,7 +126,28 @@ battery=(
 sketchybar --add item battery right \
   --subscribe battery system_woke power_source_change \
   --set battery "${battery[@]}"
-sketchybar --set battery padding_left=4 padding_right=4
+sketchybar --set battery padding_left=4 padding_right=2 label.padding_right=0
+
+sketchybar --add item youtube_battery_separator right --set youtube_battery_separator "${separator[@]}"
+
+youtube=(
+  script="$CONFIG_DIR/plugins/youtube.sh"
+  icon="󰗃"
+  icon.color="$ROSE_PINE_LOVE"
+  label.color="$ROSE_PINE_MUTED"
+  update_freq=3600
+  icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  padding_left=4
+  padding_right=4
+  background.padding_left=0
+  background.padding_right=0
+  click_script="open https://www.youtube.com/@sam_natale"
+)
+sketchybar --add item youtube right --set youtube "${youtube[@]}"
+sketchybar --set youtube padding_left=4 padding_right=0
+
+sketchybar --add item youtube_stats_separator right --set youtube_stats_separator "${separator[@]}"
 
 disk=(
   script="$CONFIG_DIR/plugins/disk.sh"
@@ -131,7 +163,7 @@ disk=(
   background.padding_right=0
 )
 sketchybar --add item disk right --set disk "${disk[@]}"
-sketchybar --set disk padding_left=4 padding_right=4
+sketchybar --set disk padding_left=4 padding_right=0
 
 memory=(
   script="$CONFIG_DIR/plugins/memory.sh"
@@ -164,23 +196,6 @@ cpu=(
 )
 sketchybar --add item cpu right --set cpu "${cpu[@]}"
 sketchybar --set cpu padding_left=4 padding_right=4
-
-youtube=(
-  script="$CONFIG_DIR/plugins/youtube.sh"
-  icon="󰗃"
-  icon.color="$ROSE_PINE_LOVE"
-  label.color="$ROSE_PINE_MUTED"
-  update_freq=3600
-  icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
-  label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
-  padding_left=4
-  padding_right=4
-  background.padding_left=0
-  background.padding_right=0
-  click_script="open https://www.youtube.com/@sam_natale"
-)
-sketchybar --add item youtube right --set youtube "${youtube[@]}"
-sketchybar --set youtube padding_left=4 padding_right=16
 
 # Force initial updates so the clock appears immediately
 sketchybar --update
