@@ -5,6 +5,9 @@ require("neotest").setup({
 })
 
 vim.keymap.set("n", "<leader>tr", ":Neotest run<cr>", { silent = true, desc = "Run nearest test" })
+vim.keymap.set("n", "<leader>tf", function()
+	require("neotest").run.run(vim.fn.expand("%"))
+end, { desc = "Run File Tests" })
 vim.keymap.set("n", "<leader>ts", ":Neotest summary<cr>", { silent = true, desc = "Test summary" })
 vim.keymap.set("n", "<leader>to", ":Neotest output<cr>", { silent = true, desc = "Test output" })
 vim.keymap.set("n", "<leader>tp", ":Neotest output-panel<cr>", { silent = true, desc = "Test output panel" })
