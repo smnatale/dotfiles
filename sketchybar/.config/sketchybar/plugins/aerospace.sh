@@ -5,6 +5,8 @@
 # Falls back to querying aerospace directly when the variable is missing
 # (e.g. during sketchybar --update on startup).
 
+source "$CONFIG_DIR/palette.sh"
+
 SID="$1"
 
 # Resolve aerospace binary path (sketchybar runs with minimal PATH)
@@ -22,10 +24,10 @@ FOCUSED="${FOCUSED_WORKSPACE:-$("$AEROSPACE" list-workspaces --focused 2>/dev/nu
 
 if [ "$SID" = "$FOCUSED" ]; then
   sketchybar --set "$NAME" \
-    label.color=0xffe0def4 \
-    background.color=0x00000000
+    label.color="$ROSE_PINE_FOAM" \
+    background.color="$ROSE_PINE_TRANSPARENT"
 else
   sketchybar --set "$NAME" \
-    label.color=0xff6e6a86 \
-    background.color=0x00000000
+    label.color="$ROSE_PINE_MUTED" \
+    background.color="$ROSE_PINE_TRANSPARENT"
 fi

@@ -3,6 +3,8 @@
 # Sketchybar main configuration
 # Rose Pine theme, matching nvim & kitty
 
+source "$CONFIG_DIR/palette.sh"
+
 # Resolve aerospace binary path (sketchybar often has minimal PATH)
 if [ -x "/opt/homebrew/bin/aerospace" ]; then
   AEROSPACE="/opt/homebrew/bin/aerospace"
@@ -34,9 +36,9 @@ defaults=(
   padding_right=4
   icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
   label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
-  icon.color=0xffe0def4
-  label.color=0xff6e6a86
-  background.color=0x00000000
+  icon.color="$ROSE_PINE_TEXT"
+  label.color="$ROSE_PINE_MUTED"
+  background.color="$ROSE_PINE_TRANSPARENT"
   background.corner_radius=4
   background.padding_left=4
   background.padding_right=4
@@ -56,6 +58,7 @@ sketchybar --add event aerospace_workspace_change
 apple=(
   icon=""
   icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  icon.color="$ROSE_PINE_TEXT"
   label.drawing=off
   click_script="open x-apple.systempreferences:"
 )
@@ -66,7 +69,7 @@ for sid in $(seq 1 5); do
   space=(
     label="$sid"
     label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
-    label.color=0xff6e6a86
+    label.color="$ROSE_PINE_MUTED"
     icon.drawing=off
     label.width=24
     padding_left=0          # override global 4
@@ -91,7 +94,7 @@ sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE="$FOCUSED_INIT
 clock=(
   update_freq=10
   script="$CONFIG_DIR/plugins/clock.sh"
-  label.color=0xffe0def4
+  label.color="$ROSE_PINE_FOAM"
   label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
   padding_left=4
   padding_right=4
@@ -117,8 +120,8 @@ sketchybar --set battery padding_left=4 padding_right=4
 disk=(
   script="$CONFIG_DIR/plugins/disk.sh"
   icon="󰋊"
-  icon.color=0xff6e6a86
-  label.color=0xff6e6a86
+  icon.color="$ROSE_PINE_PINE"
+  label.color="$ROSE_PINE_MUTED"
   update_freq=60
   icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
   label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
@@ -133,8 +136,8 @@ sketchybar --set disk padding_left=4 padding_right=4
 memory=(
   script="$CONFIG_DIR/plugins/memory.sh"
   icon="󰍛"
-  icon.color=0xff6e6a86
-  label.color=0xff6e6a86
+  icon.color="$ROSE_PINE_ROSE"
+  label.color="$ROSE_PINE_MUTED"
   update_freq=5
   icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
   label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
@@ -149,8 +152,8 @@ sketchybar --set memory padding_left=4 padding_right=4
 cpu=(
   script="$CONFIG_DIR/plugins/cpu.sh"
   icon="󰻠"
-  icon.color=0xff6e6a86
-  label.color=0xff6e6a86
+  icon.color="$ROSE_PINE_GOLD"
+  label.color="$ROSE_PINE_MUTED"
   update_freq=2
   icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
   label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
