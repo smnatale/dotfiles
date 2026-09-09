@@ -49,7 +49,7 @@ if [ -n "$upstream" ]; then
 fi
 
 if git -C "$repo_root" rev-parse --verify refs/stash >/dev/null 2>&1; then
-  stashes=$(git -C "$repo_root" rev-list --count refs/stash)
+  stashes=$(git -C "$repo_root" rev-list --walk-reflogs --count refs/stash)
   [ "$stashes" -gt 0 ] && printf ' #[fg=#9ccfd8]*%s' "$stashes"
 fi
 
