@@ -42,6 +42,19 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("PackChanged", {
+	desc = "Build telescope-fzf-native after install/update",
+	group = vim.api.nvim_create_augroup("telescope_fzf_build", { clear = true }),
+	callback = function(ev)
+		local name, kind = ev.data.spec.name, ev.data.kind
+		if name == "telescope-fzf-native.nvim" and (kind == "install" or kind == "update") then
+			if vim.fn.executable("make") == 1 then
+				vim.system({ "make" }, { cwd = ev.data.path }):wait()
+			end
+		end
+	end,
+})
+
 -- syntax highlighting for dotenv files
 vim.api.nvim_create_autocmd("BufRead", {
 	group = vim.api.nvim_create_augroup("dotenv_ft", { clear = true }),
