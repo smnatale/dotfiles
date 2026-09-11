@@ -1,0 +1,18 @@
+background = 090B10
+font-family = FantasqueSansM Nerd Font Mono
+font-size = 23
+theme = Rose Pine
+
+background-opacity = 0.9
+font-thicken = true
+
+{{ if eq .chezmoi.os "darwin" }}
+background-blur = macos-glass-regular
+macos-titlebar-style = hidden
+macos-window-buttons = hidden
+{{ end }}
+
+mouse-hide-while-typing = true
+cursor-style = block
+cursor-style-blink = false
+custom-shader = shaders/cursor_warp.glsl
