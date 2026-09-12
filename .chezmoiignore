@@ -1,0 +1,5 @@
+{{- if ne .chezmoi.os "darwin" }}
+.aerospace.toml
+.config/sketchybar/
+.config/sketchybar/**
+{{- end }}

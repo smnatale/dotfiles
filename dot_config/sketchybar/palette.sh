@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Rosé Pine palette shared by the bar and its event plugins.
+ROSE_PINE_TEXT=0xffe0def4
+ROSE_PINE_MUTED=0xff6e6a86
+ROSE_PINE_OVERLAY=0xff26233a
+ROSE_PINE_LOVE=0xffeb6f92
+ROSE_PINE_GOLD=0xfff6c177
+ROSE_PINE_ROSE=0xffebbcba
+ROSE_PINE_PINE=0xff31748f
+ROSE_PINE_FOAM=0xff9ccfd8
+ROSE_PINE_IRIS=0xffc4a7e7
+ROSE_PINE_TRANSPARENT=0x00000000

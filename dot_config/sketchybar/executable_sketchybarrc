@@ -1,0 +1,201 @@
+#!/bin/bash
+
+# Sketchybar main configuration
+# Rose Pine theme, matching nvim & kitty
+
+source "$CONFIG_DIR/palette.sh"
+
+# Resolve aerospace binary path (sketchybar often has minimal PATH)
+if [ -x "/opt/homebrew/bin/aerospace" ]; then
+  AEROSPACE="/opt/homebrew/bin/aerospace"
+elif [ -x "/usr/local/bin/aerospace" ]; then
+  AEROSPACE="/usr/local/bin/aerospace"
+elif command -v aerospace >/dev/null 2>&1; then
+  AEROSPACE="$(command -v aerospace)"
+else
+  echo "ERROR: aerospace not found" >&2
+  exit 1
+fi
+
+# Bar appearance
+bar=(
+  position=top
+  height=32
+  color=0x00000000
+  padding_left=2
+  padding_right=0
+  margin=0
+  corner_radius=0
+  blur_radius=0
+)
+sketchybar --bar "${bar[@]}"
+
+# Default item styling
+defaults=(
+  padding_left=4
+  padding_right=4
+  icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  icon.color="$ROSE_PINE_TEXT"
+  label.color="$ROSE_PINE_MUTED"
+  background.color="$ROSE_PINE_TRANSPARENT"
+  background.corner_radius=4
+  background.padding_left=4
+  background.padding_right=4
+  icon.padding_left=4
+  icon.padding_right=4
+  icon.y_offset=1
+  label.padding_left=4
+  label.padding_right=4
+  label.y_offset=1
+)
+sketchybar --default "${defaults[@]}"
+
+# Register the custom event from AeroSpace
+sketchybar --add event aerospace_workspace_change
+
+# Apple logo (opens System Settings)
+apple=(
+  icon=""
+  icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  icon.color="$ROSE_PINE_TEXT"
+  label.drawing=off
+  click_script="open x-apple.systempreferences:"
+)
+sketchybar --add item apple left --set apple "${apple[@]}"
+
+# Aerospace workspaces (1-5) - using item type, not space type
+for sid in $(seq 1 5); do
+  space=(
+    label="$sid"
+    label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+    label.color="$ROSE_PINE_MUTED"
+    icon.drawing=off
+    label.width=24
+    padding_left=0          # override global 4
+    padding_right=0         # override global 4
+    background.padding_left=0   # override global 4
+    background.padding_right=0  # override global 4
+    icon.padding_left=0     # unnecessary but inherited
+    icon.padding_right=0    # unnecessary but inherited
+    click_script="$AEROSPACE workspace $sid"
+    script="$CONFIG_DIR/plugins/aerospace.sh $sid"
+  )
+  sketchybar --add item space.$sid left \
+    --subscribe space.$sid aerospace_workspace_change \
+    --set space.$sid "${space[@]}"
+done
+
+# Trigger initial highlight for the currently focused workspace
+FOCUSED_INIT=$("$AEROSPACE" list-workspaces --focused 2>/dev/null)
+sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE="$FOCUSED_INIT"
+
+# Clock (top right)
+clock=(
+  update_freq=10
+  script="$CONFIG_DIR/plugins/clock.sh"
+  label.color="$ROSE_PINE_FOAM"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  padding_left=2
+  padding_right=4
+  label.padding_left=0
+)
+sketchybar --add item clock right --set clock "${clock[@]}"
+sketchybar --set clock padding_left=2 padding_right=4 label.padding_left=0
+
+separator=(
+  label="│"
+  label.color="$ROSE_PINE_MUTED"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:20.0"
+  icon.drawing=off
+  padding_left=6
+  padding_right=6
+  background.drawing=off
+)
+battery=(
+  script="$CONFIG_DIR/plugins/battery.sh"
+  icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  padding_left=4
+  padding_right=2
+  label.padding_right=0
+  update_freq=120
+  background.padding_left=0
+  background.padding_right=0
+)
+sketchybar --add item battery right \
+  --subscribe battery system_woke power_source_change \
+  --set battery "${battery[@]}"
+sketchybar --set battery padding_left=4 padding_right=2 label.padding_right=0
+
+sketchybar --add item youtube_battery_separator right --set youtube_battery_separator "${separator[@]}"
+
+youtube=(
+  script="$CONFIG_DIR/plugins/youtube.sh"
+  icon="󰗃"
+  icon.color="$ROSE_PINE_LOVE"
+  label.color="$ROSE_PINE_MUTED"
+  update_freq=360
+  icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  padding_left=4
+  padding_right=4
+  background.padding_left=0
+  background.padding_right=0
+  click_script="open https://www.youtube.com/@sam_natale"
+)
+sketchybar --add item youtube right --set youtube "${youtube[@]}"
+sketchybar --set youtube padding_left=4 padding_right=0
+
+sketchybar --add item youtube_stats_separator right --set youtube_stats_separator "${separator[@]}"
+
+disk=(
+  script="$CONFIG_DIR/plugins/disk.sh"
+  icon="󰋊"
+  icon.color="$ROSE_PINE_PINE"
+  label.color="$ROSE_PINE_MUTED"
+  update_freq=60
+  icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  padding_left=4
+  padding_right=4
+  background.padding_left=0
+  background.padding_right=0
+)
+sketchybar --add item disk right --set disk "${disk[@]}"
+sketchybar --set disk padding_left=4 padding_right=0
+
+memory=(
+  script="$CONFIG_DIR/plugins/memory.sh"
+  icon="󰍛"
+  icon.color="$ROSE_PINE_ROSE"
+  label.color="$ROSE_PINE_MUTED"
+  update_freq=5
+  icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  padding_left=4
+  padding_right=4
+  background.padding_left=0
+  background.padding_right=0
+)
+sketchybar --add item memory right --set memory "${memory[@]}"
+sketchybar --set memory padding_left=4 padding_right=4
+
+cpu=(
+  script="$CONFIG_DIR/plugins/cpu.sh"
+  icon="󰻠"
+  icon.color="$ROSE_PINE_GOLD"
+  label.color="$ROSE_PINE_MUTED"
+  update_freq=2
+  icon.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  label.font="FantasqueSansM Nerd Font Mono:Regular:24.0"
+  padding_left=4
+  padding_right=4
+  background.padding_left=0
+  background.padding_right=0
+)
+sketchybar --add item cpu right --set cpu "${cpu[@]}"
+sketchybar --set cpu padding_left=4 padding_right=4
+
+# Force initial updates so the clock appears immediately
+sketchybar --update
