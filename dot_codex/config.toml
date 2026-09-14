@@ -1,0 +1,6 @@
+model_reasoning_effort = "medium"
+approvals_reviewer = "auto_review"
+
+[tui]
+status_line = ["model-with-reasoning", "context-used", "five-hour-limit", "weekly-limit"]
+status_line_use_colors = true
