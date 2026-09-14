@@ -4,6 +4,7 @@ if [[ -d /opt/homebrew/opt/postgresql@17/bin ]]; then
 fi
 
 # Environment variables for language runtimes and tools
+export XDG_CONFIG_HOME="$HOME/.config"
 export GOPATH="$HOME/go"                              # Go workspace directory
 export BUN_INSTALL="$HOME/.bun"                       # Bun package manager install location
 if [[ -z "${JAVA_HOME:-}" ]] && [[ -x /usr/libexec/java_home ]]; then

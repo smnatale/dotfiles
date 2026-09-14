@@ -1,0 +1,47 @@
+gui:
+  nerdFontsVersion: "3"
+  filterMode: fuzzy
+  showNumstatInFilesView: true
+  showDivergenceFromBaseBranch: arrowAndNumber
+  switchTabsWithPanelJumpKeys: true
+  showRandomTip: false
+  showCommandLog: false
+  theme:
+    activeBorderColor:
+      - "#31748f"
+      - bold
+    inactiveBorderColor:
+      - "#6e6a86"
+    searchingActiveBorderColor:
+      - "#ebbcba"
+      - bold
+    optionsTextColor:
+      - "#9ccfd8"
+    selectedLineBgColor:
+      - "#31748f"
+    inactiveViewSelectedLineBgColor:
+      - "#26233a"
+      - bold
+    cherryPickedCommitFgColor:
+      - "#1f1d2e"
+    cherryPickedCommitBgColor:
+      - "#ebbcba"
+    markedBaseCommitFgColor:
+      - "#9ccfd8"
+    markedBaseCommitBgColor:
+      - "#f6c177"
+    unstagedChangesColor:
+      - "#eb6f92"
+    defaultFgColor:
+      - "#e0def4"
+
+git:
+  diffRenderers:
+    - type: stdinFilter
+      name: delta
+      colorArg: always
+      command: delta --paging=never --features="mellow-barbet" --syntax-theme="rose-pine"
+    - type: rawGit
+      name: raw
+
+disableStartupPopups: true

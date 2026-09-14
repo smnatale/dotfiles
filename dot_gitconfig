@@ -1,3 +1,5 @@
+[include]
+	path = ~/.config/delta/themes.gitconfig
 [user]
 	name = smnatale
   email = 66391194+smnatale@users.noreply.github.com
