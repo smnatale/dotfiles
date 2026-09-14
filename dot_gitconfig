@@ -1,6 +1,13 @@
 [user]
 	name = smnatale
   email = 66391194+smnatale@users.noreply.github.com
+	signingkey = ~/.ssh/id_ed25519.pub
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
 [core]
 	# neovim btw
 	editor = nvim
