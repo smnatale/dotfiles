@@ -19,6 +19,10 @@ set -eu
 
 /usr/bin/defaults write com.apple.spaces spans-displays -bool true
 
+/usr/bin/defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 '<dict><key>enabled</key><true/><key>value</key><dict><key>parameters</key><array><integer>32</integer><integer>49</integer><integer>524288</integer></array><key>type</key><string>standard</string></dict></dict>'
+/usr/bin/defaults read com.apple.symbolichotkeys.plist >/dev/null
+/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+
 /usr/bin/defaults write com.apple.dock autohide -bool true
 /usr/bin/defaults write com.apple.dock tilesize -int 44
 /usr/bin/defaults write com.apple.dock mru-spaces -bool false

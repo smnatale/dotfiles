@@ -1,0 +1,38 @@
+[catalogs]
+searchPriorities = []
+sortOrders = []
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.commands'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.effects'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.emoji'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+[hotkeys]
+custom = []
+
+    [hotkeys.app.activate]
+    carbonKeyCode = 49
+    carbonModifiers = 256
+
+[settings]
+clipboardHistoryEnabled = false
+shelfCatalogEnabled = false
+
+[[catalogSettings]]
+catalogIdentifier = 'com.brnbw.tuna.themes.default'
+
+    [catalogSettings.values]
+    ThemeTint = 'custom:86729E'
