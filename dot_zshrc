@@ -86,6 +86,9 @@ bindkey '^[[A' history-search-backward # Up arrow searches history
 bindkey '^[[B' history-search-forward  # Down arrow searches history
 
 # Short aliases
+alias ls='eza --icons=always --group-directories-first'
+alias la='eza --all --icons=always --group-directories-first'
+alias ll='eza --long --all --git --icons=always --group-directories-first'
 alias n='NVIM_APPNAME=nvim_nightly nvim'     # Neovim
 alias lg='lazygit' # Lazygit TUI
 alias oc='opencode' # OpenCode

@@ -13,6 +13,12 @@
 [core]
 	# neovim btw
 	editor = nvim
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	features = mellow-barbet
+	navigate = true
 [init]
   defaultBranch = main
 [pull]
