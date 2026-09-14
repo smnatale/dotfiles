@@ -2,19 +2,25 @@
 	name = smnatale
   email = 66391194+smnatale@users.noreply.github.com
 [core]
+	# neovim btw
 	editor = nvim
-[color]
-    ui = auto
 [init]
-    defaultBranch = main
+  defaultBranch = main
 [pull]
-    rebase = true
+  rebase = true
 [push]
-    default = simple
-    autoSetupRemote = true
+  autoSetupRemote = true
 [branch]
-    sort = -committerdate
-[pack]
-    depth = 20
+	# list branches by most recent commit.
+  sort = -committerdate
 [checkout]
 	defaultRemote = origin
+[fetch]
+  # remove remote-tracking branches that no longer exist upstream
+  prune = true
+[rerere]
+  # reuse recorded conflict resolutions automatically
+  enabled = true
+[merge]
+	# include the common ancestor in conflict markers for easier resolution
+  conflictStyle = zdiff3
