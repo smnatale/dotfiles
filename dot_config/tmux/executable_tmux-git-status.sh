@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+export GIT_OPTIONAL_LOCKS=0
 
 repo_path="${1:-}"
 [ -d "$repo_path" ] || exit 0
