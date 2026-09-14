@@ -59,6 +59,7 @@ vim.pack.add({
 
 	-- Developer utilities
 	"https://github.com/chrisgrieser/nvim-chainsaw",
+	"https://github.com/alker0/chezmoi.vim",
 })
 
 require("plugins.blink")
