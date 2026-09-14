@@ -1,0 +1,27 @@
+#!/bin/sh
+set -eu
+
+shared="{{ .chezmoi.homeDir }}/.agents/skills"
+claude="{{ .chezmoi.homeDir }}/.claude/skills"
+
+[ -d "$shared" ] || exit 0
+mkdir -p "$claude"
+
+for skill in "$shared"/*; do
+	[ -d "$skill" ] || continue
+
+	name=${skill##*/}
+	target="$claude/$name"
+
+	if [ -L "$target" ]; then
+		current=$(readlink "$target")
+		case "$current" in
+			"$shared"/*) rm "$target" ;;
+			*) continue ;;
+		esac
+	elif [ -e "$target" ]; then
+		continue
+	fi
+
+	ln -s "$skill" "$target"
+done
