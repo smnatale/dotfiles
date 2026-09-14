@@ -2,14 +2,8 @@
 
 set -eu
 
-{{ if eq .chezmoi.os "darwin" -}}
-if command -v brew >/dev/null 2>&1; then
-	brew_bin="$(command -v brew)"
-elif [ -x /opt/homebrew/bin/brew ]; then
-	brew_bin=/opt/homebrew/bin/brew
-elif [ -x /usr/local/bin/brew ]; then
-	brew_bin=/usr/local/bin/brew
-else
+brew_bin=/opt/homebrew/bin/brew
+if [ ! -x "$brew_bin" ]; then
 	printf '%s\n' 'Homebrew is required before Node.js can be installed.' >&2
 	exit 1
 fi
@@ -37,4 +31,3 @@ if [ -z "$installed_version" ] || [ "$installed_version" = system ]; then
 fi
 
 fnm default "$installed_version"
-{{ end -}}

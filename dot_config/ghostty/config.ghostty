@@ -6,11 +6,9 @@ theme = Rose Pine
 background-opacity = 0.9
 font-thicken = true
 
-{{ if eq .chezmoi.os "darwin" }}
 background-blur = macos-glass-regular
 macos-titlebar-style = hidden
 macos-window-buttons = hidden
-{{ end }}
 
 mouse-hide-while-typing = true
 cursor-style = block

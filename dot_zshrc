@@ -1,33 +1,20 @@
-{{ if eq .chezmoi.os "darwin" -}}
 # Homebrew package paths
-if (( $+commands[brew] )); then
-	brew_prefix="$(brew --prefix)"
-	export PATH="$brew_prefix/opt/postgresql@17/bin:$PATH"
+if [[ -d /opt/homebrew/opt/postgresql@17/bin ]]; then
+	export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 fi
-{{ end -}}
 
 # Environment variables for language runtimes and tools
 export GOPATH="$HOME/go"                              # Go workspace directory
 export BUN_INSTALL="$HOME/.bun"                       # Bun package manager install location
-{{ if eq .chezmoi.os "darwin" -}}
 if [[ -z "${JAVA_HOME:-}" ]] && [[ -x /usr/libexec/java_home ]]; then
 	JAVA_HOME="$(/usr/libexec/java_home -v 17 2>/dev/null)"
 fi
 if [[ -n "${JAVA_HOME:-}" ]]; then
 	export JAVA_HOME
 fi
-{{ else if eq .chezmoi.os "linux" -}}
-if [[ -z "${JAVA_HOME:-}" && -d /usr/lib/jvm/java-17-openjdk-amd64 ]]; then
-	export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
-fi
-{{ end -}}
 
 if [[ -z "${ANDROID_HOME:-}" ]]; then
-{{ if eq .chezmoi.os "darwin" -}}
 	[[ -d "$HOME/Library/Android/sdk" ]] && export ANDROID_HOME="$HOME/Library/Android/sdk"
-{{ else if eq .chezmoi.os "linux" -}}
-	[[ -d "$HOME/Android/Sdk" ]] && export ANDROID_HOME="$HOME/Android/Sdk"
-{{ end -}}
 fi
 
 if (( $+commands[npm] )); then
@@ -115,58 +102,25 @@ fi
 export BAT_THEME="rose-pine"
 
 # zsh-autosuggestions - fish-style autosuggestions from history
-for plugin_path in \
-	{{ if eq .chezmoi.os "darwin" -}}
-	"${HOMEBREW_PREFIX:-}/share/zsh-autosuggestions/zsh-autosuggestions.zsh" \
-	{{ end -}}
-	/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-do
-	if [[ -r "$plugin_path" ]]; then
-		source "$plugin_path"
-		break
-	fi
-done
+if [[ -r /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+	source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
 
 # zsh-system-clipboard - copy/paste to system clipboard from vi mode
-for plugin_path in \
-	{{ if eq .chezmoi.os "darwin" -}}
-	"${HOMEBREW_PREFIX:-}/share/zsh-system-clipboard/zsh-system-clipboard.zsh" \
-	{{ end -}}
-	/usr/share/zsh-system-clipboard/zsh-system-clipboard.zsh
-do
-	if [[ -r "$plugin_path" ]]; then
-		source "$plugin_path"
-		break
-	fi
-done
+if [[ -r /opt/homebrew/share/zsh-system-clipboard/zsh-system-clipboard.zsh ]]; then
+	source /opt/homebrew/share/zsh-system-clipboard/zsh-system-clipboard.zsh
+fi
 
 # Powerlevel10k - fast prompt theme
-for theme_path in \
-	{{ if eq .chezmoi.os "darwin" -}}
-	"${HOMEBREW_PREFIX:-}/share/powerlevel10k/powerlevel10k.zsh-theme" \
-	{{ end -}}
-	/usr/share/powerlevel10k/powerlevel10k.zsh-theme \
-	/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-do
-	if [[ -r "$theme_path" ]]; then
-		source "$theme_path"
-		break
-	fi
-done
+if [[ -r /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme ]]; then
+	source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+fi
 [[ ! -f "$HOME/.p10k.zsh" ]] || source "$HOME/.p10k.zsh"  # Load p10k config if it exists
 
 # zsh-syntax-highlighting - colorize commands as you type (must be sourced last)
-for plugin_path in \
-	{{ if eq .chezmoi.os "darwin" -}}
-	"${HOMEBREW_PREFIX:-}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
-	{{ end -}}
-	/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-do
-	if [[ -r "$plugin_path" ]]; then
-		source "$plugin_path"
-		break
-	fi
-done
+if [[ -r /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+	source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 # fnm - Fast Node Manager, auto-switch node versions on cd
 if (( $+commands[fnm] )); then

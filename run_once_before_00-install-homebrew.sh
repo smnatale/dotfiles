@@ -2,10 +2,7 @@
 
 set -eu
 
-{{ if eq .chezmoi.os "darwin" -}}
-if command -v brew >/dev/null 2>&1 ||
-  [ -x /opt/homebrew/bin/brew ] ||
-  [ -x /usr/local/bin/brew ]; then
+if [ -x /opt/homebrew/bin/brew ]; then
 	exit 0
 fi
 
@@ -17,8 +14,7 @@ trap 'rm -f "$installer"' EXIT HUP INT TERM
 	--output "$installer"
 /bin/bash "$installer"
 
-if [ ! -x /opt/homebrew/bin/brew ] && [ ! -x /usr/local/bin/brew ]; then
+if [ ! -x /opt/homebrew/bin/brew ]; then
 	printf '%s\n' 'Homebrew installation completed without creating a supported brew executable.' >&2
 	exit 1
 fi
-{{ end -}}
