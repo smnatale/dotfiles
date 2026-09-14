@@ -1,4 +1,5 @@
 {{- if ne .chezmoi.os "darwin" }}
+.Brewfile
 .aerospace.toml
 .config/sketchybar/
 .config/sketchybar/**

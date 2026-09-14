@@ -1,0 +1,32 @@
+brew "bat"
+brew "bun"
+brew "chezmoi"
+brew "fd"
+brew "fnm"
+brew "fzf"
+brew "gnu-tar"
+brew "go"
+brew "lazygit"
+brew "postgresql@17"
+brew "powerlevel10k"
+brew "ripgrep"
+brew "rust"
+brew "tmux"
+brew "tree-sitter-cli"
+brew "tuicr"
+brew "zsh-autosuggestions"
+brew "zsh-syntax-highlighting"
+brew "zsh-system-clipboard"
+
+brew "anomalyco/tap/opencode", trusted: true
+brew "felixkratz/formulae/borders", trusted: true
+brew "felixkratz/formulae/sketchybar", trusted: true
+brew "raine/workmux/workmux", trusted: true
+
+cask "brave-browser"
+cask "claude-code"
+cask "codex"
+cask "font-fantasque-sans-mono-nerd-font"
+cask "ghostty"
+cask "smnatale/neovim-nightly/neovim-nightly", trusted: true
+cask "nikitabobko/tap/aerospace", trusted: true
