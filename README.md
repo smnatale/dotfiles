@@ -1,6 +1,6 @@
 # dotfiles
 
-My macOS dotfiles, as seen in my YouTube videos.
+My macOS dotfiles.
 
 Built for Apple Silicon and managed with [chezmoi](https://www.chezmoi.io/). Feel free to steal anything useful.
 
