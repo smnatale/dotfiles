@@ -26,4 +26,5 @@ for skill in "$shared"/*; do
 	ln -s "$skill" "$target"
 done
 
-ln -s ~/AGENTS.md ~/CLAUDE.md
+[ -e "$HOME/CLAUDE.md" ] || [ -L "$HOME/CLAUDE.md" ] ||
+	ln -s "$HOME/AGENTS.md" "$HOME/CLAUDE.md"
