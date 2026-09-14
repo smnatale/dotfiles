@@ -24,6 +24,10 @@
       "rev": "c8fdc12c8a2fab6cf786dd7141a283f8079f902b",
       "src": "https://github.com/Saghen/blink.lib"
     },
+    "chezmoi.vim": {
+      "rev": "7a498ea65f658993237fb0469001bdf71f68cf94",
+      "src": "https://github.com/alker0/chezmoi.vim"
+    },
     "conform.nvim": {
       "rev": "016802de402556da54c36bd7359b441266b01cdd",
       "src": "https://github.com/stevearc/conform.nvim"
