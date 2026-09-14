@@ -1,0 +1,18 @@
+#!/bin/sh
+
+set -eu
+
+brew_bin=/opt/homebrew/bin/brew
+if [ ! -x "$brew_bin" ]; then
+	printf '%s\n' 'Homebrew is required before runtimes can be installed.' >&2
+	exit 1
+fi
+
+eval "$("$brew_bin" shellenv)"
+
+if ! command -v mise >/dev/null 2>&1; then
+	printf '%s\n' 'mise is required before runtimes can be installed.' >&2
+	exit 1
+fi
+
+mise -C "$HOME" install

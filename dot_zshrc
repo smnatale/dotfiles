@@ -7,20 +7,11 @@ fi
 export XDG_CONFIG_HOME="$HOME/.config"
 export GOPATH="$HOME/go"                              # Go workspace directory
 export BUN_INSTALL="$HOME/.bun"                       # Bun package manager install location
-if [[ -z "${JAVA_HOME:-}" ]] && [[ -x /usr/libexec/java_home ]]; then
-	JAVA_HOME="$(/usr/libexec/java_home -v 17 2>/dev/null)"
-fi
-if [[ -n "${JAVA_HOME:-}" ]]; then
-	export JAVA_HOME
-fi
 
 if [[ -z "${ANDROID_HOME:-}" ]]; then
 	[[ -d "$HOME/Library/Android/sdk" ]] && export ANDROID_HOME="$HOME/Library/Android/sdk"
 fi
 
-if (( $+commands[npm] )); then
-	export NODE_PATH="$(npm root -g 2>/dev/null)"
-fi
 export TMUX_SESSIONIZER_PATHS="$HOME/Projects"          # Tmux sessionizer search paths
 
 # PATH additions
@@ -40,9 +31,8 @@ fi
 # Rust/Cargo - source env if it exists
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
-# rbenv - initialize Ruby version manager if available
-if command -v rbenv >/dev/null 2>&1; then
-	eval "$(rbenv init - --no-rehash zsh)"
+if (( $+commands[mise] )); then
+	eval "$(mise activate zsh)"
 fi
 
 # Zsh options
@@ -124,11 +114,6 @@ fi
 # zsh-syntax-highlighting - colorize commands as you type (must be sourced last)
 if [[ -r /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
 	source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-
-# fnm - Fast Node Manager, auto-switch node versions on cd
-if (( $+commands[fnm] )); then
-	eval "$(fnm env --use-on-cd --shell zsh)"
 fi
 
 # Local overrides - machine-specific settings not checked into git
