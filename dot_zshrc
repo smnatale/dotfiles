@@ -86,6 +86,10 @@ if (( $+commands[fzf] )); then
 	source <(fzf --zsh)
 fi
 
+if (( $+commands[atuin] )); then
+	eval "$(atuin init zsh --disable-up-arrow)"
+fi
+
 # bat - syntax highlighted file previews
 export BAT_THEME="rose-pine"
 

@@ -1,3 +1,4 @@
+brew "atuin"
 brew "bat"
 brew "bun"
 brew "chezmoi"
