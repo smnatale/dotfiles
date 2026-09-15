@@ -50,7 +50,7 @@ require("conform").setup({
 		typescript = javascript_formatters,
 		typescriptreact = javascript_formatters,
 		graphql = { "prettierd" },
-		go = { "goimports", "gofmt" },
+		go = { "goimports" },
 		json = json_formatters,
 		sql = { "sql_formatter" },
 	},

@@ -2,6 +2,8 @@
 
 set -eu
 
+# Brewfile hash: {{ include "dot_Brewfile" | sha256sum }}
+
 brew_bin=/opt/homebrew/bin/brew
 if [ ! -x "$brew_bin" ]; then
 	printf '%s\n' 'Homebrew is required before packages can be installed.' >&2

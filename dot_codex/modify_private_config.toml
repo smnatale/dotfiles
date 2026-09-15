@@ -1,0 +1,8 @@
+{{- /* chezmoi:modify-template */ -}}
+{{ .chezmoi.stdin
+  | fromToml
+  | setValueAtPath "model_reasoning_effort" "medium"
+  | setValueAtPath "approvals_reviewer" "auto_review"
+  | setValueAtPath "tui.status_line" (list "model-with-reasoning" "context-used" "five-hour-limit" "weekly-limit")
+  | setValueAtPath "tui.status_line_use_colors" true
+  | toToml -}}

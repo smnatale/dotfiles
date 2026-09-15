@@ -7,24 +7,26 @@ claude="{{ .chezmoi.homeDir }}/.claude/skills"
 [ -d "$shared" ] || exit 0
 mkdir -p "$claude"
 
+link_if_missing() {
+	link_source=$1
+	link_target=$2
+
+	if [ -L "$link_target" ] && [ "$(readlink "$link_target")" = "$link_source" ]; then
+		return
+	fi
+	if [ -e "$link_target" ] || [ -L "$link_target" ]; then
+		printf 'Not replacing conflicting path: %s\n' "$link_target" >&2
+		return
+	fi
+
+	ln -s "$link_source" "$link_target"
+}
+
 for skill in "$shared"/*; do
 	[ -d "$skill" ] || continue
 
 	name=${skill##*/}
-	target="$claude/$name"
-
-	if [ -L "$target" ]; then
-		current=$(readlink "$target")
-		case "$current" in
-			"$shared"/*) rm "$target" ;;
-			*) continue ;;
-		esac
-	elif [ -e "$target" ]; then
-		continue
-	fi
-
-	ln -s "$skill" "$target"
+	link_if_missing "$skill" "$claude/$name"
 done
 
-[ -e "$HOME/CLAUDE.md" ] || [ -L "$HOME/CLAUDE.md" ] ||
-	ln -s "$HOME/AGENTS.md" "$HOME/CLAUDE.md"
+link_if_missing "$HOME/AGENTS.md" "$HOME/CLAUDE.md"

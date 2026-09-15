@@ -1,5 +1,3 @@
-vim.opt.termguicolors = true
-
 require("rose-pine").setup({
 	styles = {
 		bold = false,

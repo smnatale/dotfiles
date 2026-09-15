@@ -64,14 +64,6 @@ vim.api.nvim_create_autocmd("BufRead", {
 	end,
 })
 
--- show cursorline only in active window enable
-vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
-	group = vim.api.nvim_create_augroup("active_cursorline", { clear = true }),
-	callback = function()
-		vim.opt_local.cursorline = true
-	end,
-})
-
 -- remove plugins from disk that are no longer in vim.pack.add() specs
 vim.api.nvim_create_user_command("PackClean", function()
 	local inactive = vim.iter(vim.pack.get())

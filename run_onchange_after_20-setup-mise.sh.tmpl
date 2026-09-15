@@ -2,6 +2,8 @@
 
 set -eu
 
+# mise config hash: {{ include "dot_config/mise/config.toml" | sha256sum }}
+
 brew_bin=/opt/homebrew/bin/brew
 if [ ! -x "$brew_bin" ]; then
 	printf '%s\n' 'Homebrew is required before runtimes can be installed.' >&2
