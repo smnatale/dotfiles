@@ -12,6 +12,4 @@ fi
 
 eval "$("$brew_bin" shellenv)"
 
-if ! brew bundle check --file="$HOME/.Brewfile" --no-upgrade; then
-	brew bundle install --file="$HOME/.Brewfile" --no-upgrade
-fi
+brew bundle install --file="$HOME/.Brewfile" --no-upgrade
