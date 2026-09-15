@@ -1,4 +1,6 @@
 gui:
+  sidePanelWidth: 0.20
+  expandFocusedSidePanel: true
   nerdFontsVersion: "3"
   filterMode: fuzzy
   showNumstatInFilesView: true
