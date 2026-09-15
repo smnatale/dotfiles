@@ -25,6 +25,12 @@
 - When end-to-end testing a UI, be picky and obsessed with pixel-perfection. If something looks off, even if unrelated to the current task, try to get it fixed along the way.
 - Hold the same standard for engineering hygiene generally: fix lint errors, test failures, and flaky tests you encounter, even if unrelated to your current task.
 
+### Mandatory completion gate
+- After the final code change, run the repository's lint command and relevant tests and type checks.
+- Never report completion until lint passes.
+- In the final response, list every validation command run and its result.
+- If lint cannot run, state the blocker and do not claim the task is complete.
+
 ## Research and accuracy
 - Don't make things up. Read the source code and documentation, and answer based on that. If unsure, say so clearly.
 - Use web search only when it materially improves correctness (up-to-date APIs, recent advisories, release notes). Prefer official docs and primary sources. Record source dates when relevant.
