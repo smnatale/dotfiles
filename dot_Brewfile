@@ -22,7 +22,6 @@ brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 brew "zsh-system-clipboard"
 
-brew "anomalyco/tap/opencode", trusted: true
 brew "felixkratz/formulae/borders", trusted: true
 brew "felixkratz/formulae/sketchybar", trusted: true
 brew "raine/workmux/workmux", trusted: true
@@ -31,7 +30,6 @@ cask "brave-browser"
 cask "claude-code"
 cask "codex"
 cask "font-fantasque-sans-mono-nerd-font"
-cask "ghostty"
 cask "kitty"
 cask "tuna"
 cask "smnatale/neovim-nightly/neovim-nightly", trusted: true
