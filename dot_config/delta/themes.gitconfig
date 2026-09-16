@@ -4,7 +4,7 @@
     dark = true
     syntax-theme = base16
     line-numbers = true
-    side-by-side = true
+    side-by-side = false
     file-style = brightwhite
     file-decoration-style = none
     file-added-label = [+]
