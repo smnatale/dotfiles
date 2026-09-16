@@ -116,7 +116,7 @@ youtube=(
   update_freq=360
   padding_left=4
   padding_right=0
-  click_script="open https://www.youtube.com/@sam_natale"
+  click_script="$CONFIG_DIR/plugins/youtube_click.sh"
 )
 sketchybar --add item youtube right --set youtube "${youtube[@]}"
 
