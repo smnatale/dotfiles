@@ -1,0 +1,69 @@
+config-version = 2
+after-startup-command = [
+  'exec-and-forget borders active_color=0xffc4a7e7 inactive_color=0xff26233a width=6.0'
+]
+start-at-login = true
+auto-reload-config = true
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+automatically-unhide-macos-hidden-apps = true
+
+persistent-workspaces = ["1", "2", "3", "4", "5"]
+on-mode-changed = []
+
+focus-follows-mouse.enabled = false
+key-mapping.preset = 'qwerty'
+
+gaps.inner.horizontal = 10
+gaps.inner.vertical =   8
+gaps.outer.left =       8
+gaps.outer.bottom =     8
+gaps.outer.top =        0
+gaps.outer.right =      8
+
+[mode.main.binding]
+    alt-h = 'focus left'
+    alt-j = 'focus down'
+    alt-k = 'focus up'
+    alt-l = 'focus right'
+
+    alt-shift-h = 'move left'
+    alt-shift-j = 'move down'
+    alt-shift-k = 'move up'
+    alt-shift-l = 'move right'
+
+    alt-minus = 'resize smart -50'
+    alt-equal = 'resize smart +50'
+
+    alt-1 = 'workspace 1'
+    alt-2 = 'workspace 2'
+    alt-3 = 'workspace 3'
+    alt-4 = 'workspace 4'
+    alt-5 = 'workspace 5'
+
+    alt-shift-1 = 'move-node-to-workspace 1'
+    alt-shift-2 = 'move-node-to-workspace 2'
+    alt-shift-3 = 'move-node-to-workspace 3'
+    alt-shift-4 = 'move-node-to-workspace 4'
+    alt-shift-5 = 'move-node-to-workspace 5'
+
+    alt-comma = 'mode service'
+
+    alt-c = 'close --quit-if-last-window'
+    alt-f = 'fullscreen'
+
+    alt-enter = 'exec-and-forget open -n /Applications/kitty.app'
+    alt-b = 'exec-and-forget open -n /Applications/Helium.app'
+    alt-e = 'exec-and-forget open .'
+    alt-s = 'exec-and-forget screencapture -i -c' 
+
+[mode.service.binding]
+    esc = ['reload-config', 'mode main']
+    r = ['flatten-workspace-tree', 'mode main']
+    f = ['layout floating tiling', 'mode main']
