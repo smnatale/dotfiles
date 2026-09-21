@@ -9,7 +9,6 @@ gui:
     - [stash]
   showRandomTip: false
   showCommandLog: false
-  shrinkSidePanelsToContent: true
   showRootItemInFileTree: false
   showNumstatInFilesView: true
   showBottomLine: false
