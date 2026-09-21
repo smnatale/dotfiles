@@ -61,6 +61,8 @@ cask "nikitabobko/tap/aerospace", trusted: true
 cask "font-fantasque-sans-mono-nerd-font"
 # Chromium-based web browser
 cask "helium-browser"
+# Convert your caps lock key or any of your modifier keys to the hyper key
+cask "hyperkey"
 # GPU-based terminal emulator
 cask "kitty"
 # Vim-fork focused on extensibility and usability
