@@ -32,3 +32,8 @@ mac:
     /usr/bin/killall Dock >/dev/null 2>&1 || true
     /usr/bin/killall Finder >/dev/null 2>&1 || true
     /usr/bin/killall SystemUIServer >/dev/null 2>&1 || true
+
+    # hyperkey setup
+    defaults write com.knollsoft.Hyperkey capsLockKeycode -int 69
+    defaults write com.knollsoft.Hyperkey capsLockRemapped -bool true
+    defaults write com.knollsoft.Hyperkey hyperFlags -int 1966080
