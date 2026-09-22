@@ -3,44 +3,53 @@ set -euo pipefail
 
 shopt -s nullglob dotglob
 
-client=${1:-}
-active=
+client_name=${1:-}
+active_session=
 if [[ -n ${TMUX:-} ]]; then
-    if [[ -z $client ]]; then
-        client=$(tmux display-message -p '#{client_name}')
+    if [[ -z $client_name ]]; then
+        client_name=$(tmux display-message -p '#{client_name}')
     fi
-    active=$(tmux display-message -p -c "$client" '#{session_name}')
+    active_session=$(tmux display-message -p -c "$client_name" '#{session_name}')
 fi
-sessions=$(tmux list-sessions -F '#{session_name}' 2>/dev/null | LC_ALL=C sort || true)
+existing_sessions=$(tmux list-sessions -F '#{session_name}' 2>/dev/null | LC_ALL=C sort || true)
 
 selected=$(
     {
-        while IFS= read -r session; do
-            [[ -z $session || $session == "$active" ]] || printf '[session] %s\n' "$session"
-        done <<< "$sessions"
+        while IFS= read -r session_name; do
+            if [[ -n $session_name && $session_name != "$active_session" ]]; then
+                printf '[session] %s\n' "$session_name"
+            fi
+        done <<< "$existing_sessions"
+
         for group in work personal; do
             for directory in "$HOME/Projects/$group/"*/; do
                 directory=${directory%/}
-                label="$group/${directory##*/}"
-                session=${label//[.:]/_}
-                grep -Fxq -- "$session" <<< "$sessions" && continue
-                printf '%s\n' "$label"
+                project="$group/${directory##*/}"
+                session_name=${project//[.:]/_}
+                if grep -Fxq -- "$session_name" <<< "$existing_sessions"; then
+                    continue
+                fi
+                printf '%s\n' "$project"
             done
         done
-    } | fzf --no-sort --layout=reverse --prompt='Session> ' --delimiter='^\[session\] ' --nth=-1
+    } | fzf --no-sort --layout=reverse --prompt='Session> ' \
+        --delimiter='^\[session\] ' --nth=-1
 ) || exit 0
-[[ -n $selected ]] || exit 0
+if [[ -z $selected ]]; then
+    exit 0
+fi
 
 if [[ $selected == '[session] '* ]]; then
-    session=${selected#'[session] '}
+    session_name=${selected#'[session] '}
 else
-    session=${selected//[.:]/_}
-    tmux has-session -t "=$session" 2>/dev/null ||
-        tmux new-session -d -s "$session" -c "$HOME/Projects/$selected"
+    session_name=${selected//[.:]/_}
+    if ! tmux has-session -t "=$session_name" 2>/dev/null; then
+        tmux new-session -d -s "$session_name" -c "$HOME/Projects/$selected"
+    fi
 fi
 
 if [[ -n ${TMUX:-} ]]; then
-    tmux switch-client -c "$client" -t "=$session"
+    tmux switch-client -c "$client_name" -t "=$session_name"
 else
-    tmux attach-session -t "=$session"
+    tmux attach-session -t "=$session_name"
 fi
