@@ -1,6 +1,6 @@
 config-version = 2
 after-startup-command = [
-  'exec-and-forget borders active_color=0xffc4a7e7 inactive_color=0xff26233a width=6.0'
+  'exec-and-forget borders active_color=0xffc4a7e7 inactive_color=0xff26233a width=4.0'
 ]
 start-at-login = true
 auto-reload-config = true
