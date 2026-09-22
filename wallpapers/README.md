@@ -17,3 +17,9 @@ Inside tmux, reload the config with `prefix + r` first to enable image passthrou
 ![Wallpaper 193](193.jpeg)
 
 [Download wallpaper](https://raw.githubusercontent.com/smnatale/dotfiles/HEAD/wallpapers/193.jpeg) · [Original source](https://ultrawidewallpapers.net/dynamic-meta.php?image=aishot-193)
+
+## 740
+
+![Wallpaper 740](740.jpeg)
+
+[Download wallpaper](https://raw.githubusercontent.com/smnatale/dotfiles/HEAD/wallpapers/740.jpeg) · [Original source](https://ultrawidewallpapers.net/dynamic-meta.php?image=aishot-740)
