@@ -8,3 +8,4 @@ alias grep='rg --color=auto'
 
 alias n='nvim'
 alias lg='lazygit'
+alias tms='bash "$HOME/.config/tmux/sessionizer.sh"'
