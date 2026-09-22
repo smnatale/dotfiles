@@ -8,8 +8,6 @@ active=
 if [[ -n ${TMUX:-} ]]; then
     if [[ -z $client ]]; then
         client=$(tmux display-message -p '#{client_name}')
-        exec tmux popup -B -w 60% -h 30% -e "TMUX=$TMUX" -E \
-            bash "$HOME/.config/tmux/sessionizer.sh" "$client"
     fi
     active=$(tmux display-message -p -c "$client" '#{session_name}')
 fi
@@ -18,7 +16,7 @@ sessions=$(tmux list-sessions -F '#{session_name}' 2>/dev/null | LC_ALL=C sort |
 selected=$(
     {
         while IFS= read -r session; do
-            [[ -z $session || $session == "$active" ]] || printf 'session/%s\n' "$session"
+            [[ -z $session || $session == "$active" ]] || printf '[session] %s\n' "$session"
         done <<< "$sessions"
         for group in work personal; do
             for directory in "$HOME/Projects/$group/"*/; do
@@ -33,8 +31,8 @@ selected=$(
 ) || exit 0
 [[ -n $selected ]] || exit 0
 
-if [[ $selected == session/* ]]; then
-    session=${selected#session/}
+if [[ $selected == '[session] '* ]]; then
+    session=${selected#'[session] '}
 else
     session=${selected//[.:]/_}
     tmux has-session -t "=$session" 2>/dev/null ||
