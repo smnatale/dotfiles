@@ -1,7 +1,3 @@
-# history
-HISTSIZE=1000000
-SAVEHIST=1000000
-
 # options
 setopt append_history
 setopt share_history
@@ -23,3 +19,8 @@ source "$ZDOTDIR/aliases.zsh"
 
 # fzf
 source "$ZDOTDIR/fzf.zsh"
+
+# history
+HISTFILE=${ZDOTDIR}/.zsh_history
+HISTSIZE=1000000
+SAVEHIST=1000000
