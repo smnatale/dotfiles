@@ -8,6 +8,7 @@ brew "bat"
 brew "biome"
 # AST-based pattern checker for JavaScript
 brew "eslint"
+brew "eslint_d"
 # Modern, maintained replacement for ls
 brew "eza"
 # Simple, fast and user-friendly alternative to find

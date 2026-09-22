@@ -1,5 +1,3 @@
-local util = require("conform.util")
-
 local biome_config = {
 	"biome.json",
 	"biome.jsonc",
@@ -31,7 +29,7 @@ local function project_formatters(bufnr, fallback)
 end
 
 local function javascript_formatters(bufnr)
-	return project_formatters(bufnr, { "eslint", "prettierd" })
+	return project_formatters(bufnr, { "eslint_d", "prettierd" })
 end
 
 local function json_formatters(bufnr)
@@ -52,12 +50,10 @@ require("conform").setup({
 		graphql = { "prettierd" },
 		go = { "goimports" },
 		json = json_formatters,
-		sql = { "sql-formatter" },
+		sql = { "sql_formatter" },
 	},
 	formatters = {
-		eslint = {
-			command = util.from_node_modules("eslint"),
-			args = { "--fix-to-stdout", "--stdin", "--stdin-filename", "$FILENAME" },
+		eslint_d = {
 			condition = function(_, ctx)
 				return vim.fs.root(ctx.dirname, eslint_config) ~= nil
 			end,
