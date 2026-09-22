@@ -27,7 +27,7 @@ selected=$(
                 printf '%s\n' "$label"
             done
         done
-    } | fzf --no-sort --layout=reverse --prompt='Session> '
+    } | fzf --no-sort --layout=reverse --prompt='Session> ' --delimiter='^\[session\] ' --nth=-1
 ) || exit 0
 [[ -n $selected ]] || exit 0
 
