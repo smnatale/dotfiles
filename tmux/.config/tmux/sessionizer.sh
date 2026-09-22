@@ -2,7 +2,6 @@
 set -euo pipefail
 
 shopt -s nullglob dotglob
-export LC_ALL=C
 
 client=${1:-}
 active=
@@ -14,7 +13,7 @@ if [[ -n ${TMUX:-} ]]; then
     fi
     active=$(tmux display-message -p -c "$client" '#{session_name}')
 fi
-sessions=$(tmux list-sessions -F '#{session_name}' 2>/dev/null | sort || true)
+sessions=$(tmux list-sessions -F '#{session_name}' 2>/dev/null | LC_ALL=C sort || true)
 
 selected=$(
     {
