@@ -24,3 +24,5 @@ source "$ZDOTDIR/fzf.zsh"
 HISTFILE=${ZDOTDIR}/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
+bindkey '^K' up-line-or-history
+bindkey '^J' down-line-or-history

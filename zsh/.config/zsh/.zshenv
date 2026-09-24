@@ -3,7 +3,7 @@ export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
 
 # deja overrides
 export DEJA_ACCEPT_KEY=
-export DEJA_CYCLE_KEY=^J
+export DEJA_CYCLE_KEY=^N
 export DEJA_CYCLE_FUZZY_KEY=
 export DEJA_CYCLE_FUZZY_BACK_KEY=
 export DEJA_TOGGLE_EMPTY_KEY=
