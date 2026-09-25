@@ -1,6 +1,6 @@
 # symlink config files
 stow:
-    stow aerospace agents bat kitty lazygit nvim ripgrep tmux zsh -t $HOME
+    stow aerospace agents bat git kitty lazygit nvim ripgrep tmux zsh -t $HOME
 
 # install brew dependencies
 install:
