@@ -24,7 +24,7 @@ gaps.inner.horizontal = 32
 gaps.inner.vertical =   32
 gaps.outer.left =       32
 gaps.outer.bottom =     32
-gaps.outer.top =        32
+gaps.outer.top =        [{ monitor."built-in" = 8 }, 32]
 gaps.outer.right =      32
 
 [mode.main.binding]
