@@ -57,6 +57,8 @@ brew "yaml-language-server"
 brew "zinit"
 # A window border system for macOS
 brew "felixkratz/formulae/borders"
+# Predictive inline shell autosuggestions for Zsh
+brew "giammarco-ferranti/deja/deja", trusted: true
 # AeroSpace is an i3-like tiling window manager for macOS
 cask "nikitabobko/tap/aerospace", trusted: true
 cask "font-fantasque-sans-mono-nerd-font"
