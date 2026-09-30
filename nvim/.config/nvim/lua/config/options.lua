@@ -33,6 +33,11 @@ vim.o.scrolloff = 8 -- always keep 8 lines above/below cursor unless at start/en
 vim.o.splitbelow = true -- better splitting
 vim.o.splitright = true -- better splitting
 
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+
 vim.o.wrap = false -- disable wrapping
 vim.o.breakindent = true -- prevent line wrapping
 -- vim.opt.fillchars = { vert = " " } -- remove line divider between splits
