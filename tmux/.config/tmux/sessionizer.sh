@@ -5,15 +5,17 @@ shopt -s nullglob dotglob
 
 client_name=${1:-}
 active_session=
+
 if [[ -n ${TMUX:-} ]]; then
     if [[ -z $client_name ]]; then
         client_name=$(tmux display-message -p '#{client_name}')
     fi
     active_session=$(tmux display-message -p -c "$client_name" '#{session_name}')
 fi
+
 existing_sessions=$(tmux list-sessions -F '#{session_name}' 2>/dev/null | LC_ALL=C sort || true)
 
-selected=$(
+selected_entry=$(
     {
         while IFS= read -r session_name; do
             if [[ -n $session_name && $session_name != "$active_session" ]]; then
@@ -21,30 +23,37 @@ selected=$(
             fi
         done <<< "$existing_sessions"
 
-        for group in work personal; do
-            for directory in "$HOME/Projects/$group/"*/; do
-                directory=${directory%/}
-                project="$group/${directory##*/}"
-                session_name=${project//[.:]/_}
+        for project_group in work personal; do
+            for project_directory in "$HOME/Projects/$project_group/"*/; do
+                project_directory=${project_directory%/}
+                project_path="$project_group/${project_directory##*/}"
+                # tmux session names cannot contain periods or colons.
+                session_name=${project_path//[.:]/_}
                 if grep -Fxq -- "$session_name" <<< "$existing_sessions"; then
                     continue
                 fi
-                printf '%s\n' "$project"
+                printf '%s\n' "$project_path"
             done
         done
-    } | fzf --no-sort --layout=reverse --prompt='Session> ' \
-        --delimiter='^\[session\] ' --nth=-1
+    } | fzf \
+        --no-sort \
+        --layout=reverse \
+        --prompt='Session> ' \
+        --delimiter='^\[session\] ' \
+        --nth=-1
 ) || exit 0
-if [[ -z $selected ]]; then
+
+if [[ -z $selected_entry ]]; then
     exit 0
 fi
 
-if [[ $selected == '[session] '* ]]; then
-    session_name=${selected#'[session] '}
+if [[ $selected_entry == '[session] '* ]]; then
+    session_name=${selected_entry#'[session] '}
 else
-    session_name=${selected//[.:]/_}
+    session_name=${selected_entry//[.:]/_}
+    # The leading '=' requires an exact session name instead of a prefix match.
     if ! tmux has-session -t "=$session_name" 2>/dev/null; then
-        tmux new-session -d -s "$session_name" -c "$HOME/Projects/$selected"
+        tmux new-session -d -s "$session_name" -c "$HOME/Projects/$selected_entry"
     fi
 fi
 
