@@ -50,6 +50,7 @@ require("conform").setup({
 		graphql = { "prettierd" },
 		go = { "goimports" },
 		json = json_formatters,
+		sh = { "shfmt" },
 		sql = { "sql_formatter" },
 	},
 	formatters = {

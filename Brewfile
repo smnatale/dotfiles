@@ -37,6 +37,7 @@ brew "prettierd"
 brew "ripgrep"
 # Safe, concurrent, practical language
 brew "rust"
+brew "shfmt"
 # Whitespace formatter for different query languages
 brew "sql-formatter"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
