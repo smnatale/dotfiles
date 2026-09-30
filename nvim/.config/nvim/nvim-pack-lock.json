@@ -4,6 +4,10 @@
       "rev": "f8a0fd6d3a7d392f3d93c56ad1b27c96e92444a9",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
+    "catppuccin": {
+      "rev": "edefef779ab08ce1a4a404713e3012b0d202bd35",
+      "src": "https://github.com/catppuccin/nvim"
+    },
     "conform.nvim": {
       "rev": "016802de402556da54c36bd7359b441266b01cdd",
       "src": "https://github.com/stevearc/conform.nvim"

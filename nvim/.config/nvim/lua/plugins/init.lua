@@ -1,6 +1,6 @@
 vim.pack.add({
 	-- colorscheme
-	{ src = "https://github.com/rose-pine/neovim", name = "rose-pine" },
+	{ src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
 	-- lsp configurations
 	"https://github.com/neovim/nvim-lspconfig",
 	-- treesitter

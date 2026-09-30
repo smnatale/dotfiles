@@ -11,11 +11,11 @@ export DEJA_TOGGLE_EMPTY_KEY=
 # fzf overrides
 export FZF_DEFAULT_OPTS='
   --layout=reverse
-  --color=fg:#908caa,hl:#ebbcba
-	--color=fg+:#e0def4,bg+:#26233a,hl+:#ebbcba
-	--color=border:#403d52,header:#31748f,gutter:#191724
-	--color=spinner:#f6c177,info:#9ccfd8
-	--color=pointer:#c4a7e7,marker:#eb6f92,prompt:#908caa
+  --color=fg:#9399b2,hl:#f5e0dc
+	--color=fg+:#cdd6f4,bg+:#313244,hl+:#f5e0dc
+	--color=border:#45475a,header:#94e2d5,gutter:#1e1e2e
+	--color=spinner:#f9e2af,info:#74c7ec
+	--color=pointer:#cba6f7,marker:#f38ba8,prompt:#9399b2
 '
 
 # editor
@@ -23,4 +23,4 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 
 # color scheme
-export BAT_THEME="rose-pine"
+export BAT_THEME="Catppuccin Mocha"

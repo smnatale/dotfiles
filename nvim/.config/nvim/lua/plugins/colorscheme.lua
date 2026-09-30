@@ -1,15 +1,19 @@
-require("rose-pine").setup({
-	styles = {
-		bold = false,
-		italic = false,
-		transparency = true,
+require("catppuccin").setup({
+	flavour = "mocha",
+	transparent_background = true,
+	float = {
+		transparent = true,
 	},
-	highlight_groups = {
-		LspInlayHint = { bg = "base", fg = "muted", italic = true },
-		NotificationInfo = { bg = "none", fg = "text" },
-		NotificationWarning = { bg = "none", fg = "subtle" },
-		NotificationError = { bg = "none", fg = "love" },
-	},
+	no_bold = true,
+	no_italic = true,
+	custom_highlights = function(colors)
+		return {
+			LspInlayHint = { bg = colors.base, fg = colors.overlay0, italic = true },
+			NotificationInfo = { bg = "NONE", fg = colors.text },
+			NotificationWarning = { bg = "NONE", fg = colors.overlay2 },
+			NotificationError = { bg = "NONE", fg = colors.red },
+		}
+	end,
 })
 
-vim.cmd("colorscheme rose-pine")
+vim.cmd("colorscheme catppuccin-mocha")
