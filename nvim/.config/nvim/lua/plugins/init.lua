@@ -19,6 +19,8 @@ vim.pack.add({
 	"https://github.com/b0o/SchemaStore.nvim",
 	-- diff viewer inspired by zed diff (multibuffer)
 	"https://github.com/martindur/zdiff.nvim",
+	-- center cmdline
+	"https://github.com/rachartier/tiny-cmdline.nvim",
 })
 
 require("plugins.colorscheme")

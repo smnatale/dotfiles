@@ -40,6 +40,10 @@
       "rev": "ff483051a47e27d84bdef47703538df1ed9f4a47",
       "src": "https://github.com/rose-pine/neovim"
     },
+    "tiny-cmdline.nvim": {
+      "rev": "d83700b48d8ff5625dbef4029af071db559544e5",
+      "src": "https://github.com/rachartier/tiny-cmdline.nvim"
+    },
     "zdiff.nvim": {
       "rev": "6e2a105d7cc138b25e2907589ad2c5251e608424",
       "src": "https://github.com/martindur/zdiff.nvim"
