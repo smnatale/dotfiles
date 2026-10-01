@@ -15,18 +15,18 @@ if [[ -z $urls ]]; then
     exit 0
 fi
 
-if selected_url=$(printf '%s\n' "$urls" |
+selected_url=$(printf '%s\n' "$urls" |
     fzf \
         --no-multi \
         --no-preview \
         --layout=reverse \
-        --prompt='URL> '); then
-    [[ -z $selected_url ]] || open "$selected_url"
-else
+        --prompt='URL> ') || {
     picker_status=$?
     # fzf returns 1 for no match and 130 when cancelled.
     case "$picker_status" in
-        1|130) exit 0 ;;
+        1 | 130) exit 0 ;;
         *) exit "$picker_status" ;;
     esac
-fi
+}
+
+[[ -z $selected_url ]] || open "$selected_url"

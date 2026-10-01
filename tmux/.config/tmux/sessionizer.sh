@@ -21,19 +21,16 @@ selected_entry=$(
             if [[ -n $session_name && $session_name != "$active_session" ]]; then
                 printf '[session] %s\n' "$session_name"
             fi
-        done <<< "$existing_sessions"
+        done <<<"$existing_sessions"
 
-        for project_group in work personal; do
-            for project_directory in "$HOME/Projects/$project_group/"*/; do
-                project_directory=${project_directory%/}
-                project_path="$project_group/${project_directory##*/}"
-                # tmux session names cannot contain periods or colons.
-                session_name=${project_path//[.:]/_}
-                if grep -Fxq -- "$session_name" <<< "$existing_sessions"; then
-                    continue
-                fi
+        for project_directory in "$HOME/Projects/"{work,personal}/*/; do
+            project_path=${project_directory#"$HOME/Projects/"}
+            project_path=${project_path%/}
+            # tmux session names cannot contain periods or colons.
+            session_name=${project_path//[.:]/_}
+            if ! grep -Fxq -- "$session_name" <<<"$existing_sessions"; then
                 printf '%s\n' "$project_path"
-            done
+            fi
         done
     } | fzf \
         --no-sort \
