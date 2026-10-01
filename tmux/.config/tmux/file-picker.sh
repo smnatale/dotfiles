@@ -9,7 +9,7 @@ cd "$start_dir"
 cursor_row=$(tmux display-message -p -t "$pane_id" '#{e|+:#{pane_top},#{cursor_y}}')
 popup_height=$(tput lines)
 layout=reverse
-if (( cursor_row >= popup_height )); then
+if (( cursor_row >= popup_height + 2 )); then
     layout=default
 fi
 
