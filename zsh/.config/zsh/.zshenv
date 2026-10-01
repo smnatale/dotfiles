@@ -1,5 +1,6 @@
 # config directories
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
+export PATH="/Applications/love.app/Contents/MacOS:$PATH"
 
 # deja overrides
 export DEJA_ACCEPT_KEY=
