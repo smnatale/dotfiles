@@ -57,3 +57,6 @@ vim.keymap.set("n", "<leader>v", ":vsplit<CR>", { silent = true, desc = "Vertica
 -- Move selection up and down
 vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv", { silent = true, desc = "Move selection down" })
 vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv", { silent = true, desc = "Move selection up" })
+
+-- love2d start
+vim.keymap.set("n", "<leader>lv", ":!love .<CR>", { silent = true, desc = "Run love2d project" })
