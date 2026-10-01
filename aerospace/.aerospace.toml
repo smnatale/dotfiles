@@ -67,3 +67,7 @@ gaps.outer.right =      32
     esc = ['reload-config', 'mode main']
     r = ['flatten-workspace-tree', 'mode main']
     f = ['layout floating tiling', 'mode main']
+
+[[on-window-detected]]
+if.app-id = 'org.love2d.love'
+run = 'layout floating'
