@@ -13,6 +13,14 @@ snippets.setup({
 	snippets = {
 		snippets.gen_loader.from_lang(),
 	},
+	expand = {
+		insert = function(snippet)
+			return snippets.default_insert(snippet, {
+				empty_tabstop = "",
+				empty_tabstop_final = "",
+			})
+		end,
+	},
 	mappings = {
 		expand = "<C-s>",
 	},
@@ -60,10 +68,18 @@ vim.keymap.set("i", "<Tab>", accept_completion("<Tab>"), {
 })
 
 vim.keymap.set("i", "<CR>", function()
-	return vim.fn.pumvisible() == 1 and "<C-e><CR>" or "<CR>"
+	if vim.fn.pumvisible() == 0 then
+		return "<CR>"
+	end
+
+	if vim.fn.complete_info({ "selected" }).selected ~= -1 then
+		return "<C-y>"
+	end
+
+	return "<C-e><CR>"
 end, {
 	expr = true,
-	desc = "Dismiss completion and insert newline",
+	desc = "Accept selected completion or insert newline",
 })
 
 vim.keymap.set("i", "<C-j>", function()
