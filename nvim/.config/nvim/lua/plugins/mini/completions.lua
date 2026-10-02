@@ -59,9 +59,11 @@ vim.keymap.set("i", "<Tab>", accept_completion("<Tab>"), {
 	desc = "Accept completion or insert tab",
 })
 
-vim.keymap.set("i", "<CR>", accept_completion("<CR>"), {
+vim.keymap.set("i", "<CR>", function()
+	return vim.fn.pumvisible() == 1 and "<C-e><CR>" or "<CR>"
+end, {
 	expr = true,
-	desc = "Accept completion or insert newline",
+	desc = "Dismiss completion and insert newline",
 })
 
 vim.keymap.set("i", "<C-j>", function()
