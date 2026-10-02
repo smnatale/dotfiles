@@ -14,6 +14,7 @@ vim.o.relativenumber = true -- enable relative line numbers
 
 vim.o.pumheight = 10 -- max height of completion menu
 vim.o.winborder = "rounded" -- rounded border
+vim.o.pumborder = vim.o.winborder
 vim.o.showmode = false -- disable showing mode below statusline
 
 vim.o.cursorline = true -- enable cursor line

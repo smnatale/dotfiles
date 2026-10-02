@@ -4,7 +4,7 @@ require("mini.ai").setup()
 require("mini.align").setup()
 
 -- auto pairs
--- require("mini.pairs").setup()
+require("mini.pairs").setup()
 
 -- access to surround keymaps sa,sd,sc etc
 require("mini.surround").setup()

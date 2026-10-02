@@ -5,6 +5,6 @@ vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, { desc = "Go to decla
 vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
 vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
 vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { desc = "Find references" })
-vim.keymap.set("n", "<leader>gh", vim.lsp.buf.hover, { desc = "Hover documentation" })
+vim.keymap.set("n", "<leader>h", vim.lsp.buf.hover, { desc = "Hover documentation" })
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
 vim.keymap.set({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })

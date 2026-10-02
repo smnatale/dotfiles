@@ -111,8 +111,3 @@ end, { silent = true })
 vim.keymap.set("n", "<leader>sk", function()
 	MiniExtra.pickers.keymaps()
 end, { silent = true })
-
--- Resume picker
-vim.keymap.set("n", "<leader><space>", function()
-	MiniPick.builtin.resume()
-end, { silent = true })

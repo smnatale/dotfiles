@@ -4,6 +4,9 @@ vim.keymap.set({ "n", "v" }, "<leader>", "<nop>", { desc = "Disable leader key d
 -- Redo remap
 vim.keymap.set("n", "U", "<C-r>", { desc = "Redo" })
 
+vim.keymap.set("i", "<C-h>", "<Left>", { desc = "Move cursor left" })
+vim.keymap.set("i", "<C-l>", "<Right>", { desc = "Move cursor right" })
+
 -- Swap between split buffers
 vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", {
 	silent = true,
