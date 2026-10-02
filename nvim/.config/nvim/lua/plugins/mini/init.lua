@@ -3,6 +3,13 @@ require("mini.ai").setup()
 
 require("mini.align").setup()
 
+require("mini.indentscope").setup({
+	symbol = "│",
+	draw = {
+		animation = require("mini.indentscope").gen_animation.none(),
+	},
+})
+
 -- auto pairs
 require("mini.pairs").setup()
 

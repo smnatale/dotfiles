@@ -8,6 +8,7 @@ require("catppuccin").setup({
 	no_italic = true,
 	custom_highlights = function(colors)
 		return {
+			MiniIndentscopeSymbol = { link = "LineNr" },
 			LspInlayHint = { bg = colors.base, fg = colors.overlay0, italic = true },
 			NotificationInfo = { bg = "NONE", fg = colors.text },
 			NotificationWarning = { bg = "NONE", fg = colors.overlay2 },
