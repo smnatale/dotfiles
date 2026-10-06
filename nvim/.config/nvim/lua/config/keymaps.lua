@@ -27,6 +27,8 @@ vim.keymap.set("n", "<Esc>", function()
 	vim.api.nvim_buf_clear_namespace(0, multicursor_ns, 0, -1)
 end, { desc = "Clear search highligts & multicursors" })
 
+vim.keymap.set("n", "<leader>d", "<C-w>d", { remap = true, desc = "Show diagnostic float" })
+
 -- Save and quit current file quicker
 vim.keymap.set("n", "<leader>w", ":w<cr>", { silent = true, noremap = true, desc = "Save current file" })
 vim.keymap.set({ "n", "t" }, "<leader>q", ":q<cr>", { silent = true, noremap = true, desc = "Quit current buffer" })
