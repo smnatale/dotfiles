@@ -71,3 +71,11 @@ gaps.outer.right =      16
 [[on-window-detected]]
 if.app-id = 'org.love2d.love'
 run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Preview'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = 'layout floating'
