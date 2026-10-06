@@ -1,8 +1,8 @@
 config-version = 2
 after-startup-command = [
-  'exec-and-forget borders active_color=0xffcba6f7 inactive_color=0xff313244 width=8.0'
+  'exec-and-forget borders'
 ]
-start-at-login = false
+start-at-login = true
 auto-reload-config = true
 
 enable-normalization-flatten-containers = true
