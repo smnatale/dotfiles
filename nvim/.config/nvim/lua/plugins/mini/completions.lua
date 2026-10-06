@@ -13,17 +13,17 @@ snippets.setup({
 	snippets = {
 		snippets.gen_loader.from_lang(),
 	},
-	expand = {
-		insert = function(snippet)
-			return snippets.default_insert(snippet, {
-				empty_tabstop = "",
-				empty_tabstop_final = "",
-			})
-		end,
-	},
 	mappings = {
 		expand = "<C-s>",
 	},
+})
+
+vim.api.nvim_create_autocmd("User", {
+	group = vim.api.nvim_create_augroup("SnippetPlainText", { clear = true }),
+	pattern = "MiniSnippetsSessionStart",
+	callback = function()
+		snippets.session.stop()
+	end,
 })
 
 -- Include snippets in LSP completion
