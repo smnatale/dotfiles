@@ -20,12 +20,12 @@ on-mode-changed = []
 focus-follows-mouse.enabled = false
 key-mapping.preset = 'qwerty'
 
-gaps.inner.horizontal = 32
-gaps.inner.vertical =   32
-gaps.outer.left =       32
-gaps.outer.bottom =     32
-gaps.outer.top =        [{ monitor."built-in" = 8 }, 32]
-gaps.outer.right =      32
+gaps.inner.horizontal = 16
+gaps.inner.vertical =   16
+gaps.outer.left =       16
+gaps.outer.bottom =     16
+gaps.outer.top =        [{ monitor."built-in" = 8 }, 16]
+gaps.outer.right =      16
 
 [mode.main.binding]
     alt-h = 'focus left'
