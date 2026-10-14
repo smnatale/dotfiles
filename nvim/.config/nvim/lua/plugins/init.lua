@@ -6,6 +6,7 @@ vim.pack.add({
 	"https://github.com/stevearc/conform.nvim",
 	"https://github.com/nvim-mini/mini.nvim",
 	"https://github.com/stevearc/oil.nvim",
+	"https://github.com/stevearc/quicker.nvim",
 	"https://github.com/refractalize/oil-git-status.nvim",
 	"https://github.com/b0o/SchemaStore.nvim",
 	"https://github.com/martindur/zdiff.nvim",
@@ -16,6 +17,7 @@ require("plugins.colorscheme")
 require("plugins.lsp")
 require("plugins.formatting")
 require("plugins.oil")
+require("plugins.quicker")
 require("plugins.treesitter")
 require("plugins.mini")
 require("plugins.git")
