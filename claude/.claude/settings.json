@@ -4,6 +4,10 @@
     "command": "bash ~/.claude/statusline-command.sh"
   },
   "theme": "dark-ansi",
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "enabledPlugins": {
     "lua-lsp@claude-plugins-official": true
   }
