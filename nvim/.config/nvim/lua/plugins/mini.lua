@@ -10,7 +10,14 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-mini/mini.hipatterns" },
 })
 
-require("mini.ai").setup()
+local ai = require("mini.ai")
+ai.setup({
+	-- treesitter textobjects af/if function, ac/ic class
+	custom_textobjects = {
+		f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+		c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
+	},
+})
 
 require("mini.align").setup()
 

@@ -90,3 +90,4 @@ vim.keymap.set("n", "<leader>sb", "<cmd>Telescope buffers<cr>", { silent = true 
 vim.keymap.set("n", "<leader>sd", "<cmd>Telescope diagnostics<cr>", { silent = true })
 vim.keymap.set("n", "<leader>sh", "<cmd>Telescope help_tags<cr>", { silent = true })
 vim.keymap.set("n", "<leader>su", "<cmd>Telescope git_status<cr>", { silent = true })
+vim.keymap.set("n", "<leader>s.", "<cmd>Telescope resume<cr>", { silent = true })
