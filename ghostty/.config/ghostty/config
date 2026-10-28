@@ -1,0 +1,47 @@
+# font
+font-family = FantasqueSansM Nerd Font Mono
+font-size = 20
+adjust-cell-height = 5%
+
+# appearance
+theme = Catppuccin Mocha
+background = #08080e
+background-opacity = 0.98
+background-blur = macos-glass-clear
+split-divider-color = #313244
+alpha-blending = linear-corrected
+
+# window
+window-padding-balance = true
+window-padding-color = extend
+window-save-state = always
+resize-overlay = never
+quit-after-last-window-closed = true
+
+# cursor
+cursor-style = block
+cursor-style-blink = false
+
+# mouse
+copy-on-select = clipboard
+selection-clear-on-copy = true
+mouse-hide-while-typing = true
+
+# macos
+title = " "
+macos-titlebar-style = tabs
+macos-titlebar-proxy-icon = hidden
+macos-auto-secure-input = true
+macos-secure-input-indication = true
+
+# shell
+shell-integration = zsh
+shell-integration-features = no-cursor
+
+# shaders
+custom-shader = ~/.config/ghostty/shaders/cursor_sweep.glsl
+custom-shader-animation = true
+
+# updates
+auto-update = check
+auto-update-channel = tip

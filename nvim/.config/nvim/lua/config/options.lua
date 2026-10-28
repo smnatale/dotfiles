@@ -1,4 +1,3 @@
-require("vim._core.ui2").enable({})
 vim.opt.mouse = "" -- disable mouse
 vim.g.mapleader = " " -- space leader key
 vim.g.maplocalleader = " " -- space leader key
@@ -41,13 +40,11 @@ vim.o.foldlevelstart = 99
 
 vim.o.wrap = false -- disable wrapping
 vim.o.breakindent = true -- prevent line wrapping
--- vim.opt.fillchars = { vert = " " } -- remove line divider between splits
 vim.opt.fillchars = { eob = " " }
-vim.o.cmdheight = 0 -- hide bottom cmdline
 
 vim.diagnostic.config({
 	underline = true,
-	virtual_text = true,
+	virtual_text = false,
 	update_in_insert = false,
 	severity_sort = true,
 	signs = {

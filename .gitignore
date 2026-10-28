@@ -1,6 +1,8 @@
+# macOS
 .DS_Store
-._*
 
+# zsh runtime files
 .zsh_history
-.zsh_history.*
+.zsh_sessions/
 .zcompdump*
+*.zwc
