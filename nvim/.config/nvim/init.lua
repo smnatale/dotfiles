@@ -1,2 +1,0 @@
-require("config")
-require("plugins")
