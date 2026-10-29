@@ -28,3 +28,5 @@
   conflictStyle = zdiff3
 [delta]
 	syntax-theme = Catppuccin Mocha
+[url "git@github.com:"]
+	insteadOf = https://github.com/
