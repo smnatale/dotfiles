@@ -35,3 +35,16 @@ end
 
 float("scratch_float", "Scratch Terminal", "scratch terminal float")
 float("lazygit_float", "Lazygit", "git lazygit float", { "lazygit" })
+
+rex.action({
+	name = "open_in_finder",
+	title = "Open in Finder",
+	keywords = "finder reveal open directory",
+	run = function(ctx)
+		local dir = focused_cwd(ctx)
+		if not dir then
+			error("no directory for the focused pane")
+		end
+		rex.exec({ "open", dir })
+	end,
+})
