@@ -1,3 +1,13 @@
+local function build_fzf_native(path)
+	vim.notify("Building telescope-fzf-native...", vim.log.levels.INFO)
+	local res = vim.system({ "make" }, { cwd = path }):wait()
+	if res.code ~= 0 then
+		vim.notify("telescope-fzf-native build failed:\n" .. (res.stderr or ""), vim.log.levels.ERROR)
+		return false
+	end
+	return true
+end
+
 vim.api.nvim_create_autocmd("PackChanged", {
 	callback = function(ev)
 		local name, kind = ev.data.spec.name, ev.data.kind
@@ -5,7 +15,7 @@ vim.api.nvim_create_autocmd("PackChanged", {
 			if not ev.data.active then
 				vim.cmd.packadd("telescope-fzf-native.nvim")
 			end
-			vim.system({ "make" }, { cwd = ev.data.path }):wait()
+			build_fzf_native(ev.data.path)
 		end
 	end,
 })
@@ -69,7 +79,12 @@ require("telescope").setup({
 	},
 })
 
-require("telescope").load_extension("fzf")
+-- PackChanged only fires on install/update, so rebuild here if a build was ever missed
+local fzf_path = vim.fn.stdpath("data") .. "/site/pack/core/opt/telescope-fzf-native.nvim"
+local fzf_ok = vim.uv.fs_stat(fzf_path .. "/build/libfzf.so") ~= nil or build_fzf_native(fzf_path)
+if fzf_ok then
+	require("telescope").load_extension("fzf")
+end
 require("telescope").load_extension("ui-select")
 require("telescope").load_extension("frecency")
 
