@@ -7,3 +7,5 @@ alias grep='rg --color=auto'
 
 alias n='nvim'
 alias lg='lazygit'
+
+alias cw='CLAUDE_CONFIG_DIR=~/.claude-work claude'

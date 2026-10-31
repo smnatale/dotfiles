@@ -3,6 +3,15 @@
     "commit": "",
     "pr": ""
   },
+  "permissions": {
+    "deny": ["Bash(rm:*)", "Bash(rmdir:*)"],
+    "ask": [
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr create:*)",
+      "Bash(gh pr merge:*)"
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "bash ~/.claude/statusline-command.sh"
