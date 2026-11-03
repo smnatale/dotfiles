@@ -70,9 +70,17 @@ float({
 float({
 	name = "new_worktree",
 	title = "New Worktree",
-	keywords = "worktree branch claude wt",
+	keywords = "worktree branch wt",
 	command = { scripts .. "new-worktree.sh" },
 	bounds = prompt,
+})
+
+float({
+	name = "open_worktree",
+	title = "Open Worktree",
+	keywords = "worktree branch session open wt",
+	command = { scripts .. "open-worktree.sh" },
+	bounds = picker,
 })
 
 float({
