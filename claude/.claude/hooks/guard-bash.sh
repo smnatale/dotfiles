@@ -43,6 +43,15 @@ if grep -qE "$git_re" <<< "$cmd" \
   decide ask "This git command discards work or rewrites remote history."
 fi
 
+# Commits, pushes, merges and worktree removal. The permissions.ask rules only match the plain form,
+# so also catch env prefixes (`GIT_EDITOR=true git commit`) and global flags (`git -c k=v commit`, `wt -C <path> remove`).
+vars='([A-Za-z_][A-Za-z0-9_]*=[^[:space:]]*[[:space:]]+)*'
+opts='([[:space:]]+-[^[:space:]]+([[:space:]]+[^-[:space:]][^[:space:]]*)?)*[[:space:]]+'
+if grep -qE "${start}${vars}git${opts}(commit|push)${end}" <<< "$cmd" \
+  || grep -qE "${start}${vars}wt${opts}(merge|remove|step[[:space:]]+(commit|squash|push|prune))${end}" <<< "$cmd"; then
+  decide ask "Commits, pushes, merges and worktree removal need asking first."
+fi
+
 # gh api: allow a single GET call (optionally piped into jq), ask for anything else.
 # gh switches to POST when fields or --input are passed, and graphql is always POST.
 if grep -qE "${start}gh[[:space:]]+api${end}" <<< "$cmd"; then
