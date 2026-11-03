@@ -13,7 +13,4 @@ if [ -z "$session" ]; then
 	session=$(rex new "$label" -c "$dir" --json | jq -r '.session_id')
 fi
 
-# Show the session in the app this float was opened from (needs Remote Control on).
-client=$(rex api call session.list_clients "{\"session_id\":\"$REX_SESSION\"}" |
-	jq -r '[.clients[] | select(.info.kind == "app")][0].client_id')
-rex -C "$client" do session.select session_id="$session" >/dev/null
+"$(dirname "$0")/select-session.sh" "$session" "$label"

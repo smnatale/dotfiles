@@ -12,17 +12,17 @@ end
 
 -- a palette action that opens a floating pane in the focused pane's directory, running command or a shell
 -- bounds is x, y, w, h as fractions of the window, nearly full-window by default
-local function float(name, title, keywords, command, bounds)
+local function float(spec)
 	rex.action({
-		name = name,
-		title = title,
-		keywords = keywords,
+		name = spec.name,
+		title = spec.title,
+		keywords = spec.keywords,
 		run = function(ctx)
 			local _, err = rex.session.new_layer({
-				bounds = bounds or { 0.05, 0.05, 0.9, 0.9 },
+				bounds = spec.bounds or { 0.05, 0.05, 0.9, 0.9 },
 				layout = rex.layout.block({
 					flavor = terminal .. ".shell",
-					options = { command = command, cwd = focused_cwd(ctx) },
+					options = { command = spec.command, cwd = focused_cwd(ctx) },
 				}),
 				focus = true,
 			})
@@ -33,29 +33,47 @@ local function float(name, title, keywords, command, bounds)
 	})
 end
 
-float("scratch_float", "Scratch Terminal", "scratch terminal float")
-float("lazygit_float", "Lazygit", "git lazygit float", { "lazygit" })
-float(
-	"open_project",
-	"Open Project",
-	"project folder session open",
-	{ os.getenv("HOME") .. "/.config/rex/open-project.sh" },
-	{ 0.25, 0.2, 0.5, 0.5 }
-)
-float(
-	"new_worktree",
-	"New Worktree",
-	"worktree branch claude wt",
-	{ os.getenv("HOME") .. "/.config/rex/new-worktree.sh" },
-	{ 0.3, 0.4, 0.4, 0.2 }
-)
-float(
-	"remove_worktree",
-	"Remove Worktree",
-	"worktree branch remove delete wt",
-	{ os.getenv("HOME") .. "/.config/rex/remove-worktree.sh" },
-	{ 0.25, 0.2, 0.5, 0.5 }
-)
+-- the scripts next to this file, and the float sizes they use
+local scripts = os.getenv("HOME") .. "/.config/rex/"
+local picker = { 0.25, 0.2, 0.5, 0.5 }
+local prompt = { 0.3, 0.4, 0.4, 0.2 }
+
+float({
+	name = "scratch_float",
+	title = "Scratch Terminal",
+	keywords = "scratch terminal float",
+})
+
+float({
+	name = "lazygit_float",
+	title = "Lazygit",
+	keywords = "git lazygit float",
+	command = { "lazygit" },
+})
+
+float({
+	name = "open_project",
+	title = "Open Project",
+	keywords = "project folder session open",
+	command = { scripts .. "open-project.sh" },
+	bounds = picker,
+})
+
+float({
+	name = "new_worktree",
+	title = "New Worktree",
+	keywords = "worktree branch claude wt",
+	command = { scripts .. "new-worktree.sh" },
+	bounds = prompt,
+})
+
+float({
+	name = "remove_worktree",
+	title = "Remove Worktree",
+	keywords = "worktree branch remove delete wt",
+	command = { scripts .. "remove-worktree.sh" },
+	bounds = picker,
+})
 
 rex.action({
 	name = "open_in_finder",

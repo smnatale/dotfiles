@@ -1,2 +1,2 @@
-require("floats")
+require("actions")
 require("keymaps")
