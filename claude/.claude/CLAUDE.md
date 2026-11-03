@@ -28,6 +28,10 @@
 - Never report completion until lint passes. If the repo has a lint command but it can't run, state the blocker and do not claim the task is complete. If the repo has no lint, tests or type checks, say so and check the change another way (run it, parse it, dry-run it).
 - In the final response, list every validation command run and its result.
 
+## Commits
+- Stage by path, never `git add -A`. If the changes cover unrelated things, suggest splitting them into separate commits first.
+- Messages: lowercase, plain and short, one line, e.g. "added x w/ y". No `feat:`/`chore:` style prefixes, no ticket numbers, no co-author or any other attribution. Check `git log --oneline -10` to match the repo's style.
+
 ## Worktrees and Rex
 - I work in worktrees made by Worktrunk (`wt`), each in its own Rex session labelled `<repo>/<branch>`. Use `wt` for worktree work (`wt list`, `wt switch`, `wt remove`, `wt merge`), not `git worktree`.
 - `wt merge` commits and merges, and `wt remove` deletes the worktree and closes its Rex session - both need asking first, like commits.
