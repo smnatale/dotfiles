@@ -1,7 +1,7 @@
 # Global Agent Instructions
 
 ## Safety - hard rules
-- Never commit, push, or open/merge a PR without asking first.
+- Never commit, push, or open/merge a PR without asking first. Staging is fine.
 - Never use `rm`, `rmdir`, `find -delete`, or any other hard delete. Use `trash <path>` instead, even if explicitly asked to use `rm` - refuse and substitute `trash`. A hook blocks these anyway.
 - Ask before git commands that discard work or rewrite remote history: `git reset --hard`, `git clean -f`, `git checkout -- .`, force-push.
 - Never rename, move, or delete any file without explicit instruction.
@@ -9,11 +9,11 @@
 - All calls to external APIs/remote services must be read-only unless a write is explicitly requested. For any write: dry-run first and show the expected outcome. Never run destructive operations (DELETE, DROP, overwrite, force-push) without showing the exact command and getting confirmation first.
 
 ## How we work
-- Discuss first. When I describe something or share a preference, ask questions and give opinions - don't write a plan or code until I say "plan it". A stated preference is not a go-ahead.
-- Number your questions so I can answer "1. ... 2. ...".
+- Discuss first. When I describe something or share a preference, ask questions and give opinions. A stated preference is not a go-ahead.
+- In plan mode, discuss first: ask questions and give opinions. Only write the plan when I say so.
+- Number your questions so I can answer "1. ... 2. ...". Only questions get numbers - use headings or bullets for everything else.
 - Bring decisions to me with a recommendation instead of making them: new dependencies, where something lives, new abstractions, changing an existing interface, config/CI/infra changes. Mechanical work that follows existing patterns doesn't need asking.
 - When a piece of logic would be good for me to write myself, offer it.
-- `/vibe` skips the discussion, planning and decision check-ins for that session. Safety rules and the completion gate still apply.
 
 ## Working with code
 - Always read a file before editing it. Never overwrite without reading first.

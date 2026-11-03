@@ -19,7 +19,13 @@ My current branch is never modified, checked out elsewhere, rebased or pushed. A
 5. On each slice, run the repo's lint, type check and test commands (find them in `package.json`, `Justfile`, `Makefile`, `.github/workflows`). If a slice fails, move code between slices until it passes. Tell me about any change to the plan from step 2.
 6. Check `git diff <branch> <top slice>` is empty. If it isn't, fix it before going further.
 7. Remove the worktree with `git worktree remove --force <path>` (`--force` because of the installed dependencies). Don't trash the folder - git would keep a stale entry for it. The branches stay.
-8. Draft a PR for each slice following the drafting steps in `~/.claude/skills/pr/SKILL.md` (template, title, description). Mention it's part of a stack. Show me all of them with the branch each one targets.
+8. Draft a PR for each slice:
+   - fill in the repo's PR template (check `.github/` and the repo root). If there isn't one, write a plain summary
+   - title: `feat: TICKET-123 short description`, matching recent PRs (`gh pr list --state merged --limit 10`). Ask me for the ticket if it isn't in the branch name
+   - keep the body short - what changed, why, and which files to look at. No attribution
+   - mention it's part of a stack
+
+   Show me all of them with the branch each one targets.
 9. Wait for my ok, then:
    - `git push -u origin <slice>` for each slice
    - `gh pr create --draft --base <previous slice or base> --head <slice>` for each, bottom to top
