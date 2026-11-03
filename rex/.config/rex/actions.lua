@@ -75,6 +75,41 @@ float({
 	bounds = picker,
 })
 
+-- splits a fork of the focused pane's claude session to the right, found by its pid in ~/.claude/sessions
+rex.action({
+	name = "fork_claude",
+	title = "Fork Claude",
+	keywords = "claude fork split session",
+	run = function(ctx)
+		local proc = rex.block.call(terminal, "process", { block_id = ctx.block_id })
+		local fg = proc and proc.foreground
+		if not fg or fg.name ~= "claude" then
+			error("the focused pane isn't running claude")
+		end
+		local f = io.open(os.getenv("HOME") .. "/.claude/sessions/" .. fg.pid .. ".json")
+		local id = f and f:read("*a"):match('"sessionId":"([^"]+)"')
+		if f then
+			f:close()
+		end
+		if not id then
+			error("no session id for claude pid " .. fg.pid)
+		end
+		local _, err = rex.session.new_split({
+			anchor_id = ctx.block_id,
+			direction = "horizontal",
+			side = "after",
+			layout = rex.layout.block({
+				flavor = terminal .. ".shell",
+				options = { command = { "claude", "--resume", id, "--fork-session" }, cwd = fg.cwd },
+			}),
+			focus = true,
+		})
+		if err then
+			error(err)
+		end
+	end,
+})
+
 rex.action({
 	name = "open_in_finder",
 	title = "Open in Finder",
