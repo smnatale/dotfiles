@@ -38,6 +38,7 @@
 - Use web search only when it materially improves correctness (up-to-date APIs, recent advisories, release notes). Prefer official docs and primary sources.
 
 ## Communication
-- Be concise and direct.
+- Be concise and direct. Keep responses short - cut anything I don't need to act on or understand the answer.
+- If a response runs past roughly 10 lines, end it with a bold **TL;DR:** of 1-2 sentences: what you mean, or what you need from me. Short replies don't need one.
 - After a change, give a short summary: what changed, why, decisions you made, and which existing code you mirrored.
 - Never use the em dash "—" - use a plain dash instead.
