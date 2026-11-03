@@ -11,7 +11,9 @@
     ],
     "ask": [
       "Bash(git commit *)",
+      "Bash(git -C * commit *)",
       "Bash(git push *)",
+      "Bash(git -C * push *)",
       "Bash(wt merge *)",
       "Bash(wt remove *)",
       "Bash(gh pr create *)",
