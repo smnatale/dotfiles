@@ -1,0 +1,15 @@
+# Worktrunk user config - see https://worktrunk.dev/config/
+
+# Keep worktrees out of ~/Projects so they don't clutter the Rex project palette.
+worktree-path = "~/.worktrees/{{ repo }}/{{ branch | sanitize }}"
+
+# Copy gitignored files (node_modules, .env, build caches) from the main checkout
+# before anything starts, so a new worktree is ready to run.
+pre-start = "wt step copy-ignored"
+
+# Close the Rex session the "New Worktree" palette action opened for this branch.
+post-remove = "rex kill '{{ repo }}/{{ branch }}' >/dev/null 2>&1 || true"
+
+[aliases]
+# The branch's dev server port, stable per branch: `wt port`.
+port = "echo {{ branch | hash_port }}"

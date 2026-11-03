@@ -11,15 +11,15 @@ local function focused_cwd(ctx)
 end
 
 -- a palette action that opens a floating pane in the focused pane's directory, running command or a shell
-local function float(name, title, keywords, command)
+-- bounds is x, y, w, h as fractions of the window, nearly full-window by default
+local function float(name, title, keywords, command, bounds)
 	rex.action({
 		name = name,
 		title = title,
 		keywords = keywords,
 		run = function(ctx)
 			local _, err = rex.session.new_layer({
-				-- x, y, w, h as fractions of the window
-				bounds = { 0.05, 0.05, 0.9, 0.9 },
+				bounds = bounds or { 0.05, 0.05, 0.9, 0.9 },
 				layout = rex.layout.block({
 					flavor = terminal .. ".shell",
 					options = { command = command, cwd = focused_cwd(ctx) },
@@ -35,6 +35,27 @@ end
 
 float("scratch_float", "Scratch Terminal", "scratch terminal float")
 float("lazygit_float", "Lazygit", "git lazygit float", { "lazygit" })
+float(
+	"open_project",
+	"Open Project",
+	"project folder session open",
+	{ os.getenv("HOME") .. "/.config/rex/open-project.sh" },
+	{ 0.25, 0.2, 0.5, 0.5 }
+)
+float(
+	"new_worktree",
+	"New Worktree",
+	"worktree branch claude wt",
+	{ os.getenv("HOME") .. "/.config/rex/new-worktree.sh" },
+	{ 0.3, 0.4, 0.4, 0.2 }
+)
+float(
+	"remove_worktree",
+	"Remove Worktree",
+	"worktree branch remove delete wt",
+	{ os.getenv("HOME") .. "/.config/rex/remove-worktree.sh" },
+	{ 0.25, 0.2, 0.5, 0.5 }
+)
 
 rex.action({
 	name = "open_in_finder",

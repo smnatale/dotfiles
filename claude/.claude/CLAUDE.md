@@ -30,6 +30,11 @@
 - Never report completion until lint passes. If lint cannot run, state the blocker and do not claim the task is complete.
 - In the final response, list every validation command run and its result.
 
+## Worktrees and Rex
+- I work in worktrees made by Worktrunk (`wt`), each in its own Rex session labelled `<repo>/<branch>`. Use `wt` for worktree work (`wt list`, `wt switch`, `wt remove`, `wt merge`), not `git worktree`.
+- `wt merge` commits and merges, and `wt remove` deletes the worktree and closes its Rex session - both need asking first, like commits.
+- Anything long-running (dev servers, bundlers, watchers) goes in a named Rex tab via the `rex-dev` skill, never a background Bash command.
+
 ## Research and accuracy
 - Don't make things up. Read the source code and documentation, and answer based on that. If unsure, say so clearly.
 - Use web search only when it materially improves correctness (up-to-date APIs, recent advisories, release notes). Prefer official docs and primary sources.

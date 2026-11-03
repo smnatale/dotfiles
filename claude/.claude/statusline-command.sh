@@ -1,5 +1,5 @@
 #!/bin/bash
-# Compact status line: model | 5h | 7d | ctx | permission mode
+# Compact status line: model | 5h | 7d | ctx | permission mode | branch
 # Catppuccin Mocha foregrounds only; background stays the terminal's.
 input=$(cat)
 j() { echo "$input" | jq -r "$1 // empty"; }
@@ -37,6 +37,20 @@ parts=()
 [ -n "$week" ] && parts+=("$(pct 7d "$week")")
 [ -n "$ctx" ] && parts+=("$(pct ctx "$ctx")")
 [ -n "$mode" ] && parts+=("${PEACH}${mode}${RESET}")
+
+# Branch from worktrunk for the session dir: ⎇ marks a linked worktree, then wt's
+# status symbols (! modified, ? untracked, ⇡ unpushed...). Silent outside a repo.
+dir=$(j '.workspace.current_dir // .cwd')
+if [ -n "$dir" ] && [ -d "$dir" ] && command -v wt >/dev/null; then
+  { read -r branch; read -r main; read -r symbols; } < <(wt -C "$dir" list statusline --format=json 2>/dev/null |
+    jq -r '.items[0] | (.branch // "detached"), .worktree.main, .display.symbols')
+  if [ -n "$branch" ]; then
+    seg="${GREEN}${branch}${RESET}"
+    [ "$main" = "false" ] && seg="${MAUVE}⎇${RESET} $seg"
+    [ -n "$symbols" ] && seg="$seg ${SUBTEXT}${symbols}${RESET}"
+    parts+=("$seg")
+  fi
+fi
 
 sep=" ${OVERLAY}│${RESET} "
 out=""

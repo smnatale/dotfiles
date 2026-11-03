@@ -29,3 +29,5 @@ bindkey '^J' down-line-or-history
 
 # profiles
 eval "$(rbenv init - zsh)"
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi

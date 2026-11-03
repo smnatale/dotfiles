@@ -5,11 +5,27 @@
     "pr": ""
   },
   "permissions": {
-    "deny": ["Bash(rm:*)", "Bash(rmdir:*)"],
+    "deny": [
+      "Bash(rm:*)",
+      "Bash(rmdir:*)"
+    ],
     "ask": [
       "Bash(git commit:*)",
       "Bash(git push:*)",
       "Bash(gh *)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/bin/sh -c 'rex __internal session-start --agent claude --feature-session-naming=false 2>/dev/null || true'",
+            "timeout": 5
+          }
+        ]
+      }
     ]
   },
   "statusLine": {
@@ -18,7 +34,22 @@
   },
   "enabledPlugins": {
     "lua-lsp@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true
+    "typescript-lsp@claude-plugins-official": true,
+    "stripe@claude-plugins-official": true,
+    "worktrunk@worktrunk": true
   },
-  "theme": "dark-ansi"
+  "extraKnownMarketplaces": {
+    "worktrunk": {
+      "source": {
+        "source": "github",
+        "repo": "max-sixty/worktrunk"
+      }
+    }
+  },
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "theme": "dark-ansi",
+  "voiceEnabled": true
 }
