@@ -16,6 +16,11 @@ local function focused_cwd(ctx)
 	return fg and fg.cwd
 end
 
+-- a terminal pane layout running command, or a shell if command is nil, in cwd
+local function shell(command, cwd)
+	return rex.layout.block({ flavor = terminal .. ".shell", options = { command = command, cwd = cwd } })
+end
+
 -- a palette action that opens a floating pane in the focused pane's directory, running command or a shell
 -- bounds is x, y, w, h as fractions of the window, nearly full-window by default
 local function float(spec)
@@ -26,10 +31,7 @@ local function float(spec)
 		run = function(ctx)
 			local _, err = rex.session.new_layer({
 				bounds = spec.bounds or { 0.05, 0.05, 0.9, 0.9 },
-				layout = rex.layout.block({
-					flavor = terminal .. ".shell",
-					options = { command = spec.command, cwd = focused_cwd(ctx) },
-				}),
+				layout = shell(spec.command, focused_cwd(ctx)),
 				focus = true,
 			})
 			if err then
@@ -105,10 +107,7 @@ rex.action({
 			anchor_id = ctx.block_id,
 			direction = "horizontal",
 			side = "after",
-			layout = rex.layout.block({
-				flavor = terminal .. ".shell",
-				options = { command = { "claude", "--resume", id, "--fork-session" }, cwd = fg.cwd },
-			}),
+			layout = shell({ "claude", "--resume", id, "--fork-session" }, fg.cwd),
 			focus = true,
 		})
 		if err then
