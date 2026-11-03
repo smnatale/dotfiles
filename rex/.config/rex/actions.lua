@@ -1,13 +1,19 @@
 local terminal = "com.superlogical.terminal"
 
+-- the focused pane's foreground process, with its name, pid and cwd
+local function foreground(ctx)
+	local proc = rex.block.call(terminal, "process", { block_id = ctx.block_id })
+	return proc and proc.foreground
+end
+
 -- the focused pane's directory, from what the shell last reported or else its foreground process
 local function focused_cwd(ctx)
 	local pwd = rex.block.call(terminal, "pwd", { block_id = ctx.block_id })
 	if pwd and pwd.pwd then
 		return (pwd.pwd:gsub("^file://[^/]*", ""))
 	end
-	local proc = rex.block.call(terminal, "process", { block_id = ctx.block_id })
-	return proc and proc.foreground and proc.foreground.cwd
+	local fg = foreground(ctx)
+	return fg and fg.cwd
 end
 
 -- a palette action that opens a floating pane in the focused pane's directory, running command or a shell
@@ -81,18 +87,19 @@ rex.action({
 	title = "Fork Claude",
 	keywords = "claude fork split session",
 	run = function(ctx)
-		local proc = rex.block.call(terminal, "process", { block_id = ctx.block_id })
-		local fg = proc and proc.foreground
+		local fg = foreground(ctx)
 		if not fg or fg.name ~= "claude" then
 			error("the focused pane isn't running claude")
 		end
-		local f = io.open(os.getenv("HOME") .. "/.claude/sessions/" .. fg.pid .. ".json")
-		local id = f and f:read("*a"):match('"sessionId":"([^"]+)"')
-		if f then
-			f:close()
+		local path = os.getenv("HOME") .. "/.claude/sessions/" .. fg.pid .. ".json"
+		local f = io.open(path)
+		if not f then
+			error("no claude session file at " .. path)
 		end
+		local id = rex.json.decode(f:read("*a")).sessionId
+		f:close()
 		if not id then
-			error("no session id for claude pid " .. fg.pid)
+			error("no sessionId in " .. path)
 		end
 		local _, err = rex.session.new_split({
 			anchor_id = ctx.block_id,
