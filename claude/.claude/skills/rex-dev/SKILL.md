@@ -8,8 +8,8 @@ Long-running processes always go in a named Rex tab in my session, never in a ba
 1. Work out the command. A "Dev servers" section in the project's CLAUDE.md wins. Otherwise read `package.json`:
    - `expo` in dependencies: `npx expo start --port <port>`
    - `react-native` without `expo`: `npx react-native start --port <port>`
-   - otherwise the `dev` script, then `start`, passing the port the way that tool expects (`-- --port <port>` for Vite and Next, or `PORT=<port>`)
-   - use the package manager the lockfile points to (`pnpm-lock.yaml`, `yarn.lock`, `bun.lock`, `package-lock.json`)
+   - otherwise the `dev` script, then `start`, passing the port the way that tool expects (`--port <port>` for Vite and Next, or `PORT=<port>`)
+   - use the package manager the lockfile points to (`pnpm-lock.yaml`, `yarn.lock`, `bun.lock`, `package-lock.json`). Only npm needs `--` before script args (`npm run dev -- --port <port>`). pnpm passes a literal `--` through to the script, so use `pnpm dev --port <port>`, and the same for yarn and bun.
 2. Work out the port:
    - mobile bundlers (Expo, React Native) always use 8081. Bare React Native apps have the port built in, and only one app runs on the simulator at a time anyway.
    - everything else uses `wt port`, a fixed port per branch, so worktrees can run side by side.

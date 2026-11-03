@@ -1,6 +1,6 @@
 ---
 name: vibe
-description: Skip discussion and planning for this session and just build what's asked. Only run when the user types /vibe.
+description: Skip discussion and planning for this session and just build what's asked.
 argument-hint: <what to build>
 disable-model-invocation: true
 ---

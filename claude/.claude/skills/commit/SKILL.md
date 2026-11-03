@@ -1,6 +1,6 @@
 ---
 name: commit
-description: Commit the currently staged changes with a message in my style. Only run when the user types /commit.
+description: Commit the currently staged changes with a message in my style.
 disable-model-invocation: true
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: split-pr
-description: Split the current branch into a stack of smaller draft PRs using gh stack. Only run when the user types /split-pr.
+description: Split the current branch into a stack of smaller draft PRs using gh stack.
 disable-model-invocation: true
 ---
 
@@ -13,13 +13,13 @@ My current branch is never modified, checked out elsewhere, rebased or pushed. A
    - which files, or parts of files, go in it
    - each slice must pass lint, type checks, tests and CI with only the slices below it, so it can be merged on its own. Order slices so dependencies come first.
 3. Wait for my ok.
-4. Create a worktree in the scratchpad off the base branch. For each slice, branch off the previous slice (the first one off base), then:
+4. Create a temporary worktree in the scratchpad off the base branch with `git worktree add --detach <path> <base>`. Use `git worktree` here, not `wt` - this worktree is throwaway and shouldn't get a Rex session. Install dependencies with the package manager the lockfile points to. For each slice, branch off the previous slice (the first one off base), then:
    - cherry-pick whole commits that fit entirely in the slice
    - otherwise bring the changes over from my branch with `git checkout <branch> -- <file>` or by applying selected hunks, and commit
 5. On each slice, run the repo's lint, type check and test commands (find them in `package.json`, `Justfile`, `Makefile`, `.github/workflows`). If a slice fails, move code between slices until it passes. Tell me about any change to the plan from step 2.
 6. Check `git diff <branch> <top slice>` is empty. If it isn't, fix it before going further.
-7. Trash the worktree. The branches stay.
-8. Draft a PR for each slice the way `/pr` does: use the repo's PR template, lowercase plain title, simple description, no attribution. Mention it's part of a stack. Show me all of them with the branch each one targets.
+7. Remove the worktree with `git worktree remove --force <path>` (`--force` because of the installed dependencies). Don't trash the folder - git would keep a stale entry for it. The branches stay.
+8. Draft a PR for each slice following the drafting steps in `~/.claude/skills/pr/SKILL.md` (template, title, description). Mention it's part of a stack. Show me all of them with the branch each one targets.
 9. Wait for my ok, then:
    - `git push -u origin <slice>` for each slice
    - `gh pr create --draft --base <previous slice or base> --head <slice>` for each, bottom to top
