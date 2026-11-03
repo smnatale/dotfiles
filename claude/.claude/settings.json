@@ -6,13 +6,38 @@
   },
   "permissions": {
     "deny": [
-      "Bash(rm:*)",
-      "Bash(rmdir:*)"
+      "Bash(rm *)",
+      "Bash(rmdir *)"
     ],
     "ask": [
-      "Bash(git commit:*)",
-      "Bash(git push:*)",
-      "Bash(gh *)"
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(wt merge *)",
+      "Bash(wt remove *)",
+      "Bash(gh pr create *)",
+      "Bash(gh pr merge *)",
+      "Bash(gh pr close *)",
+      "Bash(gh pr edit *)",
+      "Bash(gh pr comment *)",
+      "Bash(gh pr review *)",
+      "Bash(gh pr ready *)",
+      "Bash(gh issue create *)",
+      "Bash(gh issue close *)",
+      "Bash(gh issue edit *)",
+      "Bash(gh issue comment *)",
+      "Bash(gh repo *)",
+      "Bash(gh release *)",
+      "Bash(gh workflow run *)",
+      "Bash(gh run rerun *)",
+      "Bash(gh run cancel *)",
+      "Bash(gh api *)",
+      "Bash(gh stack submit *)",
+      "Bash(gh stack link *)",
+      "Bash(gh stack push *)",
+      "Bash(gh stack merge *)",
+      "Bash(gh stack sync *)",
+      "Bash(gh stack rebase *)",
+      "Bash(gh stack unstack *)"
     ]
   },
   "hooks": {
@@ -22,6 +47,18 @@
           {
             "type": "command",
             "command": "/bin/sh -c 'rex __internal session-start --agent claude --feature-session-naming=false 2>/dev/null || true'",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/guard-bash.sh",
             "timeout": 5
           }
         ]
@@ -50,6 +87,5 @@
     "enabled": true,
     "mode": "hold"
   },
-  "theme": "dark-ansi",
-  "voiceEnabled": true
+  "theme": "dark-ansi"
 }

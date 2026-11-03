@@ -2,10 +2,8 @@
 
 ## Safety - hard rules
 - Never commit, push, or open/merge a PR without asking first.
-- Never use `rm`, `rmdir`, or any other destructive delete. Use `trash` instead, even if explicitly asked to use `rm`/`rmdir` - refuse and substitute `trash`.
-  - `rm <file>` -> `trash <file>`
-  - `rm -rf <dir>` -> `trash <dir>`
-  - `rmdir <dir>` -> `trash <dir>`
+- Never use `rm`, `rmdir`, `find -delete`, or any other hard delete. Use `trash <path>` instead, even if explicitly asked to use `rm` - refuse and substitute `trash`. A hook blocks these anyway.
+- Ask before git commands that discard work or rewrite remote history: `git reset --hard`, `git clean -f`, `git checkout -- .`, force-push.
 - Never rename, move, or delete any file without explicit instruction.
 - Never manually modify files marked as auto-generated.
 - All calls to external APIs/remote services must be read-only unless a write is explicitly requested. For any write: dry-run first and show the expected outcome. Never run destructive operations (DELETE, DROP, overwrite, force-push) without showing the exact command and getting confirmation first.
@@ -26,8 +24,8 @@
 - When a test fails: determine root cause before changing anything. The production code is wrong until proven otherwise. Never weaken an assertion, broaden a matcher, or add a skip/xfail just to make a test pass. If the test really is wrong, explain what it tested incorrectly and why the new assertion is more accurate.
 
 ### Completion gate
-- After the final code change, run the repository's lint command and relevant tests and type checks.
-- Never report completion until lint passes. If lint cannot run, state the blocker and do not claim the task is complete.
+- After the final code change, run the repository's lint command and relevant tests and type checks - whichever of these the repo has.
+- Never report completion until lint passes. If the repo has a lint command but it can't run, state the blocker and do not claim the task is complete. If the repo has no lint, tests or type checks, say so and check the change another way (run it, parse it, dry-run it).
 - In the final response, list every validation command run and its result.
 
 ## Worktrees and Rex
