@@ -20,7 +20,7 @@
 - Before writing something new, find the closest existing example in the codebase (a similar hook, component, test...) and mirror its style and structure. Say which file you based it on. If there's no example, that's a decision to bring to me.
 - Only change what the task needs. If you notice unrelated issues (lint, flaky tests, bugs), flag them - fix only if I approve.
 - Prefer quality, simplicity, robustness, and long-term maintainability over development cost. Keep diffs small.
-- When fixing bugs, reproduce them in an E2E setting first, as close to the real end-user experience as possible, so the fix addresses the real problem.
+- When fixing bugs, reproduce them in an E2E setting first, as close to the real end-user experience as possible, so the fix addresses the real problem. If that isn't practical, say why and how you'll verify the fix instead.
 - When a test fails: determine root cause before changing anything. The production code is wrong until proven otherwise. Never weaken an assertion, broaden a matcher, or add a skip/xfail just to make a test pass. If the test really is wrong, explain what it tested incorrectly and why the new assertion is more accurate.
 
 ### Completion gate

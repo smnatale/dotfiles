@@ -95,7 +95,6 @@
   "enabledPlugins": {
     "lua-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
-    "stripe@claude-plugins-official": true,
     "worktrunk@worktrunk": true
   },
   "extraKnownMarketplaces": {
