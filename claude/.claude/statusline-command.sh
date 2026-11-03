@@ -1,12 +1,11 @@
 #!/bin/bash
-# Compact status line: model | 5h | 7d | ctx | permission mode | branch
+# Compact status line: model | 5h | 7d | ctx | branch
 # Catppuccin Mocha foregrounds only; background stays the terminal's.
 input=$(cat)
 
 fg() { printf '\033[38;2;%d;%d;%dm' "0x${1:0:2}" "0x${1:2:2}" "0x${1:4:2}"; }
 RESET=$'\033[0m'
 MAUVE=$(fg cba6f7)
-PEACH=$(fg fab387)
 GREEN=$(fg a6e3a1)
 YELLOW=$(fg f9e2af)
 RED=$(fg f38ba8)
@@ -25,15 +24,13 @@ pct() {
   printf '%s%s %s%s%%%s' "$SUBTEXT" "$1" "$color" "$n" "$RESET"
 }
 
-# One jq call, one field per line. permission mode is not in the documented schema;
-# best-effort guesses, omitted if absent.
-{ read -r model; read -r five; read -r week; read -r ctx; read -r mode; read -r dir; } < <(
+# One jq call, one field per line.
+{ read -r model; read -r five; read -r week; read -r ctx; read -r dir; } < <(
   jq -r '
     .model.display_name,
     .rate_limits.five_hour.used_percentage,
     .rate_limits.seven_day.used_percentage,
     .context_window.used_percentage,
-    (.permission_mode // .permissionMode // .permissions.mode),
     (.workspace.current_dir // .cwd)
     | . // ""' <<< "$input")
 
@@ -42,7 +39,6 @@ parts=()
 [ -n "$five" ] && parts+=("$(pct 5h "$five")")
 [ -n "$week" ] && parts+=("$(pct 7d "$week")")
 [ -n "$ctx" ] && parts+=("$(pct ctx "$ctx")")
-[ -n "$mode" ] && parts+=("${PEACH}${mode}${RESET}")
 
 # Git status for the session dir, styled like the p10k prompt: branch ⇣1⇡2 *1 ~1 +1 !2 ?3
 # (behind/ahead, stashes, conflicts, staged, unstaged, untracked). A branch icon marks the main

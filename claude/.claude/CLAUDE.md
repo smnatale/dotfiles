@@ -3,8 +3,8 @@
 ## Safety - hard rules
 - Never commit, push, or open/merge a PR without asking first. Staging is fine.
 - Never use `rm`, `rmdir`, `find -delete`, or any other hard delete. Use `trash <path>` instead, even if explicitly asked to use `rm` - refuse and substitute `trash`. A hook blocks these anyway.
-- Ask before git commands that discard work or rewrite remote history: `git reset --hard`, `git clean -f`, `git checkout -- .`, force-push.
-- Never rename, move, or delete any file without explicit instruction.
+- Ask before git commands that discard work or rewrite remote history. The guard hook prompts for the common ones anyway.
+- Never rename, move, or delete any file unless I asked for it or the task clearly requires it - say so when you do.
 - Never manually modify files marked as auto-generated.
 - All calls to external APIs/remote services must be read-only unless a write is explicitly requested. For any write: dry-run first and show the expected outcome. Never run destructive operations (DELETE, DROP, overwrite, force-push) without showing the exact command and getting confirmation first.
 

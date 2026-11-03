@@ -5,6 +5,28 @@
     "pr": ""
   },
   "permissions": {
+    "allow": [
+      "Bash(rg *)",
+      "Bash(jq *)",
+      "Bash(lsof -nP *)",
+      "Bash(gh pr view *)",
+      "Bash(gh pr list *)",
+      "Bash(gh pr diff *)",
+      "Bash(gh pr checks *)",
+      "Bash(gh pr status *)",
+      "Bash(gh run view *)",
+      "Bash(gh run list *)",
+      "Bash(gh issue view *)",
+      "Bash(gh issue list *)",
+      "Bash(gh stack view *)",
+      "Bash(wt list *)",
+      "Bash(wt port *)",
+      "Bash(rex capture *)",
+      "Bash(rex window ls *)",
+      "Bash(rex session ls *)",
+      "Bash(rex session inspect *)",
+      "Bash(rex whoami *)"
+    ],
     "deny": [
       "Bash(rm *)",
       "Bash(rmdir *)"
@@ -32,7 +54,6 @@
       "Bash(gh workflow run *)",
       "Bash(gh run rerun *)",
       "Bash(gh run cancel *)",
-      "Bash(gh api *)",
       "Bash(gh stack submit *)",
       "Bash(gh stack link *)",
       "Bash(gh stack push *)",
