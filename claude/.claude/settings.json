@@ -5,6 +5,7 @@
     "pr": ""
   },
   "permissions": {
+    "additionalDirectories": ["~/.worktrees"],
     "allow": [
       "Bash(rg *)",
       "Bash(jq *)",
