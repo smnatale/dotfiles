@@ -31,6 +31,7 @@
 ## Commits
 - Stage by path, never `git add -A`. If the changes cover unrelated things, suggest splitting them into separate commits first.
 - Messages: lowercase, plain and short, one line, e.g. "added x w/ y". No `feat:`/`chore:` style prefixes, no ticket numbers, no co-author or any other attribution. Check `git log --oneline -10` to match the repo's style.
+- PR titles are different: use a conventional prefix, plus the ticket number when there is one, e.g. `feat: WPF-123 added x w/ y`, `fix: ...`, `chore: ...`. The no-prefix and no-ticket rules are for commit messages only.
 
 ## Worktrees and Rex
 - I work in worktrees made by Worktrunk (`wt`), each in its own Rex session labelled `<repo>/<branch>`. Use `wt` for worktree work (`wt list`, `wt switch`, `wt remove`, `wt merge`), not `git worktree`.
