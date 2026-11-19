@@ -82,23 +82,69 @@ rex.action({
 	end,
 })
 
--- asks for a branch and opens a repo/branch session whose shell starts once wt has created its worktree,
--- so wt's pre-start copy shows in the pane and doesn't count toward the action's time limit
+-- the repo's local and remote branches as pick items, most recently committed first, with id the branch name.
+-- a remote branch shows once under its plain name, and only when there's no local branch of that name
+local function branch_items(main)
+	local refs = run({
+		"git",
+		"for-each-ref",
+		"--sort=-committerdate",
+		"--count=500",
+		"--format=%(refname)%09%(committerdate:relative)%09%(contents:subject)",
+		"refs/heads",
+		"refs/remotes",
+	}, main)
+	-- note the local branches first, so a newer remote copy listed before its local branch is skipped
+	local locals = {}
+	for name in refs:gmatch("refs/heads/([^\t\n]+)") do
+		locals[name] = true
+	end
+	local items, seen = {}, {}
+	for ref, date, subject in refs:gmatch("([^\t\n]+)\t([^\t\n]*)\t([^\n]*)") do
+		local name, is_remote = ref:match("^refs/heads/(.+)$"), false
+		if not name then
+			name, is_remote = ref:match("^refs/remotes/[^/]+/(.+)$"), true
+		end
+		if name and name ~= "HEAD" and not seen[name] and not (is_remote and locals[name]) then
+			seen[name] = true
+			table.insert(items, {
+				id = name,
+				subtitle = subject,
+				detail = is_remote and "remote · " .. date or date,
+				icon = is_remote and "globe" or "branch",
+			})
+		end
+	end
+	return items, seen
+end
+
+-- picks an existing branch, or takes a typed name for a new one, and opens a repo/branch session whose shell
+-- starts once wt has made the worktree. wt switches to a branch's existing worktree, and makes a local tracking
+-- branch for a remote one. running wt in the pane shows its pre-start copy and keeps it off the action's time limit
 rex.action({
 	name = "new_worktree",
 	title = "New Worktree",
-	keywords = "worktree branch wt",
+	keywords = "worktree branch checkout switch wt",
 	run = function(ctx)
 		-- the shared .git sits in the main checkout, wherever in the repo the focused pane is
 		local git_dir = run({ "git", "rev-parse", "--path-format=absolute", "--git-common-dir" }, util.focused_cwd(ctx))
 		local main = git_dir:gsub("%s+$", ""):gsub("/%.git$", "")
-		local branch =
-			ask(rex.ui.input, { title = "New worktree", placeholder = "Branch name", confirm = "Create worktree" })
-		branch = branch and branch:match("^%s*(.-)%s*$")
+		local items, exists = branch_items(main)
+		local answer = ask(rex.ui.pick, {
+			title = "Worktree for branch",
+			placeholder = "Pick a branch, or type a new one",
+			items = items,
+			allow_other = true,
+		})
+		-- a typed name comes back as { text = ... }
+		local branch = type(answer) == "table" and answer.text:match("^%s*(.-)%s*$") or answer
 		if not branch or branch == "" then
 			return
 		end
-		local command = { "wt", "switch", "--create", branch, "--no-cd", "-x", os.getenv("SHELL") or "/bin/zsh" }
+		local command = { "wt", "switch", branch, "--no-cd", "-x", os.getenv("SHELL") or "/bin/zsh" }
+		if not exists[branch] then
+			table.insert(command, 3, "--create")
+		end
 		util.open_session(main:match("[^/]+$") .. "/" .. branch, main, command)
 	end,
 })
